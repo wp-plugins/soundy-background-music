@@ -438,6 +438,7 @@ class WarSoundy
 
 	private function add_field_audio_file_URL_table( $file_url, $file_type, $default_url, $default_title ) 
 	{
+		$default_title = str_replace( "&#039;", "\&#039;", $default_title );
 		?>
 		<script>
 			war_bindMediaUploader( 'war_soundy_audio_file_url', 'war_audio_library_button', 'audio' );
