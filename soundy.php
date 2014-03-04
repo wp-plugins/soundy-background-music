@@ -31,12 +31,12 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 class WarSoundy 
 {
 	private $post_id; 
-	private $default_audio_url        = '/soundy/audio/danse_russe.mp3';
+	private $default_audio_url        = '/soundy-background-music/audio/danse_russe.mp3';
 	private $default_audio_title      = 'Danse Russe';
-	private $default_play_button_url  = '/soundy/images/buttons/48x48/play-square-grey.png';
-	private $default_play_hover_url   = '/soundy/images/buttons/48x48/play-square-blue.png';
-	private $default_pause_button_url = '/soundy/images/buttons/48x48/pause-square-grey.png';
-	private $default_pause_hover_url  = '/soundy/images/buttons/48x48/pause-square-blue.png';
+	private $default_play_button_url  = '/soundy-background-music/images/buttons/48x48/play-square-grey.png';
+	private $default_play_hover_url   = '/soundy-background-music/images/buttons/48x48/play-square-blue.png';
+	private $default_pause_button_url = '/soundy-background-music/images/buttons/48x48/pause-square-grey.png';
+	private $default_pause_hover_url  = '/soundy-background-music/images/buttons/48x48/pause-square-blue.png';
 
 	private	$units = array( 
 				               		'px' => '(pixels)', 
@@ -83,7 +83,7 @@ class WarSoundy
 		}
 		else
 		{
-			wp_register_style( 'soundy', WP_PLUGIN_URL . '/soundy/css/style-front-end.css' );		
+			wp_register_style( 'soundy', WP_PLUGIN_URL . '/soundy-background-music/css/style-front-end.css' );		
 			wp_enqueue_style( 'soundy');
 			add_action( 'wp_head', array( $this, 'insert_audio' ) );
 			add_shortcode( 'soundy', array( $this, 'soundy_shortcode' ) );
@@ -138,7 +138,7 @@ class WarSoundy
 	public function admin_scripts( $hook ) 
 	{
 		wp_register_script( 'button-upload', 
-		                    WP_PLUGIN_URL . '/soundy/js/back-end.js', 
+		                    WP_PLUGIN_URL . '/soundy-background-music/js/back-end.js', 
 		                    array('jquery','media-upload','thickbox'));
 
 		wp_enqueue_script( 'jquery');
@@ -148,8 +148,8 @@ class WarSoundy
 		wp_enqueue_script( 'thickbox');
 		wp_enqueue_script( 'button-upload');
 		
-		wp_register_style( 'jquery-ui', WP_PLUGIN_URL . '/soundy/css/jquery-ui-v1.10.4.css' );
-		wp_register_style( 'soundy', WP_PLUGIN_URL . '/soundy/css/style-back-end.css' );
+		wp_register_style( 'jquery-ui', WP_PLUGIN_URL . '/soundy-background-music/css/jquery-ui-v1.10.4.css' );
+		wp_register_style( 'soundy', WP_PLUGIN_URL . '/soundy-background-music/css/style-back-end.css' );
 		
 		wp_enqueue_style( 'jquery-ui');
 		wp_enqueue_style( 'thickbox');
