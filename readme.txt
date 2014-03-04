@@ -8,23 +8,23 @@ License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: http://webartisan.ch/en/products/soundy#war_donate
 
-The Soundy plugin allows to play a sound track when a page is displayed. A sound track can be associated with individual pages or posts.
+The Soundy plugin allows to play a sound track when a page is displayed.
 
 == Description ==
-The Soundy Background music plugin allows to play a background music when a page or post is displayed. 
-The sound track is embeded in the page by means of the HTML 5 audio tag. This way, the plugin is compatible with all modern user devices (smartphones, tablets, laptops and desktops of all vendors).
-A background music can be associated with all pages or all posts or with individual pages or posts. 
-A Play/Pause button can also be displayed anywhere in the pages and posts. 
-Defaults can be set in the settings page of the plugin. 
-Individual post and page plugin settings can be configured in the Edit Page and Edit Post forms. 
-In the plugin settings page, an audio track can be set per default, a play and pause button image can be uploaded and positioned anywhere. 
-This Play/Pause button can be positioned in a corner of the document or in a corner of the window. It can also be positioned with a template tag typically in the document header or with a shortcode in the content.
+The Soundy Background music plugin allows to play a background music when a page or post is displayed.   
+The sound track is embeded in the page by means of the HTML 5 audio tag. This way, the plugin is compatible with all modern user devices (smartphones, tablets, laptops and desktops of all vendors).  
+A background music can be associated with all pages or all posts or with individual pages or posts.   
+A Play/Pause button can also be displayed anywhere in the pages and posts.   
+Defaults can be set in the settings page of the plugin.   
+Individual post and page plugin settings can be configured in the Edit Page and Edit Post forms.   
+In the plugin settings page, an audio track can be set per default, a play and pause button image can be uploaded and positioned anywhere.   
+This Play/Pause button can be positioned in a corner of the document or in a corner of the window. It can also be positioned with a template tag typically in the document header or with a shortcode in the content.  
 
 == Installation ==
-- Upload this plugin to the /wp-content/plugins/ directory and unzip it, or simply upload the zip file within your wordpress installation.
-- Activate the plugin through the \'Plugins\' menu in WordPress.
-- To set up plugin defaults, go to Settings > Soundy in the admin area and fill out the form.
-- Happy Soundy Music !
+* Upload this plugin to the /wp-content/plugins/ directory and unzip it, or simply upload the zip file within your wordpress installation.
+* Activate the plugin through the 'Plugins' menu in WordPress.
+* To set up plugin defaults, go to Settings > Soundy in the admin area and fill out the input fields.
+* Happy Soundy Music !
 
 == Frequently Asked Questions ==
 = Is it possible to have different sound tracks for different posts and pages. =
