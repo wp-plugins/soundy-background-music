@@ -14,7 +14,7 @@ This plugin allows to play a sound track when a page is displayed.
 
 The **Soundy** plugin allows to play a background music when a page or post is displayed.  
 Each page or post can have its own sound track.   
-The sound track is embeded in the page by means of the HTML 5 audio tag. This way, the plugin is compatible with all modern user devices (smartphones, tablets, laptops and desktops of all vendors).  
+The sound track is embedded in the page by means of the HTML 5 audio tag. This way, the plugin is compatible with all modern user devices (smartphones, tablets, laptops and desktops of all vendors).  
 A background music can be associated with all pages and posts or with individual pages or posts.   
 A Play/Pause button can also be displayed anywhere in the pages and posts.   
 Defaults can be set in the settings page of the plugin.   
