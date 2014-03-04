@@ -23,17 +23,17 @@ This Play/Pause button can be positioned in a corner of the document or in a cor
 
 = Docs & Support =
 
-You can find [tutorial](http://webartisan.ch/en/products/soundy#war_tutorial/), [FAQ](http://webartisan.ch/en/products/soundy#war_FAQ/) and more detailed information about **Soundy Background Music** plugin on [WebArtisan.ch](http://webartisan.ch/en/products/soundy/). If you were unable to find the answer to your question on the FAQ or in any of the documentation, you should check the [support forum](http://wordpress.org/support/plugin/soundy-background-music) on WordPress.org. If you can't locate any topics that pertain to your particular issue, post a new topic for it.
+You can find [tutorial](http://webartisan.ch/en/products/soundy#war_tutorial), [FAQ](http://webartisan.ch/en/products/soundy#war_FAQ) and more detailed information about **Soundy Background Music** plugin on [WebArtisan.ch](http://webartisan.ch/en/products/soundy/). If you were unable to find the answer to your question on the FAQ or in any of the documentation, you should check the [support forum](http://wordpress.org/support/plugin/soundy-background-music) on WordPress.org. If you can't locate any topics that pertain to your particular issue, post a new topic for it.
 
 = Soundy Needs Your Support =
 
-It is hard to continue development and support for this free plugin without contributions from users like you. If you enjoy using Soundy and find it useful, please consider [__making a donation__](http://webartisan.ch/en/products/soundy#war_donate/). Your donation will help encourage and support the plugin's continued development and better user support.
+It is hard to continue development and support for this free plugin without contributions from users like you. If you enjoy using Soundy and find it useful, please consider [__making a donation__](http://webartisan.ch/en/products/soundy#war_donate). Your donation will help encourage and support the plugin's continued development and better user support.
 
 == Installation ==
 * Upload this plugin to the /wp-content/plugins/ directory and unzip it, or simply upload the zip file within your wordpress installation.
 * Activate the plugin through the 'Plugins' menu in WordPress.
 * To set up plugin defaults, go to Settings > Soundy in the admin area and fill out the input fields.
-* For help, here is a [tutorial](http://webartisan.ch/en/products/soundy#war_tutorial/).
+* For help, here is a [tutorial](http://webartisan.ch/en/products/soundy#war_tutorial).
 * Happy Soundy Music !
 
 == Frequently Asked Questions ==
@@ -63,11 +63,11 @@ Yes, you can upload and set up your own button images.
 
 == Screenshots ==
 
-1. screenshot-1.png
-1. screenshot-2.png
-1. screenshot-3.png
-1. screenshot-4.png
-1. screenshot-5.png
+1. **Default Audio Track Settings**
+1. **Play/Pause Button Settings**
+1. **Play/Pause Button Corner Settings**
+1. **Play/Pause Button Static Settings**
+1. **Page or Post Soundy Metabox**
 
 == Changelog ==
 1.0 First Version
