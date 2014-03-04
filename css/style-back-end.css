@@ -1,0 +1,29 @@
+table.war_soundy th {
+	width: 25% !important;
+	vertical-align: top !important;
+	text-align: left !important;
+}
+
+input[type=button].war_soundy {
+	height: 30px !important;
+	line-height: 28px !important;
+	padding: 0 12px 2px !important;
+	color: #ffffff !important;
+	background-color: #2eaecc !important;
+	border-radius: 3px !important;
+	border: #0074a2 1px solid !important;
+	cursor: pointer !important;
+}
+
+audio.war_soundy,
+img.war_soundy {
+	margin: 8px 0 0 2px !important;
+}
+
+table.war_soundy_no_border,
+table.war_soundy_no_border th,
+table.war_soundy_no_border td {
+	border: 0px solid red !important;
+	margin: 0 !important;
+	padding: 0 !important;
+}
