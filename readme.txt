@@ -11,19 +11,29 @@ Donate link: http://webartisan.ch/en/products/soundy#war_donate
 The Soundy plugin allows to play a sound track when a page is displayed.
 
 == Description ==
+
 The Soundy Background music plugin allows to play a background music when a page or post is displayed.   
 The sound track is embeded in the page by means of the HTML 5 audio tag. This way, the plugin is compatible with all modern user devices (smartphones, tablets, laptops and desktops of all vendors).  
 A background music can be associated with all pages or all posts or with individual pages or posts.   
 A Play/Pause button can also be displayed anywhere in the pages and posts.   
 Defaults can be set in the settings page of the plugin.   
 Individual post and page plugin settings can be configured in the Edit Page and Edit Post forms.   
-In the plugin settings page, an audio track can be set per default, a play and pause button image can be uploaded and positioned anywhere.   
+In the plugin settings page, an audio track can be set per default, a play and pause button image can be uploaded to replace the default one and can be positioned anywhere.   
 This Play/Pause button can be positioned in a corner of the document or in a corner of the window. It can also be positioned with a template tag typically in the document header or with a shortcode in the content.  
+
+= Docs & Support =
+
+You can find [tutorial](http://webartisan.ch/en/products/soundy#war_tutorial/), [FAQ](http://webartisan.ch/en/products/soundy#war_FAQ/) and more detailed information about **Soundy Background Music** plugin on [WebArtisan.ch](http://webartisan.ch/en/products/soundy/). If you were unable to find the answer to your question on the FAQ or in any of the documentation, you should check the [support forum](http://wordpress.org/support/plugin/soundy-background-music) on WordPress.org. If you can't locate any topics that pertain to your particular issue, post a new topic for it.
+
+= Soundy Needs Your Support =
+
+It is hard to continue development and support for this free plugin without contributions from users like you. If you enjoy using Soundy and find it useful, please consider [__making a donation__](http://webartisan.ch/en/products/soundy#war_donate/). Your donation will help encourage and support the plugin's continued development and better user support.
 
 == Installation ==
 * Upload this plugin to the /wp-content/plugins/ directory and unzip it, or simply upload the zip file within your wordpress installation.
 * Activate the plugin through the 'Plugins' menu in WordPress.
 * To set up plugin defaults, go to Settings > Soundy in the admin area and fill out the input fields.
+* For help, here is a [tutorial](http://webartisan.ch/en/products/soundy#war_tutorial/).
 * Happy Soundy Music !
 
 == Frequently Asked Questions ==
@@ -52,9 +62,13 @@ Yes, this can be done with the [soundy button] shortcode.
 Yes, you can upload and set up your own button images.
 
 == Screenshots ==
-1. Audio Track
-2. Play/Pause Button
-3. Play/Pause Corner Position
+
+1. screenshot-1.png
+1. screenshot-2.png
+1. screenshot-3.png
+1. screenshot-4.png
+1. screenshot-5.png
+
 == Changelog ==
 1.0 First Version
 == Upgrade Notice ==
