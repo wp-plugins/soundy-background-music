@@ -17,7 +17,7 @@ The sound track is embeded in the page by means of the HTML 5 audio tag. This wa
 A background music can be associated with all pages or all posts or with individual pages or posts.   
 A Play/Pause button can also be displayed anywhere in the pages and posts.   
 Defaults can be set in the settings page of the plugin.   
-Individual post and page plugin settings can be configured in the Edit Page and Edit Post forms.   
+Individual post and page plugin settings can be configured in the Edit Page and Edit Post pages.   
 In the plugin settings page, an audio track can be set per default, a play and pause button image can be uploaded to replace the default one and can be positioned anywhere.   
 This Play/Pause button can be positioned in a corner of the document or in a corner of the window. It can also be positioned with a template tag typically in the document header or with a shortcode in the content.  
 
@@ -30,13 +30,17 @@ You can find [tutorial](http://webartisan.ch/en/products/soundy#war_tutorial), [
 It is hard to continue development and support for this free plugin without contributions from users like you. If you enjoy using Soundy and find it useful, please consider [__making a donation__](http://webartisan.ch/en/products/soundy#war_donate). Your donation will help encourage and support the plugin's continued development and better user support.
 
 == Installation ==
-* Upload this plugin to the /wp-content/plugins/ directory and unzip it, or simply upload the zip file within your wordpress installation.
-* Activate the plugin through the 'Plugins' menu in WordPress.
-* To set up plugin defaults, go to Settings > Soundy in the admin area and fill out the input fields.
+* In the Admin area (the back-end) of your WordPress Web Site, go to Plugins > Add New.
+* Enter **Soundy** in the search field.
+* **Soundy Background Music** appears.
+* Click on "Install Now".
+* Click on "Activate Plugin".
+* To set up plugin defaults, go to Settings > **Soundy** in the admin area and fill out the input fields.
 * For help, here is a [tutorial](http://webartisan.ch/en/products/soundy#war_tutorial).
 * Happy Soundy Music !
 
 == Frequently Asked Questions ==
+
 = Is it possible to have different sound tracks for different posts and pages. =
 
 Yes, a sound track can be set up on a per post or per page basis.
