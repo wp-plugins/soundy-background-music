@@ -27,27 +27,27 @@ This Play/Pause button can be positioned in a corner of the document or in a cor
 - Happy Soundy Music !
 
 == Frequently Asked Questions ==
-1. Is it possible to have different sound tracks for different posts and pages.
+= Is it possible to have different sound tracks for different posts and pages. =
 
 Yes, a sound track can be set up on a per post or per page basis.
 
-1. What kind of audio files can be used with Soundy Plugin ?
+= What kind of audio files can be used with Soundy Plugin ? =
 
 The audio files must be in the format MP3, OGG or WAV. The file extension must be .mp3, .mpg, .mpeg, .ogg .wav or .wave.
 
-1. Is Soundy Plugin compatible with iphone, ipad and smartphones in general? 
+= Is Soundy Plugin compatible with iphone, ipad and smartphones in general? =
 
 Yes, it is as the plugin uses the HTML5 audio tag.
 
-1. Is it possible to position the Play/Pause button anywhere in the page or post header ?
+= Is it possible to position the Play/Pause button anywhere in the page or post header ? =
 
 Yes, this can be done with the soundy_button() template tag.
 
-1. Is it possible to position the Play/Pause button anywhere in the content of a page or post ?
+= Is it possible to position the Play/Pause button anywhere in the content of a page or post ? =
 
 Yes, this can be done with the [soundy button] shortcode.
 
-1. Is it possible to modify the Play/Pause button look & feel ?
+= Is it possible to modify the Play/Pause button look & feel ? =
 
 Yes, you can upload and set up your own button images.
 
