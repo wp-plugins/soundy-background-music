@@ -26,7 +26,8 @@ This Play/Pause button can be positioned in a corner of the document or in a cor
 
 = Docs & Support =
 
-You can find [tutorial](http://webartisan.ch/en/products/soundy#war_tutorial), [FAQ](http://webartisan.ch/en/products/soundy#war_FAQ) and more detailed information about **Soundy** plugin on [WebArtisan.ch](http://webartisan.ch/en/products/soundy/). If you were unable to find the answer to your question on the FAQ or in any of the documentation, you should check the [support forum](http://wordpress.org/support/plugin/soundy-background-music) on WordPress.org. If you can't locate any topics that pertain to your particular issue, post a new topic for it.
+You can find [tutorial](http://webartisan.ch/en/products/soundy#war_tutorial), [FAQ](http://webartisan.ch/en/products/soundy#war_FAQ) and more detailed information about **Soundy** plugin on [WebArtisan.ch](http://webartisan.ch/en/products/soundy/). If you were unable to find the answer to your question on the FAQ or in any of the documentation, you should check the [support forum](http://wordpress.org/support/plugin/soundy-background-music) on WordPress.org. If you can't locate any topics that pertain to your particular issue, post a new topic for it.  
+**Soundy** Plugin Home Page: [webartisan.ch/en/products/soundy](http://webartisan.ch/en/products/soundy/)
 
 = Soundy Needs Your Support =
 
