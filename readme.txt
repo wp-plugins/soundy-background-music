@@ -23,6 +23,7 @@ In the plugin settings page, an audio track can be set per default.
 The audio track can be anywhere on the web as it is specified with its URL. It can also be uploaded in the media library of the WP site.  
 A play and pause button image can be uploaded to replace the default one and can be positioned anywhere.    
 This Play/Pause button can be positioned in a corner of the document or in a corner of the window. It can also be positioned with a template tag typically in the document header or with a shortcode in the content.  
+A Soundy example can be seen in the Description tab of the [Soundy Plugin Home Page](http://webartisan.ch/en/products/soundy/).
 
 = Docs & Support =
 
