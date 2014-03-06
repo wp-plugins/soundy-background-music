@@ -1,6 +1,6 @@
 === Soundy Background Music ===
 Contributors: bducouedic
-Tags: audio, sound, music, background, sound track, background sound, background audio, background music
+Tags: audio, sound, music, background, sound track, background sound, background audio, background music, posts, pages
 Requires at least: 3.8
 Tested up to: 3.8.1
 Stable tag: trunk
