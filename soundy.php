@@ -1095,7 +1095,6 @@ EO_AUDIOCODE;
 		$audio_button_url = ( $this->autoplay == 'yes' ) ? $this->button_url_pause : $this->button_url_play;
 		
 		$audio_title = $this->get_meta_data( 'war_soundy_audio_title' );
-		$audio_title = $audio_title ? "Playing: $audio_title" : '';
 	
 		$pp_code = <<<"EO_PPCODE"
 
