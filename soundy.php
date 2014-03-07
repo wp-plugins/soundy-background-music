@@ -30,8 +30,6 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 class WarSoundy 
 {
-	private $disable_soundy_for_mobile = false;
-	private $user_agent_is_mobile;
 	private $post_id;
 	private $plugin_name;
 	private $plugin_url;
@@ -52,8 +50,6 @@ class WarSoundy
 
 	public function __construct()  
 	{	
-		$this->user_agent_is_mobile = $this->check_user_agent( 'mobile' );
-		
 		$plugin_path = dirname( __FILE__ );
 		$this->plugin_name = substr( $plugin_path, strrpos( $plugin_path, '/' ) + 1 );
 		$this->plugin_url = WP_PLUGIN_URL . '/' . $this->plugin_name;
@@ -461,7 +457,7 @@ class WarSoundy
 					       type="text" 
 					       size="70%" 
 					       value="<?php echo $file_url; ?>"
-					       style="direction: rtl;"
+					       style=""
 					       onchange="war_audioUrlChanged( this );" />
 				</td>
 				<td>
@@ -551,7 +547,7 @@ class WarSoundy
 					       type="text" 
 					       size="70%" 
 					       value="<?php echo get_option( "war_soundy_url_$type" ); ?>"
-					       style="direction: rtl;"
+					       style=""
 					       onchange="war_imgUrlChanged( this );" />
     		</td>
     		<td>
@@ -928,8 +924,6 @@ class WarSoundy
 		$enable_bg_sound = $this->get_meta_data( 'war_soundy_enable_bg_sound' );
 		if( $enable_bg_sound != 'yes' ) return;
 		
-		if( $this->user_agent_is_mobile && $this->disable_soundy_for_mobile ) return;
-		
 		$audio_file_url = $this->get_meta_data( 'war_soundy_audio_file_url' );
 		if( $audio_file_url == '' ) return;
 		$audio_type = $this->get_audio_type_from_URL( $audio_file_url );
@@ -942,13 +936,14 @@ class WarSoundy
 
 		$pp_code = $this->get_pp_button_code( 'corner' );
 				
-		$audio_code = 
+		$audio_code = <<<"EO_AUDIOCODE"
 
-			'<div style="display: none">' .
-			'  <audio id="war_soundy_audio" preload="auto" ' . $auto_play . ' ' . $audio_loop . ' style="display: none;" hidden>' .
-			'	   <source src="' . $audio_file_url . '" type="audio/' . $audio_type . '">' .
-			'  </audio>' .
-			'</div>';
+		<div style="display: none">
+		<audio id="war_soundy_audio" preload="auto" $auto_play $audio_loop style="display: none;" hidden>
+			<source src="$audio_file_url" type="audio/$audio_type">
+		</audio>
+		</div>
+EO_AUDIOCODE;
 
 		$pp_code    = str_replace( array( "\n", "\r" ), ' ', $pp_code );
 		$audio_code = str_replace( array( "\n", "\r" ), ' ', $audio_code );
@@ -1102,12 +1097,13 @@ class WarSoundy
 		$audio_title = $this->get_meta_data( 'war_soundy_audio_title' );
 		$audio_title = $audio_title ? "Playing: $audio_title" : '';
 	
-		$pp_code = 
+		$pp_code = <<<"EO_PPCODE"
 
-			'<img id="war_soundy_audio_control"' .
-		  '     src="' . $audio_button_url . '"' .
-		  '     title="' . $audio_title . '"' .
-		  '     style="' . $position_css_code . ' cursor: pointer; z-index: 99999999;">';
+		<img id="war_soundy_audio_control" 
+	     src="$audio_button_url"
+	     title="$audio_title"
+	     style="$position_css_code cursor: pointer; z-index: 99999999;">
+EO_PPCODE;
 
 		return $pp_code;
 	}
@@ -1127,35 +1123,6 @@ class WarSoundy
 		{
 			return soundy_get_button();
 		}
-	}
-	
-	public function check_user_agent ( $type = NULL ) 
-	{
-        $user_agent = strtolower ( $_SERVER['HTTP_USER_AGENT'] );
-        if ( $type == 'bot' ) {
-                // matches popular bots
-                if ( preg_match ( "/googlebot|adsbot|yahooseeker|yahoobot|msnbot|watchmouse|pingdom\.com|feedfetcher-google/", $user_agent ) ) {
-                        return true;
-                        // watchmouse|pingdom\.com are "uptime services"
-                }
-        } else if ( $type == 'browser' ) {
-                // matches core browser types
-                if ( preg_match ( "/mozilla\/|opera\//", $user_agent ) ) {
-                        return true;
-                }
-        } else if ( $type == 'mobile' ) {
-                // matches popular mobile devices that have small screens and/or touch inputs
-                // mobile devices have regional trends; some of these will have varying popularity in Europe, Asia, and America
-                // detailed demographics are unknown, and South America, the Pacific Islands, and Africa trends might not be represented, here
-                if ( preg_match ( "/phone|iphone|itouch|ipod|symbian|android|htc_|htc-|palmos|blackberry|opera mini|iemobile|windows ce|nokia|fennec|hiptop|kindle|mot |mot-|webos\/|samsung|sonyericsson|^sie-|nintendo/", $user_agent ) ) {
-                        // these are the most common
-                        return true;
-                } else if ( preg_match ( "/mobile|pda;|avantgo|eudoraweb|minimo|netfront|brew|teleca|lg;|lge |wap;| wap /", $user_agent ) ) {
-                        // these are less common, and might not be worth checking
-                        return true;
-                }
-        }
-        return false;
 	}
 }
 
