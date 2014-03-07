@@ -936,14 +936,13 @@ class WarSoundy
 
 		$pp_code = $this->get_pp_button_code( 'corner' );
 				
-		$audio_code = <<<"EO_AUDIOCODE"
+		$audio_code = 
 
-		<div style="display: none">
-		<audio id="war_soundy_audio" preload="auto" $auto_play $audio_loop style="display: none;" hidden>
-			<source src="$audio_file_url" type="audio/$audio_type">
-		</audio>
-		</div>
-EO_AUDIOCODE;
+			'<div style="display: none">' .
+			'  <audio id="war_soundy_audio" preload="auto" ' . $auto_play . ' ' . $audio_loop . ' style="display: none;" hidden>' .
+			'	   <source src="' . $audio_file_url . '" type="audio/' . $audio_type . '">' .
+			'  </audio>' .
+			'</div>';
 
 		$pp_code    = str_replace( array( "\n", "\r" ), ' ', $pp_code );
 		$audio_code = str_replace( array( "\n", "\r" ), ' ', $audio_code );
@@ -1097,13 +1096,12 @@ EO_AUDIOCODE;
 		$audio_title = $this->get_meta_data( 'war_soundy_audio_title' );
 		$audio_title = $audio_title ? "Playing: $audio_title" : '';
 	
-		$pp_code = <<<"EO_PPCODE"
+		$pp_code = 
 
-		<img id="war_soundy_audio_control" 
-	     src="$audio_button_url"
-	     title="$audio_title"
-	     style="$position_css_code cursor: pointer; z-index: 99999999;">
-EO_PPCODE;
+			'<img id="war_soundy_audio_control"' .
+		  '     src="' . $audio_button_url . '"' .
+		  '     title="' . $audio_title . '"' .
+		  '     style="' . $position_css_code . ' cursor: pointer; z-index: 99999999;">';
 
 		return $pp_code;
 	}
