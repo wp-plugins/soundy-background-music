@@ -33,8 +33,8 @@ class WarSoundy
 	private $post_id;
 	private $plugin_name;
 	private $plugin_url;
-	private $default_audio_url        = '/audio/danse_russe.mp3';
-	private $default_audio_title      = 'Danse Russe';
+	private $default_audio_url        = '/audio/valse.mp3';
+	private $default_audio_title      = 'Valse - Anonymous (1870)';
 	private $default_play_button_url  = '/images/buttons/48x48/play-square-grey.png';
 	private $default_play_hover_url   = '/images/buttons/48x48/play-square-blue.png';
 	private $default_pause_button_url = '/images/buttons/48x48/pause-square-grey.png';
@@ -108,11 +108,11 @@ class WarSoundy
 			add_option( 'war_soundy_url_play_hover',     $this->default_play_hover_url ); 
 			add_option( 'war_soundy_url_pause_button',   $this->default_pause_button_url ); 
 			add_option( 'war_soundy_url_pause_hover',    $this->default_pause_hover_url ); 
-			add_option( 'war_soundy_pp_position',        'document' ); 
+			add_option( 'war_soundy_pp_position',        'window' ); 
 			add_option( 'war_soundy_pp_corner',          'upper_right' ); 
-			add_option( 'war_soundy_offset_x',           '30' ); 
+			add_option( 'war_soundy_offset_x',           '35' ); 
 			add_option( 'war_soundy_offset_x_unit',      'px' ); 
-			add_option( 'war_soundy_offset_y',           '30' ); 
+			add_option( 'war_soundy_offset_y',           '35' ); 
 			add_option( 'war_soundy_offset_y_unit',      'px' ); 
 	}
 	
