@@ -987,15 +987,6 @@ class WarSoundy
 				war_soundy_player = jQuery( '#war_soundy_audio' )[ 0 ];
 				war_soundy_audio_control = jQuery( '#war_soundy_audio_control' );
 				
-				if( war_soundy_player.paused )
-				{
-					war_soundy_audio_control.attr( 'src', '<?php echo $this->hover_url_play; ?>' );
-				}
-				else
-				{
-					war_soundy_audio_control.attr( 'src', '<?php echo $this->hover_url_pause; ?>' );
-				}
-				
 				war_soundy_hovering = false;
 
 				if( war_soundy_pp_button_is_inserted )
@@ -1053,7 +1044,30 @@ class WarSoundy
 							war_soundy_audio_control.attr( 'src', '<?php echo $this->button_url_play; ?>' );
 						}
 					} );
-				}
+				
+					if( war_soundy_player.paused )
+					{
+						if( war_soundy_hovering )
+						{
+							war_soundy_audio_control.attr( 'src', '<?php echo $this->hover_url_play; ?>' );
+						}
+						else
+						{
+							war_soundy_audio_control.attr( 'src', '<?php echo $this->button_url_play; ?>' );
+						}
+					}
+					else
+					{
+						if( war_soundy_hovering )
+						{
+							war_soundy_audio_control.attr( 'src', '<?php echo $this->hover_url_pause; ?>' );
+						}
+						else
+						{
+							war_soundy_audio_control.attr( 'src', '<?php echo $this->button_url_pause; ?>' );
+						}
+					}
+				}				
 			} );
 		</script>
 		<?php
