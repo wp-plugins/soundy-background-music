@@ -1045,6 +1045,7 @@ class WarSoundy
 						}
 					} );
 				
+				  /*
 					if( war_soundy_player.paused )
 					{
 						if( war_soundy_hovering )
@@ -1067,6 +1068,7 @@ class WarSoundy
 							war_soundy_audio_control.attr( 'src', '<?php echo $this->button_url_pause; ?>' );
 						}
 					}
+					*/
 				}				
 			} );
 		</script>
