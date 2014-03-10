@@ -1045,20 +1045,8 @@ class WarSoundy
 						}
 					} );
 				
-				  /*
-					if( war_soundy_player.paused )
-					{
-						if( war_soundy_hovering )
-						{
-							war_soundy_audio_control.attr( 'src', '<?php echo $this->hover_url_play; ?>' );
-						}
-						else
-						{
-							war_soundy_audio_control.attr( 'src', '<?php echo $this->button_url_play; ?>' );
-						}
-					}
-					else
-					{
+				  jQuery( '#war_soundy_audio' ).bind( 'play' , function()
+				  {
 						if( war_soundy_hovering )
 						{
 							war_soundy_audio_control.attr( 'src', '<?php echo $this->hover_url_pause; ?>' );
@@ -1067,8 +1055,7 @@ class WarSoundy
 						{
 							war_soundy_audio_control.attr( 'src', '<?php echo $this->button_url_pause; ?>' );
 						}
-					}
-					*/
+					} );
 				}				
 			} );
 		</script>
