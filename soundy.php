@@ -30,11 +30,23 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 class WarSoundy 
 {
+	private $disable_soundy_for_mobile = false;
+	private $user_agent_is_mobile;
 	private $post_id;
 	private $plugin_name;
 	private $plugin_url;
+	private $enable_bg_sound          = 'no';
 	private $default_audio_url        = '/audio/valse.mp3';
 	private $default_audio_title      = 'Valse - Anonymous (1870)';
+	private $autoplay                 = 'yes';
+	private $loop                     = 'yes';
+	private $display_play_pause       = 'yes';
+	private $pp_position              = 'window';
+	private $pp_corner                = 'upper_right';
+	private $offset_x                 = 35;
+	private $offset_x_unit            = 'px';
+	private $offset_y                 = 35;
+	private $offset_y_unit            = 'px';
 	private $default_play_button_url  = '/images/buttons/48x48/play-square-grey.png';
 	private $default_play_hover_url   = '/images/buttons/48x48/play-square-blue.png';
 	private $default_pause_button_url = '/images/buttons/48x48/pause-square-grey.png';
@@ -50,6 +62,8 @@ class WarSoundy
 
 	public function __construct()  
 	{	
+		$this->user_agent_is_mobile = $this->check_user_agent( 'mobile' );
+		
 		$plugin_path = dirname( __FILE__ );
 		$this->plugin_name = substr( $plugin_path, strrpos( $plugin_path, '/' ) + 1 );
 		$this->plugin_url = WP_PLUGIN_URL . '/' . $this->plugin_name;
@@ -98,22 +112,22 @@ class WarSoundy
 
 	public function activate() 
 	{
-			add_option( 'war_soundy_enable_bg_sound',    'no' ); 
+			add_option( 'war_soundy_enable_bg_sound',    $this->enable_bg_sound ); 
 			add_option( 'war_soundy_audio_file_url',     $this->default_audio_url ); 
 			add_option( 'war_soundy_audio_title',        $this->default_audio_title ); 
-			add_option( 'war_soundy_autoplay',           'yes' ); 
-			add_option( 'war_soundy_loop',               'yes' ); 
-			add_option( 'war_soundy_display_play_pause', 'yes' ); 
+			add_option( 'war_soundy_autoplay',           $this->autoplay ); 
+			add_option( 'war_soundy_loop',               $this->loop ); 
+			add_option( 'war_soundy_display_play_pause', $this->display_play_pause ); 
 			add_option( 'war_soundy_url_play_button',    $this->default_play_button_url ); 
 			add_option( 'war_soundy_url_play_hover',     $this->default_play_hover_url ); 
 			add_option( 'war_soundy_url_pause_button',   $this->default_pause_button_url ); 
 			add_option( 'war_soundy_url_pause_hover',    $this->default_pause_hover_url ); 
-			add_option( 'war_soundy_pp_position',        'window' ); 
-			add_option( 'war_soundy_pp_corner',          'upper_right' ); 
-			add_option( 'war_soundy_offset_x',           '35' ); 
-			add_option( 'war_soundy_offset_x_unit',      'px' ); 
-			add_option( 'war_soundy_offset_y',           '35' ); 
-			add_option( 'war_soundy_offset_y_unit',      'px' ); 
+			add_option( 'war_soundy_pp_position',        $this->pp_position ); 
+			add_option( 'war_soundy_pp_corner',          $this->pp_corner ); 
+			add_option( 'war_soundy_offset_x',           $this->offset_x ); 
+			add_option( 'war_soundy_offset_x_unit',      $this->offset_x_unit ); 
+			add_option( 'war_soundy_offset_y',           $this->offset_y ); 
+			add_option( 'war_soundy_offset_y_unit',      $this->offset_y_unit ); 
 	}
 	
 	public function deactivate() 
@@ -922,8 +936,10 @@ class WarSoundy
 		$this->post_id = get_the_ID();
 
 		$enable_bg_sound = $this->get_meta_data( 'war_soundy_enable_bg_sound' );
-		if( $enable_bg_sound != 'yes' ) return;
+		if( $enable_bg_sound != 'yes' ) return;		
 		
+		if( $this->user_agent_is_mobile && $this->disable_soundy_for_mobile ) return;
+
 		$audio_file_url = $this->get_meta_data( 'war_soundy_audio_file_url' );
 		if( $audio_file_url == '' ) return;
 		$audio_type = $this->get_audio_type_from_URL( $audio_file_url );
@@ -936,14 +952,13 @@ class WarSoundy
 
 		$pp_code = $this->get_pp_button_code( 'corner' );
 				
-		$audio_code = <<<"EO_AUDIOCODE"
+		$audio_code = 
 
-		<div style="display: none">
-		<audio id="war_soundy_audio" preload="auto" $auto_play $audio_loop style="display: none;" hidden>
-			<source src="$audio_file_url" type="audio/$audio_type">
-		</audio>
-		</div>
-EO_AUDIOCODE;
+			'<div style="display: none">' .
+			'  <audio id="war_soundy_audio" preload="auto" ' . $auto_play . ' ' . $audio_loop . ' style="display: none;" hidden>' .
+			'	   <source src="' . $audio_file_url . '" type="audio/' . $audio_type . '">' .
+			'  </audio>' .
+			'</div>';
 
 		$pp_code    = str_replace( array( "\n", "\r" ), ' ', $pp_code );
 		$audio_code = str_replace( array( "\n", "\r" ), ' ', $audio_code );
@@ -970,12 +985,21 @@ EO_AUDIOCODE;
 				jQuery( 'body' ).append( '<?php echo $audio_code; ?>' );
 				
 				war_soundy_player = jQuery( '#war_soundy_audio' )[ 0 ];
+				war_soundy_audio_control = jQuery( '#war_soundy_audio_control' );
+				
+				if( war_soundy_player.paused )
+				{
+					war_soundy_audio_control.attr( 'src', '<?php echo $this->hover_url_play; ?>' );
+				}
+				else
+				{
+					war_soundy_audio_control.attr( 'src', '<?php echo $this->hover_url_pause; ?>' );
+				}
+				
 				war_soundy_hovering = false;
 
 				if( war_soundy_pp_button_is_inserted )
 				{
-					war_soundy_audio_control = jQuery( '#war_soundy_audio_control' );
-	
 					war_soundy_audio_control.click( 
 						function() 
 						{ 
@@ -1039,7 +1063,6 @@ EO_AUDIOCODE;
 	private $hover_url_play;
 	private $button_url_pause;
 	private $hover_url_pause;
-	private $autoplay;
 	
 	public function get_pp_button_code( $mode )
 	{
@@ -1096,13 +1119,12 @@ EO_AUDIOCODE;
 		
 		$audio_title = $this->get_meta_data( 'war_soundy_audio_title' );
 	
-		$pp_code = <<<"EO_PPCODE"
+		$pp_code = 
 
-		<img id="war_soundy_audio_control" 
-	     src="$audio_button_url"
-	     title="$audio_title"
-	     style="$position_css_code cursor: pointer; z-index: 99999999;">
-EO_PPCODE;
+			'<img id="war_soundy_audio_control"' .
+		  '     src="' . $audio_button_url . '"' .
+		  '     title="' . $audio_title . '"' .
+		  '     style="' . $position_css_code . ' cursor: pointer; z-index: 99999999;">';
 
 		return $pp_code;
 	}
@@ -1122,6 +1144,45 @@ EO_PPCODE;
 		{
 			return soundy_get_button();
 		}
+	}
+	
+	public function check_user_agent ( $type = NULL ) 
+	{
+    $user_agent = strtolower ( $_SERVER['HTTP_USER_AGENT'] );
+    if ( $type == 'bot' ) 
+    {
+      // matches popular bots
+      if ( preg_match ( "/googlebot|adsbot|yahooseeker|yahoobot|msnbot|watchmouse|pingdom\.com|feedfetcher-google/", $user_agent ) ) 
+      {
+        return true;
+        // watchmouse|pingdom\.com are "uptime services"
+      }
+    } 
+    elseif ( $type == 'browser' ) 
+    {
+      // matches core browser types
+      if ( preg_match ( "/mozilla\/|opera\//", $user_agent ) )
+      {
+      	return true;
+      }
+    } 
+    elseif ( $type == 'mobile' )
+    {
+      // matches popular mobile devices that have small screens and/or touch inputs
+      // mobile devices have regional trends; some of these will have varying popularity in Europe, Asia, and America
+      // detailed demographics are unknown, and South America, the Pacific Islands, and Africa trends might not be represented, here
+      if ( preg_match ( "/phone|iphone|itouch|ipod|symbian|android|htc_|htc-|palmos|blackberry|opera mini|iemobile|windows ce|nokia|fennec|hiptop|kindle|mot |mot-|webos\/|samsung|sonyericsson|^sie-|nintendo/", $user_agent ) ) 
+      {
+        // these are the most common
+        return true;
+      } 
+      elseif ( preg_match ( "/mobile|pda;|avantgo|eudoraweb|minimo|netfront|brew|teleca|lg;|lge |wap;| wap /", $user_agent ) ) 
+      {
+        // these are less common, and might not be worth checking
+        return true;
+      }
+    }
+    return false;
 	}
 }
 
