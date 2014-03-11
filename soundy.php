@@ -453,11 +453,24 @@ class WarSoundy
 		$file_url  = get_option( 'war_soundy_audio_file_url' );
 		$file_type = pathinfo( $file_url, PATHINFO_EXTENSION );
 		
-		$this->add_field_audio_file_URL_table( $file_url, $file_type, $this->default_audio_url, $this->default_audio_title );
+		$this->add_field_audio_file_URL_table( $file_url, 
+		                                       $file_type, 
+		                                       $this->default_audio_url, 
+		                                       $this->default_audio_title,
+		                                       false );
 	}
 
-	private function add_field_audio_file_URL_table( $file_url, $file_type, $default_url, $default_title ) 
+	private function add_field_audio_file_URL_table( $file_url, $file_type, $default_url, $default_title, $is_meta_box ) 
 	{
+		if( $is_meta_box )
+		{
+			$url_input_class = 'war_soundy_url_input_metabox';
+		}
+		else
+		{
+			$url_input_class = 'war_soundy_url_input';
+		}
+		
 		$default_title = str_replace( "&#039;", "\&#039;", $default_title );
 		?>
 		<script>
@@ -469,9 +482,8 @@ class WarSoundy
 					<input id="war_soundy_audio_file_url" 
 					       name="war_soundy_audio_file_url" 
 					       type="text" 
-					       size="70%" 
 					       value="<?php echo $file_url; ?>"
-					       style=""
+					       class="<?php echo $url_input_class; ?>"
 					       onchange="war_audioUrlChanged( this );" />
 				</td>
 				<td>
@@ -505,7 +517,7 @@ class WarSoundy
 	{
 		?>
 		<input type="text"
-					 size="70%"
+					 class="war_soundy_audio_title_input"
 		       value="<?php echo get_option( 'war_soundy_audio_title' ); ?>"
 		       name="war_soundy_audio_title" 
 		       id="war_soundy_audio_title" />
@@ -559,7 +571,7 @@ class WarSoundy
 					<input id="war_soundy_url_<?php echo $type; ?>" 
 					       name="war_soundy_url_<?php echo $type; ?>" 
 					       type="text" 
-					       size="70%" 
+					       class="war_soundy_url_input" 
 					       value="<?php echo get_option( "war_soundy_url_$type" ); ?>"
 					       style=""
 					       onchange="war_imgUrlChanged( this );" />
@@ -802,7 +814,8 @@ class WarSoundy
 				<?php $this->add_field_audio_file_URL_table( $audio_file_url, 
 																										 $audio_file_type, 
 																										 $audio_default_url,
-																										 $audio_default_title ); ?>
+																										 $audio_default_title,
+																										 true ); ?>
 	    </td>
 		</tr>
 		<tr>
@@ -811,7 +824,7 @@ class WarSoundy
 			</th>
 			<td>
 				<input type="text"
-							 size="70%"
+							 class="war_soundy_audio_title_input_metabox"
 				       value="<?php echo $audio_title; ?>"
 				       name="war_soundy_audio_title" 
 				       id="war_soundy_audio_title" />
