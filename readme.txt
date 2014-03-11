@@ -8,7 +8,7 @@ License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: http://webartisan.ch/en/products/soundy#war_donate
 
-Soundy allows a page or post to play a sound track when it is displayed.
+Soundy allows a page or post to play a sound track while it is displayed.
 
 == Description ==
 
