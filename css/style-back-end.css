@@ -27,3 +27,76 @@ table.war_soundy_no_border td {
 	margin: 0 !important;
 	padding: 0 !important;
 }
+
+
+@media only screen and (max-width: 480px) {
+	.war_soundy_url_input {
+		width: 260px;
+	}
+
+	.war_soundy_url_input_metabox {
+		width: 180px;
+	}
+	
+	.war_soundy_audio_title_input {
+		width: 300px;
+	}
+
+	.war_soundy_audio_title_input_metabox {
+		width: 220px;
+	}
+}
+
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+	.war_soundy_url_input {
+		width: 340px;
+	}
+
+	.war_soundy_url_input_metabox {
+		width: 200px;
+	}
+
+	.war_soundy_audio_title_input {
+		width: 360px;
+	}
+
+	.war_soundy_audio_title_input_metabox {
+		width: 300px;
+	}
+}
+
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+	.war_soundy_url_input {
+		width: 500px;
+	}
+
+	.war_soundy_url_input_metabox {
+		width: 280px;
+	}
+
+	.war_soundy_audio_title_input {
+		width: 600px;
+	}
+
+	.war_soundy_audio_title_input_metabox {
+		width: 400px;
+	}
+}
+ 
+@media only screen and (min-width: 1025px) {
+	.war_soundy_url_input {
+		width: 800px;
+	}
+
+	.war_soundy_url_input_metabox {
+		width: 600px;
+	}
+
+	.war_soundy_audio_title_input {
+		width: 760px;
+	}
+
+	.war_soundy_audio_title_input_metabox {
+		width: 700px;
+	}
+}

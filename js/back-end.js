@@ -2,6 +2,25 @@ function war_setDefaultButtonURL( button_type, url )
 {
 	jQuery( '#war_soundy_url_' + button_type ).val( url );
 	jQuery( '#war_soundy_url_' + button_type + '_img' ).attr( 'src', url );
+
+	switch( button_type )
+	{
+		case 'play_button':
+			var button_name = 'Play Button';
+			break;
+		case 'play_hover':
+			var button_name = 'Play Hover';
+			break;
+		case 'pause_button':
+			var button_name = 'Pause Button';
+			break;
+		case 'pause_hover':
+			var button_name = 'Pause Hover';
+			break;
+	}
+
+	alert( button_name + ' Image URL reset.\n' +
+	       'You still have to save the changes.' );
 	
 	if( event.preventDefault ) event.preventDefault(); else event.returnValue = false;
 }
@@ -19,6 +38,10 @@ function war_setDefaultAudioURL( url, title )
 	jQuery( '#war_soundy_audio_player' )[ 0 ].load();
 	
 	if( player_was_playing ) jQuery( '#war_soundy_audio_player' )[ 0 ].play();
+	
+	alert( 'Audio File URL reset.\n' +
+	       'Audio Title reset.\n' + 
+	       'You still have to save the changes.' );
 	
 	if( event.preventDefault ) event.preventDefault(); else event.returnValue = false;
 }
