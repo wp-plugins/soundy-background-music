@@ -3,7 +3,7 @@ Contributors: bducouedic
 Tags: audio, sound, music, background, sound track, background sound, background audio, background music, posts, pages
 Requires at least: 3.6
 Tested up to: 3.8.1
-Stable tag: trunk
+Stable tag: 1.1
 License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: http://webartisan.ch/en/products/soundy#war_donate
@@ -80,5 +80,17 @@ Yes, you can upload and set up your own button images.
 1. **Page or Post Soundy Metabox**
 
 == Changelog ==
-1.0 First Version
+
+= 1.1 =
+* Corrected a few minor bugs
+* Made Soundy forms of the back-end admin section more responsive
+* Added possibility to disable Soundy for mobile devices. Set variable **$disable_soundy_for_mobile** to **true** in soundy.php file to disable Soundy for mobile devices.
+
+= 1.0 =
+* First Version
+
 == Upgrade Notice ==
+
+= 1.1 =
+
+* After having upgraded Soundy to 1.1, please clear the cache of Soundy's admin pages in your browser. The reason is that a few CSS and Javascript files have been modified and these files are typically cached by browsers.
