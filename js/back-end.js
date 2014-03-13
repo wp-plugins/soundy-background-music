@@ -19,7 +19,7 @@ function war_setDefaultButtonURL( button_type, url )
 			break;
 	}
 
-	alert( button_name + ' Image URL reset.\n' +
+	alert( button_name + ' Image URL reset to default.\n' +
 	       'You still have to save the changes.' );
 	
 	if( event.preventDefault ) event.preventDefault(); else event.returnValue = false;
@@ -39,8 +39,8 @@ function war_setDefaultAudioURL( url, title )
 	
 	if( player_was_playing ) jQuery( '#war_soundy_audio_player' )[ 0 ].play();
 	
-	alert( 'Audio File URL reset.\n' +
-	       'Audio Title reset.\n' + 
+	alert( 'Audio File URL reset to default.\n' +
+	       'Audio Title reset to default.\n' + 
 	       'You still have to save the changes.' );
 	
 	if( event.preventDefault ) event.preventDefault(); else event.returnValue = false;
