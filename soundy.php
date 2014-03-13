@@ -1069,6 +1069,21 @@ class WarSoundy
 							war_soundy_audio_control.attr( 'src', '<?php echo $this->button_url_pause; ?>' );
 						}
 					} );
+					
+					if( war_soundy_player.autoplay )
+					{
+						if( <?php echo $this->user_agent_is_IOS() ?> )
+						{
+							if( war_soundy_hovering )
+							{
+								war_soundy_audio_control.attr( 'src', '<?php echo $this->hover_url_play; ?>' );
+							}
+							else
+							{
+								war_soundy_audio_control.attr( 'src', '<?php echo $this->button_url_play; ?>' );
+							}
+						}
+					}
 				}				
 			} );
 		</script>
@@ -1199,6 +1214,20 @@ class WarSoundy
       }
     }
     return false;
+	}
+	
+	public function user_agent_is_IOS() 
+	{
+    $user_agent = strtolower ( $_SERVER['HTTP_USER_AGENT'] );
+    
+		if( preg_match ( "/ipod|iphone|ipad/", $user_agent ) )
+		{
+			return 'true';
+		}
+		else
+		{
+			return 'false';
+		}
 	}
 }
 
