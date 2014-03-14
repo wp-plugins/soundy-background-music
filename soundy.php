@@ -155,24 +155,36 @@ class WarSoundy
 		return $args;
 	}
 	
-	public function admin_scripts( $hook ) 
+	public function admin_scripts( $hook )
 	{
+		/*
+		wp_register_script( 'jquery', 
+		                    $this->plugin_url . '/js/jquery-ui-1.10.4/jquery-1.10.2.js' );
+		wp_register_script( 'jquery-ui-core', 
+		                    $this->plugin_url . '/js/jquery-ui-1.10.4/jquery.ui.core.js' );
+		wp_register_script( 'jquery-ui-widget', 
+		                    $this->plugin_url . '/js/jquery-ui-1.10.4/jquery.ui.widget.js' );
+		wp_register_script( 'jquery-ui-tabs', 
+		                    $this->plugin_url . '/js/jquery-ui-1.10.4/jquery.ui.tabs.js' );
 		wp_register_script( 'button-upload', 
 		                    $this->plugin_url . '/js/back-end.js', 
 		                    array('jquery','media-upload','thickbox'));
-
+		
 		wp_enqueue_script( 'jquery');
 		wp_enqueue_script( 'jquery-ui-core');
+		wp_enqueue_script( 'jquery-ui-widget');
+		*/
+
 		wp_enqueue_script( 'jquery-ui-tabs');
 		wp_enqueue_script( 'media-upload');
 		wp_enqueue_script( 'thickbox');
 		wp_enqueue_script( 'button-upload');
 		
-		wp_register_style( 'jquery-ui', $this->plugin_url . '/css/jquery-ui-v1.10.4.css' );
+		wp_register_style( 'jquery-ui', $this->plugin_url . '/css/jquery-ui-1.10.4/jquery-ui.css' );
 		wp_register_style( 'soundy', $this->plugin_url . '/css/style-back-end.css' );
 		
 		wp_enqueue_style( 'jquery-ui');
-		wp_enqueue_style( 'thickbox');
+		wp_enqueue_style( 'thickbox-tabs');
 		wp_enqueue_style( 'soundy');
 	}
 	
