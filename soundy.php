@@ -166,6 +166,8 @@ class WarSoundy
 		                    $this->plugin_url . '/js/jquery-ui-1.10.4/jquery.ui.widget.js' );
 		wp_register_script( 'jquery-ui-tabs', 
 		                    $this->plugin_url . '/js/jquery-ui-1.10.4/jquery.ui.tabs.js' );
+		*/
+
 		wp_register_script( 'button-upload', 
 		                    $this->plugin_url . '/js/back-end.js', 
 		                    array('jquery','media-upload','thickbox'));
@@ -173,9 +175,8 @@ class WarSoundy
 		wp_enqueue_script( 'jquery');
 		wp_enqueue_script( 'jquery-ui-core');
 		wp_enqueue_script( 'jquery-ui-widget');
-		*/
-
 		wp_enqueue_script( 'jquery-ui-tabs');
+
 		wp_enqueue_script( 'media-upload');
 		wp_enqueue_script( 'thickbox');
 		wp_enqueue_script( 'button-upload');
