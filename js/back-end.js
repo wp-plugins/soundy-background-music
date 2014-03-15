@@ -119,9 +119,10 @@ function war_audioUrlChanged( element )
 function war_bindMediaUploader( field_name, button_name, field_type )
 {
 	jQuery( document ).ready( function()
-	{ 
+	{
 		jQuery( '#' + button_name ).click( function() 
 		{
+			jQuery( '#TB_window' ).html( '' ); // to avoid multiple title bars
 	 		tb_show( '', 'media-upload.php?type=' + field_type + '&amp;TB_iframe=true');
 	
 			window.send_to_editor = function( html )
@@ -156,6 +157,12 @@ function war_bindMediaUploader( field_name, button_name, field_type )
 		 			jQuery( '#war_soundy_audio_player_source' ).attr( 'type', 'audio/' + audio_type );
 		 			jQuery( '#war_soundy_audio_player' )[ 0 ].load();
 		 			if( player_was_playing ) jQuery( '#war_soundy_audio_player' )[ 0 ].play();
+
+		 			var title = jQuery( html ).text().trim();
+		 			if( title != '' )
+		 			{
+		 				jQuery( '#war_soundy_audio_title' ).val( title );
+		 			} 
 		 		}
 		 		
 		 		jQuery( '#' + field_name ).val( url );

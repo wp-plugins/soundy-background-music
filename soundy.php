@@ -185,7 +185,7 @@ class WarSoundy
 		wp_register_style( 'soundy', $this->plugin_url . '/css/style-back-end.css' );
 		
 		wp_enqueue_style( 'jquery-ui');
-		wp_enqueue_style( 'thickbox-tabs');
+		wp_enqueue_style( 'thickbox');
 		wp_enqueue_style( 'soundy');
 	}
 	
