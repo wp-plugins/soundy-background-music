@@ -1,13 +1,13 @@
 <?php
 /**
  * @package Soundy_Background_Music
- * @version 1.1
+ * @version 1.2
  */
 /*
 Plugin Name: Soundy Background Music
 Plugin URI: http://webartisan.ch/en/products/soundy
 Description: This plugin allows administrators and authors to set a background sound on any post or page.
-Version: 1.1
+Version: 1.2
 Author: Bertrand du Couédic
 Author URI: http://webartisan.ch/en/about
 License: GPL2
