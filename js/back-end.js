@@ -351,7 +351,7 @@ function war_bindMediaUploader( field_name, button_name, field_type )
 		 		
 		 		jQuery( '#' + field_name ).val( url );
 		 		tb_remove();
-		 		if( jQuery( 'input[name=war_soundy_soundtrack][value=custom]' ) ) // True if meta box
+		 		if( jQuery( '#war_soundy_soundtrack_default' ).length ) // war_soundy_soundtrack_default exists if meta box
 		 		{
 		 			jQuery( 'input[name=war_soundy_soundtrack][value=custom]' ).prop( 'checked', true );
 					jQuery( '#war_soundy_audio_file_url' ).css( 'backgroundColor', '#c0e7f0' );
