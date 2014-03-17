@@ -6,36 +6,11 @@
 	<form method="post" action="options.php">
 	<?php settings_fields( 'war_soundy' ); ?>
 	<script>
-	<?php
-		if( isset( $_GET[ 'settings-updated' ] ) && $_GET[ 'settings-updated' ] == 'true' )
-		{
-			?>
-	    if( ! sessionStorage.getItem( 'war_soundy_tab_index' ) )  
-	      sessionStorage.setItem( 'war_soundy_tab_index', 0 ); 
-		  <?php
-		}
-		else
-		{
-			?>
-			sessionStorage.setItem( 'war_soundy_tab_index', 0 );
-		  <?php
-		}
-	?>
-	jQuery( document ).ready( function( $ ) {
-	  $( "#tabs" ).tabs( 
-	  	{ 
-	  		active: sessionStorage.war_soundy_tab_index,
-	  		activate : function( event, ui )
-	  							 {
-            			 	 //  Get future value
-            				 var new_index = ui.newTab.index();
-            				 sessionStorage.setItem( 'war_soundy_tab_index', new_index );
-            			 } 
-      } );
-	} );
+		war_initTabs();	
+		war_initAudioVolume();
 	</script>
 	
-	<div id="tabs">
+	<div id="war_soundy_tabs">
 	  <ul>
 	    <li><a href="#war_soundy_audio_track">Audio Track</a></li>
 	    <li><a href="#war_soundy_play_pause_button">Play/Pause Button</a></li>

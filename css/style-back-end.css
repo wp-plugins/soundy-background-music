@@ -1,3 +1,10 @@
+
+a:active,
+a:focus {
+	outline: 0 !important;
+	text-decoration: none !important;
+}
+
 table.war_soundy th {
 	width: 25% !important;
 	vertical-align: top !important;
@@ -7,7 +14,7 @@ table.war_soundy th {
 input[type=button].war_soundy {
 	height: 30px !important;
 	line-height: 28px !important;
-	padding: 0 12px 2px !important;
+	padding: 0 12px 20px !important;
 	color: #ffffff !important;
 	background-color: #2eaecc !important;
 	border-radius: 3px !important;
@@ -15,9 +22,12 @@ input[type=button].war_soundy {
 	cursor: pointer !important;
 }
 
-audio.war_soundy,
-img.war_soundy {
+audio.war_soundy {
 	margin: 8px 0 0 2px !important;
+}
+
+img.war_soundy {
+	margin: 0 0 0 0 !important;
 }
 
 table.war_soundy_no_border,
@@ -28,75 +38,26 @@ table.war_soundy_no_border td {
 	padding: 0 !important;
 }
 
+.war_soundy_txt_input {
+	width: 95%;
+}
+
+.war_soundy_audio_volume {
+	width: 40px;
+}
 
 @media only screen and (max-width: 480px) {
-	.war_soundy_url_input {
-		width: 260px;
-	}
 
-	.war_soundy_url_input_metabox {
-		width: 180px;
-	}
-	
-	.war_soundy_audio_title_input {
-		width: 300px;
-	}
-
-	.war_soundy_audio_title_input_metabox {
-		width: 220px;
-	}
 }
 
 @media only screen and (min-width: 481px) and (max-width: 768px) {
-	.war_soundy_url_input {
-		width: 340px;
-	}
 
-	.war_soundy_url_input_metabox {
-		width: 200px;
-	}
-
-	.war_soundy_audio_title_input {
-		width: 360px;
-	}
-
-	.war_soundy_audio_title_input_metabox {
-		width: 300px;
-	}
 }
 
 @media only screen and (min-width: 769px) and (max-width: 1024px) {
-	.war_soundy_url_input {
-		width: 500px;
-	}
 
-	.war_soundy_url_input_metabox {
-		width: 280px;
-	}
-
-	.war_soundy_audio_title_input {
-		width: 600px;
-	}
-
-	.war_soundy_audio_title_input_metabox {
-		width: 400px;
-	}
 }
  
 @media only screen and (min-width: 1025px) {
-	.war_soundy_url_input {
-		width: 800px;
-	}
 
-	.war_soundy_url_input_metabox {
-		width: 600px;
-	}
-
-	.war_soundy_audio_title_input {
-		width: 760px;
-	}
-
-	.war_soundy_audio_title_input_metabox {
-		width: 700px;
-	}
 }
