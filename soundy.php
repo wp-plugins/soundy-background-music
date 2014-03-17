@@ -35,6 +35,7 @@ class WarSoundy
 	private $post_id;
 	private $plugin_name;
 	private $plugin_url;
+	private $soundy_version     = '1.2';
 	private $enable_bg_sound    = 'no';
 	private $audio_url          = '/audio/valse.mp3';
 	private $audio_volume       = '80';
@@ -64,6 +65,18 @@ class WarSoundy
 
 	public function __construct()  
 	{	
+		$soundy_version = get_option( 'war_soundy_version' );
+		if( $soundy_version != $this->soundy_version )
+		{
+			update_option( 'war_soundy_version', $this->soundy_version );
+			
+			$volume = get_option( 'war_soundy_audio_volume' );
+			if( $volume == '' )
+			{
+				add_option( 'war_soundy_audio_volume', $this->audio_volume );
+			}
+		}
+		
 		$this->user_agent_is_mobile = $this->check_user_agent( 'mobile' );
 		
 		$plugin_path = dirname( __FILE__ );
