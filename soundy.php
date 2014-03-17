@@ -127,6 +127,7 @@ class WarSoundy
 
 	public function activate() 
 	{
+			add_option( 'war_soundy_version',            $this->soundy_version ); 
 			add_option( 'war_soundy_enable_bg_sound',    $this->enable_bg_sound ); 
 			add_option( 'war_soundy_audio_file_url',     $this->audio_url ); 
 			add_option( 'war_soundy_audio_volume',       $this->audio_volume ); 
