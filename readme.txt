@@ -91,7 +91,7 @@ Yes, you can put your audio files anywhere on any cloud or website, except one p
 = 1.2 =
 * Added Audio Volume Control for administrators in Settings > Soundy.
 * Added Audio Volume Control for authors in Edit Page and Edit Post Soundy meta box.
-* Made Admin User Interface mor responsive and more user friendly.
+* Made Admin User Interface more responsive and more user friendly.
 
 = 1.1 =
 * Corrected a few minor bugs
