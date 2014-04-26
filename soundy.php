@@ -184,17 +184,12 @@ class WarSoundy
 	{
 		add_option( 'war_soundy_type',               $this->soundy_type ); 
 		add_option( 'war_soundy_version',            $this->soundy_version ); 
-		add_option( 'war_soundy_enable_bg_sound',    $this->enable_bg_sound ); 
-		add_option( 'war_soundy_audio_file_url',     $this->audio_url ); 
+		add_option( 'war_soundy_enable_bg_sound',    $this->enable_bg_sound );
 		add_option( 'war_soundy_audio_volume',       $this->audio_volume ); 
 		add_option( 'war_soundy_audio_title',        $this->audio_title ); 
 		add_option( 'war_soundy_autoplay',           $this->autoplay ); 
 		add_option( 'war_soundy_loop',               $this->loop ); 
 		add_option( 'war_soundy_pp_images_to_use',   $this->pp_images_to_use ); 
-		add_option( 'war_soundy_url_play_button',    $this->play_button_url ); 
-		add_option( 'war_soundy_url_play_hover',     $this->play_hover_url ); 
-		add_option( 'war_soundy_url_pause_button',   $this->pause_button_url ); 
-		add_option( 'war_soundy_url_pause_hover',    $this->pause_hover_url ); 
 		add_option( 'war_soundy_pp_position',        $this->pp_position ); 
 		add_option( 'war_soundy_pp_corner',          $this->pp_corner ); 
 		add_option( 'war_soundy_offset_x',           $this->offset_x ); 
@@ -202,6 +197,27 @@ class WarSoundy
 		add_option( 'war_soundy_offset_y',           $this->offset_y ); 
 		add_option( 'war_soundy_offset_y_unit',      $this->offset_y_unit ); 
 		add_option( 'war_soundy_page_preview_url', 	 $this->page_preview_url );
+		
+		if( ! get_option( 'war_soundy_audio_file_url' ) )
+		{ 
+			update_option( 'war_soundy_audio_file_url', $this->audio_url );
+		} 
+		if( ! get_option( 'war_soundy_url_play_button' ) )
+		{ 
+			update_option( 'war_soundy_url_play_button', $this->play_button_url );
+		} 
+		if( ! get_option( 'war_soundy_url_play_hover' ) )
+		{ 
+			update_option( 'war_soundy_url_play_hover', $this->play_hover_url );
+		} 
+		if( ! get_option( 'war_soundy_url_pause_button' ) )
+		{ 
+			update_option( 'war_soundy_url_pause_button', $this->pause_button_url );
+		} 
+		if( ! get_option( 'war_soundy_url_pause_hover' ) )
+		{ 
+			update_option( 'war_soundy_url_pause_hover', $this->pause_hover_url );
+		} 
 		add_option( 'war_soundy_has_been_activated', true );
 	}
 	
