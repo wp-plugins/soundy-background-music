@@ -125,55 +125,58 @@ class WarSoundy
 			add_shortcode( 'soundy', array( $this, 'soundy_shortcode' ) );
 		}
 		
-		$soundy_type    = get_option( 'war_soundy_type' );
-		$soundy_version = get_option( 'war_soundy_version' );
-		if( ( $soundy_type != $this->soundy_type ) || ( $soundy_version != $this->soundy_version ) )
+		if( get_option( 'war_soundy_has_been_activated' ) )
 		{
-			update_option( 'war_soundy_version', $this->soundy_version );
-			
-			$volume = get_option( 'war_soundy_audio_volume' );
-			if( $volume == '' )
+			$soundy_type    = get_option( 'war_soundy_type' );
+			$soundy_version = get_option( 'war_soundy_version' );
+			if( ( $soundy_type != $this->soundy_type ) || ( $soundy_version != $this->soundy_version ) )
 			{
-				update_option( 'war_soundy_audio_volume', $this->audio_volume );
-			}
-
-			$display_play_pause = get_option( 'war_soundy_display_play_pause' );
-			delete_option( 'war_soundy_display_play_pause' );
-			$pp_images_to_use = get_option( 'war_soundy_pp_images_to_use' );
-			if( ! $pp_images_to_use )
-			{
-				if( $display_play_pause == 'yes' || $display_play_pause == '' )
-				{
-					update_option( 'war_soundy_pp_images_to_use', 'default');
-				}
-				else if( $display_play_pause == 'no' )
-				{
-					update_option( 'war_soundy_pp_images_to_use', 'none' );
-				}
-				else
-				{
-					update_option( 'war_soundy_pp_images_to_use', 'default');
-				}
-			}
-
-			$image_play_normal  = get_option( 'war_soundy_url_play_button' );
-			$image_play_hover   = get_option( 'war_soundy_url_play_hover' );
-			$image_pause_normal = get_option( 'war_soundy_url_pause_button' );
-			$image_pause_hover  = get_option( 'war_soundy_url_pause_hover' );
+				update_option( 'war_soundy_version', $this->soundy_version );
 				
-			$image_play_normal  = str_replace( 'soundy-music-pro', 'soundy-background-music', $image_play_normal );
-			$image_play_hover   = str_replace( 'soundy-music-pro', 'soundy-background-music', $image_play_hover );
-			$image_pause_normal = str_replace( 'soundy-music-pro', 'soundy-background-music', $image_pause_normal );
-			$image_pause_hover  = str_replace( 'soundy-music-pro', 'soundy-background-music', $image_pause_hover );
-			
-			update_option( 'war_soundy_url_play_button',  $image_play_normal );
-			update_option( 'war_soundy_url_play_hover',   $image_play_hover );
-			update_option( 'war_soundy_url_pause_button', $image_pause_normal );
-			update_option( 'war_soundy_url_pause_hover',  $image_pause_hover );
-
-			$audio_url  = get_option( 'war_soundy_audio_file_url' );
-			$audio_url  = str_replace( 'soundy-music-pro', 'soundy-background-music', $audio_url );
-			update_option( 'war_soundy_audio_file_url', $audio_url );
+				$volume = get_option( 'war_soundy_audio_volume' );
+				if( $volume == '' )
+				{
+					update_option( 'war_soundy_audio_volume', $this->audio_volume );
+				}
+	
+				$display_play_pause = get_option( 'war_soundy_display_play_pause' );
+				delete_option( 'war_soundy_display_play_pause' );
+				$pp_images_to_use = get_option( 'war_soundy_pp_images_to_use' );
+				if( ! $pp_images_to_use )
+				{
+					if( $display_play_pause == 'yes' || $display_play_pause == '' )
+					{
+						update_option( 'war_soundy_pp_images_to_use', 'default');
+					}
+					else if( $display_play_pause == 'no' )
+					{
+						update_option( 'war_soundy_pp_images_to_use', 'none' );
+					}
+					else
+					{
+						update_option( 'war_soundy_pp_images_to_use', 'default');
+					}
+				}
+	
+				$image_play_normal  = get_option( 'war_soundy_url_play_button' );
+				$image_play_hover   = get_option( 'war_soundy_url_play_hover' );
+				$image_pause_normal = get_option( 'war_soundy_url_pause_button' );
+				$image_pause_hover  = get_option( 'war_soundy_url_pause_hover' );
+					
+				$image_play_normal  = str_replace( 'soundy-music-pro', 'soundy-background-music', $image_play_normal );
+				$image_play_hover   = str_replace( 'soundy-music-pro', 'soundy-background-music', $image_play_hover );
+				$image_pause_normal = str_replace( 'soundy-music-pro', 'soundy-background-music', $image_pause_normal );
+				$image_pause_hover  = str_replace( 'soundy-music-pro', 'soundy-background-music', $image_pause_hover );
+				
+				update_option( 'war_soundy_url_play_button',  $image_play_normal );
+				update_option( 'war_soundy_url_play_hover',   $image_play_hover );
+				update_option( 'war_soundy_url_pause_button', $image_pause_normal );
+				update_option( 'war_soundy_url_pause_hover',  $image_pause_hover );
+	
+				$audio_url  = get_option( 'war_soundy_audio_file_url' );
+				$audio_url  = str_replace( 'soundy-music-pro', 'soundy-background-music', $audio_url );
+				update_option( 'war_soundy_audio_file_url', $audio_url );
+			}
 		}
 	}  
 
@@ -199,6 +202,7 @@ class WarSoundy
 		add_option( 'war_soundy_offset_y',           $this->offset_y ); 
 		add_option( 'war_soundy_offset_y_unit',      $this->offset_y_unit ); 
 		add_option( 'war_soundy_page_preview_url', 	 $this->page_preview_url );
+		add_option( 'war_soundy_has_been_activated', true );
 	}
 	
 	public function deactivate() 
