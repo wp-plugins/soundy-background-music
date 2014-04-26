@@ -36,7 +36,7 @@ class WarSoundy
 	private $soundy_free_home_wp_url          = 'http://wordpress.org/plugins/soundy-background-music/';
 	private $soundy_pro_home_url              = 'http://webartisan.ch/en/products/soundy-pro/';
 	private $disable_soundy_for_mobile        = false;
-	private $use_own_jquery_lib_on_front_end  = true;
+	private $use_own_jquery_lib_on_front_end  = false;
 	private $enable_bg_sound                  = 'no';
 	private $audio_url                        = '/audio/valse.mp3';
 	private $audio_volume                     = '80';
