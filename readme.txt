@@ -3,7 +3,7 @@ Contributors: bducouedic
 Tags: audio, sound, music, background, soundtrack, background sound, background audio, background music, posts, pages
 Requires at least: 3.6
 Tested up to: 3.9
-Stable tag: 2.1
+Stable tag: 2.2
 License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: http://www.webartisan.ch/en/products/soundy-free/#wa_donate
@@ -88,7 +88,7 @@ You can find [Tutorial](http://www.webartisan.ch/en/products/soundy-free/#wa_tut
 
 == Frequently Asked Questions ==
 
-= Frequently Asked Questions =
+= General Questions =
 
 1. **Why is Soundy Background Music a Must on my WordPress Website ?**  
 Having a home page or any other page playing a background music greatly improves your website visitor's experience. By choosing a music in adequacy with your content, Soundy will help making your visitors immersed in your pages. Pages with a slideshow are excellent candidates for Soundy. But a lot of other page types too.
@@ -114,20 +114,6 @@ Yes, you can upload and set up your own button images.
 1. **Can I really put my audio files anywhere on the web ?**  
 Yes, you can put your audio files anywhere on any cloud or website, except one place: you should not put your audio files in the soundy-background-music plugin directory (or below). If you do, you will loose your files the next time you will install a new version of Soundy. The update process deletes this folder and replaces it with a new one. If you want to store the audio files on your WordPress site, the best place to do so is the media library (/wp-content/uploads/...).
 
-1. **After an update of Soundy, my soundtracks are not played anymore and my custom Play/Pause button images are broken. What happened ?**  
-As mentioned in the previous paragraph, the reason might be that you had uploaded your audio files and button images under the soundy-background-music plugin directory. This directory is erased and replaced at each update. Do not add any file in it. Again, the prefered location for such files is the WordPress media library.
-
-1. **How should I proceed to enable Soundy Background Music only for a few pages or posts ?**  
-Go into Soundy's settings page (Settings > Soundy) and uncheck the checkbox “Enable Background Sound”. It actually is unchecked per default. This way Soundy won’t be enabled per default on your site. Then for each page or post in which you want to enable Soundy, go into the Edit Page admin tool and set the “Enable Background Sound” option to “Yes” by checking the corresponding radio button.
-
-1. **I've changed the default soundtrack in the Soundy administration (Settings > Soundy) with a new sountrack but a page carries on playing the old soundtrack. What's happening ?**  
-While the old soundtrack was active an author did change the Soundtrack option to *Custom* in the Edit Page Soundy meta box.  
-To correct the problem, reset the Soundtrack option of the Soundy meta box back to *Default* and update the page.
-In *Custom* mode a page retains the soundtrack defined when the *Custom* option was selected. In *Default* mode, the page uses the default soundtrack currently defined in the Soundy settings.
-
-1. **Is it advised to put my audio files on a separate storage cloud ?**  
-Yes it is, especially if you have a lot of traffic on your website. Putting your audio files on a separate storage cloud will release the load on your website and improve page load response time in your visitor's browsers. There is a lot of Cloud Storage Providers out there like Dropbox, Google Drive, SkyDrive and many others. Your hosting provider might also offer cloud storage.
-
 1. **Does Soundy allow having a continuous uninterrupted audio stream playing while navigating on my site ?**  
 Because most of the WP themes create and download a new HTML document in your browser each time you navigate to another WP post or page, the answer is NO for such themes.  
 However there could be themes which don't download a new HTML document when you switch to another WP post or page. They would rather use Ajax to download the WP post/page in the content area of the downloaded unique main site HTML document.
@@ -138,13 +124,25 @@ Having a continuous uninterrupted audio stream playing while navigating on a WP 
 Here, at [WebArtisan.ch](http://www.webartisan.ch/), we are considering developing a theme which will allow this valuable feature. This will be the Soundy Theme.  
 If you know of other themes like the Crea WP theme which don't download new HTML documents while navigating on the site, please, let us know !
 
+= Support Questions =
+
+1. **How should I proceed to enable Soundy Background Music only for a few pages or posts ?**  
+Go into Soundy's settings page (Settings > Soundy) and uncheck the checkbox “Enable Background Sound”. It actually is unchecked per default. This way Soundy won’t be enabled per default on your site. Then for each page or post in which you want to enable Soundy, go into the Edit Page admin tool and set the “Enable Background Sound” option to “Yes” by checking the corresponding radio button.
+
+1. **After an update of Soundy, my soundtracks are not played anymore and my custom Play/Pause button images are broken. What happened ?**  
+As mentioned in the previous paragraph, the reason might be that you had uploaded your audio files and button images under the soundy-background-music plugin directory. This directory is erased and replaced at each update. Do not add any file in it. Again, the prefered location for such files is the WordPress media library.
+
+1. **I've changed the default soundtrack in the Soundy administration (Settings > Soundy) with a new sountrack but a page carries on playing the old soundtrack. What's happening ?**  
+While the old soundtrack was active an author did change the Soundtrack option to *Custom* in the Edit Page Soundy meta box.  
+To correct the problem, reset the Soundtrack option of the Soundy meta box back to *Default* and update the page.
+In *Custom* mode a page retains the soundtrack defined when the *Custom* option was selected. In *Default* mode, the page uses the default soundtrack currently defined in the Soundy settings.
+
+1. **Is it advised to put my audio files on a separate storage cloud ?**  
+Yes it is, especially if you have a lot of traffic on your website. Putting your audio files on a separate storage cloud will release the load on your website and improve page load response time in your visitor's browsers. There is a lot of Cloud Storage Providers out there like Dropbox, Google Drive, SkyDrive and many others. Your hosting provider might also offer cloud storage.
+
 1. **On WP front-end, Soundy's Play/Pause button does not respond correctly. What's the problem ?**  
 Soundy needs jQuery 1.10.2 which is the default jQuery library of the last versions of WordPress. However some themes load their own jQuery library. If this library is not up-to-date, Soundy's Play/Pause button gets into troubles.  
-Using WordPress Default jQuery library is actually what Soundy does with the following statement in soundy.php:  
-`wp_register_script( 'soundy-front-end', $this->plugin_url . '/js/front-end.js', array( 'jquery' ) );  
-wp_enqueue_script( 'soundy-front-end' );` 
-array( ‘jquery’) is an argument to wp_register_script saying that front-end.js depends on WordPress default jQuery library.  
-And this is what your theme also should do instead of loading its own old jQuery version.
+Using WordPress Default jQuery library is actually what Soundy does and this is what your theme also should do instead of loading its own old jQuery version. In Soundy Version 2.0 and later, you can now set the variable $use_own_jquery_lib_on_front_end to true in the main Soundy PHP file: soundy.php. To make this modification, go to the plugins page, click on the Edit link of the Soundy plugin, look for the variable and set it to true. This should fix the problem.
 
 == Screenshots ==
 

@@ -1,13 +1,13 @@
 <?php
 /**
  * @package Soundy_Background_Music
- * @version 2.1
+ * @version 2.2
  */
 /*
 Plugin Name: Soundy Background Music
 Plugin URI: http://webartisan.ch/en/products/soundy-free/
 Description: This plugin allows administrators and authors to set a background sound on any post or page.
-Version: 2.1
+Version: 2.2
 Author: Bertrand du Couédic
 Author URI: http://webartisan.ch/en/about
 License: GPL2
@@ -30,13 +30,13 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 class WarSoundy 
 {
-	private $soundy_version                   = '2.1';
+	private $soundy_version                   = '2.2';
 	private $soundy_type                      = 'free';
 	private $soundy_subtype                   = '';
 	private $soundy_free_home_wp_url          = 'http://wordpress.org/plugins/soundy-background-music/';
 	private $soundy_pro_home_url              = 'http://webartisan.ch/en/products/soundy-pro/';
 	private $disable_soundy_for_mobile        = false;
-	private $use_own_jquery_lib_on_front_end  = true;
+	private $use_own_jquery_lib_on_front_end  = false;
 	private $enable_bg_sound                  = 'no';
 	private $audio_url                        = '/audio/valse.mp3';
 	private $audio_volume                     = '80';
@@ -95,7 +95,7 @@ class WarSoundy
 			add_action( 'admin_menu', array( $this, 'add_plugin_settings_menu' ) );
 			add_action( 'admin_init', array( $this, 'register_settings' ) ); 
 			
-			add_filter( 'plugin_action_links', array( $this, 'add_settings_link_to_plugins_page_soundy_entry' ) );
+			add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'add_settings_link_to_plugins_page_soundy_entry' ) );
 			if( $this->soundy_type == 'free' || $this->soundy_subtype == 'trial' )
 			{
 				add_filter( 'plugin_row_meta', array( $this, 'add_pro_buy_link_to_plugins_page_soundy_entry' ), 10, 2 );
@@ -184,17 +184,12 @@ class WarSoundy
 	{
 		add_option( 'war_soundy_type',               $this->soundy_type ); 
 		add_option( 'war_soundy_version',            $this->soundy_version ); 
-		add_option( 'war_soundy_enable_bg_sound',    $this->enable_bg_sound ); 
-		add_option( 'war_soundy_audio_file_url',     $this->audio_url ); 
+		add_option( 'war_soundy_enable_bg_sound',    $this->enable_bg_sound );
 		add_option( 'war_soundy_audio_volume',       $this->audio_volume ); 
 		add_option( 'war_soundy_audio_title',        $this->audio_title ); 
 		add_option( 'war_soundy_autoplay',           $this->autoplay ); 
 		add_option( 'war_soundy_loop',               $this->loop ); 
 		add_option( 'war_soundy_pp_images_to_use',   $this->pp_images_to_use ); 
-		add_option( 'war_soundy_url_play_button',    $this->play_button_url ); 
-		add_option( 'war_soundy_url_play_hover',     $this->play_hover_url ); 
-		add_option( 'war_soundy_url_pause_button',   $this->pause_button_url ); 
-		add_option( 'war_soundy_url_pause_hover',    $this->pause_hover_url ); 
 		add_option( 'war_soundy_pp_position',        $this->pp_position ); 
 		add_option( 'war_soundy_pp_corner',          $this->pp_corner ); 
 		add_option( 'war_soundy_offset_x',           $this->offset_x ); 
@@ -202,6 +197,27 @@ class WarSoundy
 		add_option( 'war_soundy_offset_y',           $this->offset_y ); 
 		add_option( 'war_soundy_offset_y_unit',      $this->offset_y_unit ); 
 		add_option( 'war_soundy_page_preview_url', 	 $this->page_preview_url );
+		
+		if( ! get_option( 'war_soundy_audio_file_url' ) )
+		{ 
+			update_option( 'war_soundy_audio_file_url', $this->audio_url );
+		} 
+		if( ! get_option( 'war_soundy_url_play_button' ) )
+		{ 
+			update_option( 'war_soundy_url_play_button', $this->play_button_url );
+		} 
+		if( ! get_option( 'war_soundy_url_play_hover' ) )
+		{ 
+			update_option( 'war_soundy_url_play_hover', $this->play_hover_url );
+		} 
+		if( ! get_option( 'war_soundy_url_pause_button' ) )
+		{ 
+			update_option( 'war_soundy_url_pause_button', $this->pause_button_url );
+		} 
+		if( ! get_option( 'war_soundy_url_pause_hover' ) )
+		{ 
+			update_option( 'war_soundy_url_pause_hover', $this->pause_hover_url );
+		} 
 		add_option( 'war_soundy_has_been_activated', true );
 	}
 	
