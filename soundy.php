@@ -95,7 +95,7 @@ class WarSoundy
 			add_action( 'admin_menu', array( $this, 'add_plugin_settings_menu' ) );
 			add_action( 'admin_init', array( $this, 'register_settings' ) ); 
 			
-			add_filter( 'plugin_action_links', array( $this, 'add_settings_link_to_plugins_page_soundy_entry' ) );
+			add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'add_settings_link_to_plugins_page_soundy_entry' ) );
 			if( $this->soundy_type == 'free' || $this->soundy_subtype == 'trial' )
 			{
 				add_filter( 'plugin_row_meta', array( $this, 'add_pro_buy_link_to_plugins_page_soundy_entry' ), 10, 2 );
