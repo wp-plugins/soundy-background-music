@@ -77,6 +77,7 @@ war_SoundyAdmin.prototype.initSettingsTabs = function( args )
 	_this.initPlayPausePosition();
 	_this.initLengthUnits();
 	_this.initImgPreviewInContextPosition();
+	_this.initSubmit();
 }
 
 war_SoundyAdmin.prototype.initMetaBox = function( args )
@@ -669,5 +670,19 @@ war_SoundyAdmin.prototype.initPlayPauseImagesToUse = function()
 	jQuery( 'input[name=war_soundy_pp_images_to_use]' ).change( function()
 	{
 		_this.pp_images_to_use = jQuery( 'input[name=war_soundy_pp_images_to_use]:checked' ).val();
+	} );
+}
+
+war_SoundyAdmin.prototype.initSubmit = function()
+{
+	var _this = this;
+	
+	var spinner = new Image( 20, 20 );
+	spinner.src = _this.plugin_url  + '/images/spinner.gif';
+	
+	var jquery_submit = jQuery( '#submit' );
+	jquery_submit.click( function()
+	{
+		jQuery( 'p.submit' ).append( ' &nbsp;&nbsp; <img src="' + spinner.src  + '" style="vertical-align: middle;">' );
 	} );
 }
