@@ -158,8 +158,11 @@ Using WordPress Default jQuery library is actually what Soundy does and this is 
 
 = Changelog =
 
+= 2.2 &nbsp;&nbsp; - &nbsp;&nbsp; May 4th, 2014 =
+* Fixed bug introduced in 2.0: in the admin plugins page, all plugins had a Settings link pointing to Soundy's settings because of a bug in soundy.php. Sorry for the inconvenience.
+
 = 2.1 &nbsp;&nbsp; - &nbsp;&nbsp; April 26th, 2014 =
-* Corrected major bug introduced in 2.0: when Soundy was installed for the first time: the default audio file URL and the default four play/pause button image URLs were undefined. Sorry for the inconvenience.
+* Corrected major bug introduced in 2.0: when Soundy was installed for the first time: the default audio file URL and the default four play/pause button image URLs were undefined.
 
 = 2.0 &nbsp;&nbsp; - &nbsp;&nbsp; April 23rd, 2014 =
 * Object Oriented Redesign of the whole plugin.
