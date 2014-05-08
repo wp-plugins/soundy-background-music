@@ -27,6 +27,12 @@ button.war_soundy
 	vertical-align: middle !important;
 }
 
+input[type=button].war_soundy:hover,
+button.war_soundy:hover 
+{
+	background-color: #1e8cbe !important;
+}
+
 button.war_soundy_button_media_library_pp_button
 {
 	height: 30px !important;
@@ -39,6 +45,11 @@ button.war_soundy_button_media_library_pp_button
 	cursor: pointer !important;
 	vertical-align: top !important;
 	margin-right: 10px !important;
+}
+
+button.war_soundy_button_media_library_pp_button:hover
+{
+	background-color: #1e8cbe !important;
 }
 
 a.war_soundy_hit_link
@@ -80,6 +91,25 @@ table.war_soundy_no_border td
 	border: 0px solid red !important;
 	margin: 0 !important;
 	padding: 0 !important;
+}
+
+.war_soundy_slider
+{
+	width: 300px; 
+	display: inline-block; 
+	margin-right: 10px;
+}
+
+.war_soundy_slider .ui-slider-handle
+{
+	background: #2eaecc !important;
+	border-color: #0074a2 !important;
+}
+
+.war_soundy_slider .ui-slider-handle:hover
+{
+	background: #1e8cbe !important;
+	border-color: #0074a2 !important;
 }
 
 .war_soundy_txt_input 

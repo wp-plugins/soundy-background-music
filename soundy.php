@@ -752,7 +752,8 @@ class WarSoundy
 	public function add_settings_field_audio_volume( $args )
 	{
 		?>
-		<div id="war_soundy_audio_volume_slider" style="width: 300px; display: inline-block; margin-right: 10px;"></div>
+		<div id="war_soundy_audio_volume_slider" 
+		     class="war_soundy_slider"></div>
 		<input type="text"
 					 class="war_soundy_audio_volume"
 		       value="<?php echo get_option( 'war_soundy_audio_volume' ); ?>"

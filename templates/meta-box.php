@@ -59,7 +59,8 @@ var war_soundy_admin = new war_SoundyAdmin(
 						 value="custom" <?php echo ( $audio_volume_is_default ? '' : 'checked' ); ?>/>
 			<label for="war_soundy_audio_volume_custom" style="margin-right: 1em;">Custom</label>
 		</div>
-		<div id="war_soundy_audio_volume_slider" style="width: 300px; display: inline-block; margin: 0 10px 0 0;"></div>
+		<div id="war_soundy_audio_volume_slider" 
+		     class="war_soundy_slider"></div>
 		<input type="text"
 					 class="war_soundy_audio_volume"
 		       value="<?php echo $audio_volume; ?>"
