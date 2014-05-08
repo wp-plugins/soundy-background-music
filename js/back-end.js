@@ -30,6 +30,7 @@ war_SoundyAdmin.prototype.initSettingsTabs = function( args )
 	_this.is_pro                    = args.is_pro;
 	_this.is_trial                  = args.is_trial;
 	_this.soundy_pro_home_url       = args.soundy_pro_home_url;
+	_this.plugin_url                = args.plugin_url;
 
     if( ! sessionStorage.getItem( 'war_soundy_tab_index' ) )  
       sessionStorage.setItem( 'war_soundy_tab_index', 0 ); 

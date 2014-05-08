@@ -28,6 +28,7 @@
 				default_audio_volume:      '<?php echo $this->audio_volume; ?>',
 				is_pro:                     <?php echo $is_pro; ?>,
 				is_trial:                   <?php echo $is_trial; ?>,
+				plugin_url:                '<?php echo $this->plugin_url; ?>',
 				soundy_pro_home_url:       '<?php echo $this->soundy_pro_home_url; ?>'
 			} );
 	</script>
