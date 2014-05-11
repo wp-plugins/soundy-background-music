@@ -3,7 +3,7 @@ Contributors: bducouedic
 Tags: audio, sound, music, background, soundtrack, background sound, background audio, background music, posts, pages
 Requires at least: 3.6
 Tested up to: 3.9
-Stable tag: 2.2
+Stable tag: 2.3
 License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: http://www.webartisan.ch/en/products/soundy-free/#wa_donate
@@ -158,6 +158,9 @@ Using WordPress Default jQuery library is actually what Soundy does and this is 
 
 = Changelog =
 
+= 2.3 &nbsp;&nbsp; - &nbsp;&nbsp; May 11th, 2014 =
+* Made admin user interface a little bit more attractive. No functionality change.
+
 = 2.2 &nbsp;&nbsp; - &nbsp;&nbsp; May 4th, 2014 =
 * Fixed bug introduced in 2.0: in the admin plugins page, all plugins had a Settings link pointing to Soundy's settings because of a bug in soundy.php. Sorry for the inconvenience.
 
@@ -186,6 +189,9 @@ Using WordPress Default jQuery library is actually what Soundy does and this is 
 * First Release
 
 == Upgrade Notice ==
+
+= 2.3 =
+* After having upgraded Soundy to 2.3, please clear the cache of Soundy's admin pages in your browser. The reason is that a few CSS and Javascript files have been modified and these files are typically cached by browsers.
 
 = 2.0 =
 * **IMPORTANT**: After having upgraded Soundy to 2.0, please clear your browser's cache. The reason is that a few CSS and Javascript files have been modified or deleted and these files are typically cached by browsers.
