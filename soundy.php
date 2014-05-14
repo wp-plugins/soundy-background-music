@@ -40,7 +40,7 @@ class WarSoundy
 	private $enable_bg_sound                  = 'no';
 	private $audio_url                        = '/audio/valse.mp3';
 	private $audio_volume                     = '80';
-	private $audio_title                      = 'Valse - Anonymous (1870)';
+	private $audio_title                      = 'Valse - Anonymous (1870) - played by Jean-Maurice Mourat';
 	private $autoplay                         = 'yes';
 	private $loop                             = 'yes';
 	private $pp_images_to_use                 = 'default';
