@@ -1,13 +1,13 @@
 <?php
 /**
  * @package Soundy_Background_Music
- * @version 2.3
+ * @version 2.4
  */
 /*
 Plugin Name: Soundy Background Music
-Plugin URI: http://webartisan.ch/en/products/soundy-free/
+Plugin URI: http://www.webartisan.ch/en/products/soundy-background-music/free-wordpress-plugin/
 Description: This plugin allows administrators and authors to set a background sound on any post or page.
-Version: 2.3
+Version: 2.4
 Author: Bertrand du Couédic
 Author URI: http://webartisan.ch/en/about
 License: GPL2
@@ -30,48 +30,47 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 class WarSoundy 
 {
-	private $soundy_version                   = '2.3';
-	private $soundy_type                      = 'free';
-	private $soundy_subtype                   = '';
-	private $soundy_free_home_wp_url          = 'http://wordpress.org/plugins/soundy-background-music/';
-	private $soundy_pro_home_url              = 'http://webartisan.ch/en/products/soundy-pro/';
-	private $disable_soundy_for_mobile        = false;
-	private $use_own_jquery_lib_on_front_end  = false;
-	private $enable_bg_sound                  = 'no';
-	private $audio_url                        = '/audio/valse.mp3';
-	private $audio_volume                     = '80';
-	private $audio_title                      = 'Waltz - Anonymous (1870) - played by Jean-Maurice Mourat';
-	private $autoplay                         = 'yes';
-	private $loop                             = 'yes';
-	private $pp_images_to_use                 = 'default';
-	private $pp_position                      = 'window';
-	private $pp_corner                        = 'upper_right';
-	private $offset_x                         = 35;
-	private $offset_x_unit                    = 'px';
-	private $offset_y                         = 35;
-	private $offset_y_unit                    = 'px';
-	private $play_button_url                  = '/images/buttons/48x48/play-square-grey.png';
-	private $play_hover_url                   = '/images/buttons/48x48/play-square-blue.png';
-	private $pause_button_url                 = '/images/buttons/48x48/pause-square-grey.png';
-	private $pause_hover_url                  = '/images/buttons/48x48/pause-square-blue.png';
-	private $button_dimensions                = '48x48';
-	private $page_preview_url                 = '';
-	private $pp_design; // WarSoundyPlayPauseDesign Object
-	private $user_agent_is_mobile;
-	private $post_id;
+	public $soundy_type                      = 'free';
+	public $soundy_version                   = '2.4';
+	public $soundy_free_wp_home_url          = 'http://wordpress.org/plugins/soundy-background-music/';
+    public $sdy_pl_free_wp_home_url          = 'http://wordpress.org/plugins/soundy-audio-playlist/';
+	public $soundy_pro_home_url              = 'http://webartisan.ch/products/soundy-background-music/pro-wordpress-plugin/';
+	public $disable_soundy_for_mobile        = false;
+	public $enable_bg_sound                  = 'no';
+	public $audio_url                        = '/audio/valse.mp3';
+    public $audio_type                       = 'audio/mpeg';
+	public $audio_volume                     = '80';
+	public $audio_title                      = 'Valse - Anonymous (1870)';
+	public $autoplay                         = 'yes';
+	public $loop                             = 'yes';
+    public $pp_corner_enable                 = 'yes';
+    public $pp_position                      = 'window';
+	public $pp_corner                        = 'upper_right';
+	public $offset_x                         = 35;
+	public $offset_x_unit                    = 'px';
+	public $offset_y                         = 35;
+	public $offset_y_unit                    = 'px';
+	public $play_button_url                  = '/images/buttons/48x48/play-square-grey.png';
+	public $play_hover_url                   = '/images/buttons/48x48/play-square-blue.png';
+	public $pause_button_url                 = '/images/buttons/48x48/pause-square-grey.png';
+	public $pause_hover_url                  = '/images/buttons/48x48/pause-square-blue.png';
+	public $button_dimensions                = '48x48';
+	public $page_preview_url                 = '';
+	public $user_agent_is_mobile;
+	public $post_id;
 	
 	public  $plugin_name;
 	public  $plugin_url;
 	public  $plugin_path;
 	public  $plugin_path_file = __FILE__;
 
-	private	$units = array( 
-				               		'px' => '(pixels)', 
-				                	'%'  => '(percentage)', 
-				                	'in' => '(inches)',
-				                	'mm' => '(millimeters)',
-				                	'cm' => '(centimeters)'
-				                );
+    public $units_length = array(
+        'px' => 'px',
+        '%'  => '%',
+        'in' => 'in',
+        'mm' => 'mm',
+        'cm' => 'cm'
+    );
 
 	public function __construct()  
 	{
@@ -89,18 +88,15 @@ class WarSoundy
 
 		if( is_admin() )
 		{
-			register_activation_hook( __FILE__, array( $this, 'activate' ) ); 
+			register_activation_hook( __FILE__, array( $this, 'activate' ) );
 			register_deactivation_hook( __FILE__, array( $this, 'deactivate' ) );
 	
 			add_action( 'admin_menu', array( $this, 'add_plugin_settings_menu' ) );
 			add_action( 'admin_init', array( $this, 'register_settings' ) ); 
 			
 			add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'add_settings_link_to_plugins_page_soundy_entry' ) );
-			if( $this->soundy_type == 'free' || $this->soundy_subtype == 'trial' )
-			{
-				add_filter( 'plugin_row_meta', array( $this, 'add_pro_buy_link_to_plugins_page_soundy_entry' ), 10, 2 );
-			}
-			
+			add_filter( 'plugin_row_meta', array( $this, 'add_pro_buy_link_to_plugins_page_soundy_entry' ), 10, 2 );
+
 			$uri = $_SERVER[ 'REQUEST_URI' ];
 			$is_edit_post =  ( strpos( $uri, '/wp-admin/post.php' ) == 0 ) ||
 		      						 ( strpos( $uri, '/wp-admin/post-new.php' ) == 0 );
@@ -120,77 +116,54 @@ class WarSoundy
 		}
 		else
 		{
-			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts_front_end' ) );
-			add_action( 'wp_head', array( $this, 'insert_audio' ) );
-			add_shortcode( 'soundy', array( $this, 'soundy_shortcode' ) );
+            include( sprintf( "%s/templates/front-end.php", dirname( __FILE__ ) ) );
+            $this->front_end = new WarSoundyFrontEnd( $this );
 		}
-		
-		if( get_option( 'war_soundy_has_been_activated' ) )
-		{
-			$soundy_type    = get_option( 'war_soundy_type' );
-			$soundy_version = get_option( 'war_soundy_version' );
-			if( ( $soundy_type != $this->soundy_type ) || ( $soundy_version != $this->soundy_version ) )
-			{
-				update_option( 'war_soundy_version', $this->soundy_version );
-				
-				$volume = get_option( 'war_soundy_audio_volume' );
-				if( $volume == '' )
-				{
-					update_option( 'war_soundy_audio_volume', $this->audio_volume );
-				}
-	
-				$display_play_pause = get_option( 'war_soundy_display_play_pause' );
-				delete_option( 'war_soundy_display_play_pause' );
-				$pp_images_to_use = get_option( 'war_soundy_pp_images_to_use' );
-				if( ! $pp_images_to_use )
-				{
-					if( $display_play_pause == 'yes' || $display_play_pause == '' )
-					{
-						update_option( 'war_soundy_pp_images_to_use', 'default');
-					}
-					else if( $display_play_pause == 'no' )
-					{
-						update_option( 'war_soundy_pp_images_to_use', 'none' );
-					}
-					else
-					{
-						update_option( 'war_soundy_pp_images_to_use', 'default');
-					}
-				}
-	
-				$image_play_normal  = get_option( 'war_soundy_url_play_button' );
-				$image_play_hover   = get_option( 'war_soundy_url_play_hover' );
-				$image_pause_normal = get_option( 'war_soundy_url_pause_button' );
-				$image_pause_hover  = get_option( 'war_soundy_url_pause_hover' );
-					
-				$image_play_normal  = str_replace( 'soundy-music-pro', 'soundy-background-music', $image_play_normal );
-				$image_play_hover   = str_replace( 'soundy-music-pro', 'soundy-background-music', $image_play_hover );
-				$image_pause_normal = str_replace( 'soundy-music-pro', 'soundy-background-music', $image_pause_normal );
-				$image_pause_hover  = str_replace( 'soundy-music-pro', 'soundy-background-music', $image_pause_hover );
-				
-				update_option( 'war_soundy_url_play_button',  $image_play_normal );
-				update_option( 'war_soundy_url_play_hover',   $image_play_hover );
-				update_option( 'war_soundy_url_pause_button', $image_pause_normal );
-				update_option( 'war_soundy_url_pause_hover',  $image_pause_hover );
-	
-				$audio_url  = get_option( 'war_soundy_audio_file_url' );
-				$audio_url  = str_replace( 'soundy-music-pro', 'soundy-background-music', $audio_url );
-				update_option( 'war_soundy_audio_file_url', $audio_url );
-			}
-		}
-	}  
+
+        $soundy_version = get_option( 'war_soundy_version' );
+        if( $soundy_version != $this->soundy_version )
+        {
+            update_option( 'war_soundy_version', $this->soundy_version );
+
+            add_option( 'war_soundy_audio_type', $this->audio_type );
+
+            $volume = get_option( 'war_soundy_audio_volume' );
+            if( $volume == '' )
+            {
+                update_option( 'war_soundy_audio_volume', $this->audio_volume );
+            }
+
+            $pp_images_to_use = get_option( 'war_soundy_pp_images_to_use' );
+            if( $pp_images_to_use )
+            {
+                if( $pp_images_to_use == 'none' )
+                {
+                    update_option( 'war_soundy_enable_pp_corner', 'no' );
+                }
+                else
+                {
+                    update_option( 'war_soundy_enable_pp_corner', 'yes' );
+                }
+            }
+            else
+            {
+                update_option( 'war_soundy_enable_pp_corner', 'yes' );
+            }
+        }
+	}
 
 	public function activate() 
 	{
 		add_option( 'war_soundy_type',               $this->soundy_type ); 
 		add_option( 'war_soundy_version',            $this->soundy_version ); 
 		add_option( 'war_soundy_enable_bg_sound',    $this->enable_bg_sound );
-		add_option( 'war_soundy_audio_volume',       $this->audio_volume ); 
-		add_option( 'war_soundy_audio_title',        $this->audio_title ); 
+		add_option( 'war_soundy_audio_type',         $this->audio_type );
+        add_option( 'war_soundy_audio_volume',       $this->audio_volume );
+        add_option( 'war_soundy_audio_title',        $this->audio_title );
 		add_option( 'war_soundy_autoplay',           $this->autoplay ); 
 		add_option( 'war_soundy_loop',               $this->loop ); 
-		add_option( 'war_soundy_pp_images_to_use',   $this->pp_images_to_use ); 
-		add_option( 'war_soundy_pp_position',        $this->pp_position ); 
+        add_option( 'war_soundy_enable_pp_corner',   $this->pp_corner_enable );
+        add_option( 'war_soundy_pp_position',        $this->pp_position );
 		add_option( 'war_soundy_pp_corner',          $this->pp_corner ); 
 		add_option( 'war_soundy_offset_x',           $this->offset_x ); 
 		add_option( 'war_soundy_offset_x_unit',      $this->offset_x_unit ); 
@@ -217,8 +190,26 @@ class WarSoundy
 		if( ! get_option( 'war_soundy_url_pause_hover' ) )
 		{ 
 			update_option( 'war_soundy_url_pause_hover', $this->pause_hover_url );
-		} 
-		add_option( 'war_soundy_has_been_activated', true );
+		}
+
+        $image_play_normal  = get_option( 'war_soundy_url_play_button' );
+        $image_play_hover   = get_option( 'war_soundy_url_play_hover' );
+        $image_pause_normal = get_option( 'war_soundy_url_pause_button' );
+        $image_pause_hover  = get_option( 'war_soundy_url_pause_hover' );
+
+        $image_play_normal  = str_replace( 'soundy-music-pro', 'soundy-background-music', $image_play_normal );
+        $image_play_hover   = str_replace( 'soundy-music-pro', 'soundy-background-music', $image_play_hover );
+        $image_pause_normal = str_replace( 'soundy-music-pro', 'soundy-background-music', $image_pause_normal );
+        $image_pause_hover  = str_replace( 'soundy-music-pro', 'soundy-background-music', $image_pause_hover );
+
+        update_option( 'war_soundy_url_play_button',  $image_play_normal );
+        update_option( 'war_soundy_url_play_hover',   $image_play_hover );
+        update_option( 'war_soundy_url_pause_button', $image_pause_normal );
+        update_option( 'war_soundy_url_pause_hover',  $image_pause_hover );
+
+        $audio_url  = get_option( 'war_soundy_audio_file_url' );
+        $audio_url  = str_replace( 'soundy-music-pro', 'soundy-background-music', $audio_url );
+        update_option( 'war_soundy_audio_file_url', $audio_url );
 	}
 	
 	public function deactivate() 
@@ -227,7 +218,7 @@ class WarSoundy
 
 	public function add_plugin_settings_menu() 
 	{
-		$html_page_title = 'Soundy';
+		$html_page_title = 'Soundy Background Music';
 		$settings_entry_name = $html_page_title;
 		add_options_page( $html_page_title, $settings_entry_name, 'manage_options', 'soundy', array( $this, 'create_plugin_settings_page' ) ); 
 	}
@@ -251,28 +242,7 @@ class WarSoundy
 	
 	public function admin_scripts( $hook )
 	{
-		/*
-		wp_deregister_script( 'jquery' ); 
-		wp_deregister_script( 'jquery-ui-core' ); 
-		wp_deregister_script( 'jquery-ui-widget' ); 
-		wp_deregister_script( 'jquery-ui-mouse' ); 
-		wp_deregister_script( 'jquery-ui-tabs' ); 
-		wp_deregister_script( 'jquery-ui-slider' ); 
-
-		wp_register_script( 'jquery', 
-		                    $this->plugin_url . '/js/jquery-ui-1.10.4/jquery-1.10.2.js' );
-		wp_register_script( 'jquery-ui-core', 
-		                    $this->plugin_url . '/js/jquery-ui-1.10.4/jquery.ui.core.js' );
-		wp_register_script( 'jquery-ui-widget', 
-		                    $this->plugin_url . '/js/jquery-ui-1.10.4/jquery.ui.widget.js' );
-		wp_register_script( 'jquery-ui-mouse', 
-		                    $this->plugin_url . '/js/jquery-ui-1.10.4/jquery.ui.mouse.js' );
-		wp_register_script( 'jquery-ui-tabs', 
-		                    $this->plugin_url . '/js/jquery-ui-1.10.4/jquery.ui.tabs.js' );
-		wp_register_script( 'jquery-ui-slider', 
-		                    $this->plugin_url . '/js/jquery-ui-1.10.4/jquery.ui.slider.js' );
-		*/
-		
+		wp_register_script( 'soundy-jquery-form', $this->plugin_url . '/js/jquery.form.js' );
 		wp_register_script( 'soundy-back-end', $this->plugin_url . '/js/back-end.js', array( 'jquery', 'media-upload', 'thickbox' ) );
 		
 		wp_enqueue_script( 'jquery' );
@@ -282,6 +252,7 @@ class WarSoundy
 		wp_enqueue_script( 'jquery-ui-tabs' );
 		wp_enqueue_script( 'jquery-ui-slider' );
 
+		wp_enqueue_script( 'soundy-jquery-form' );
 		wp_enqueue_script( 'soundy-back-end' );
 		wp_enqueue_script( 'thickbox' );
 		wp_enqueue_script( 'button-upload' );
@@ -303,14 +274,7 @@ class WarSoundy
 	
 	public function enqueue_scripts_front_end( $hook )
 	{
-		if( $this->use_own_jquery_lib_on_front_end )
-		{
-			wp_deregister_script( 'jquery' );
-			wp_register_script( 'jquery', $this->plugin_url . '/js/jquery-ui-1.10.4/jquery-1.10.2.js' );
-			wp_enqueue_script( 'jquery' );
-		}
-		
-		wp_register_script( 'soundy-front-end', $this->plugin_url . '/js/front-end.js', array( 'jquery' ) );		
+		wp_register_script( 'soundy-front-end', $this->plugin_url . '/js/front-end.js', array( 'jquery' ) );
 		wp_enqueue_script( 'soundy-front-end' );
 		
 		wp_register_style( 'soundy', $this->plugin_url . '/css/style-front-end.css' );		
@@ -330,17 +294,8 @@ class WarSoundy
 		
 		if ( strpos( $file, $plugin_name ) !== false ) 
 		{
-			if( $this->soundy_subtype == 'trial' )
-			{
-				$link_title = 'Upgrade to Soundy PRO';
-				$pro_link = '<a href="' . $this->soundy_pro_home_url . '" target="_blank" class="war_soundy_hit_link">' . $link_title . '</a>';		
-			}
-			else
-			{
-				$link_title = 'Try Soundy PRO for Free';
-				$pro_link = '<a href="' . $this->soundy_pro_home_url . '" target="_blank" class="war_soundy_hit_link">' . $link_title . '</a>' .
-				            ' with its Play/Pause Button Designer';		
-			}
+            $link_title = 'Soundy Audio Playlist Plugin Now Available';
+            $pro_link = '<a href="' . $this->sdy_pl_free_wp_home_url . '" target="_blank" class="war_soundy_hit_link">' . $link_title . '</a>';
 			$link = array_shift( $links );
 			array_unshift( $links, $pro_link );
 			array_unshift( $links, $link );
@@ -348,7 +303,7 @@ class WarSoundy
 			if( $this->soundy_type == 'free' )
 			{
 				$free_wp_link_title = 'WordPress.org Plugin Page';
-				$free_wp_link = '<a href="' . $this->soundy_free_home_wp_url . '" target="_blank">' . $free_wp_link_title . '</a>';
+				$free_wp_link = '<a href="' . $this->soundy_free_wp_home_url . '" target="_blank">' . $free_wp_link_title . '</a>';
 				array_push( $links, $free_wp_link );
 			}
 		}
@@ -413,13 +368,13 @@ class WarSoundy
 	{
 		add_settings_section(
     	'war_soundy_settings_section_audio_track',
-      'Audio Track Options',                 
-      array( $this, 'display_settings_section_audio_track_header' ),
-      'soundy'
-    );
+        'Audio Track Options',                 
+        array( $this, 'display_settings_section_audio_track_header' ),
+        'soundy'
+        );
 		
 		register_setting( 'war_soundy', 'war_soundy_enable_bg_sound' ); 
-    add_settings_field( 
+        add_settings_field( 
 	    'war_soundy_enable_bg_sound',
 	    'Enable Background Sound',
 	    array( $this, 'add_settings_field_enable_bg_sound' ),
@@ -428,16 +383,25 @@ class WarSoundy
 		);
     
 		register_setting( 'war_soundy', 'war_soundy_audio_file_url', array( $this, 'do_sanitize_field' ) ); 
-    add_settings_field( 
+        add_settings_field( 
 	    'war_soundy_audio_file_url',
 	    'Audio File URL',
 	    array( $this, 'add_settings_field_audio_file_URL' ),
 	    'soundy',                       
 	    'war_soundy_settings_section_audio_track'
 		);
+
+        register_setting( 'war_soundy', 'war_soundy_audio_type' );
+        add_settings_field(
+            'war_soundy_audio_type',
+            'Audio Type',
+            array( $this, 'add_settings_field_audio_type' ),
+            'soundy',
+            'war_soundy_settings_section_audio_track'
+        );
     
 		register_setting( 'war_soundy', 'war_soundy_audio_volume' );
-    add_settings_field( 
+        add_settings_field( 
 	    'war_soundy_audio_volume',
 	    'Audio Volume',
 	    array( $this, 'add_settings_field_audio_volume' ),
@@ -446,7 +410,7 @@ class WarSoundy
 		);
     
 		register_setting( 'war_soundy', 'war_soundy_audio_title', array( $this, 'do_sanitize_field' ) ); 
-    add_settings_field( 
+        add_settings_field( 
 	    'war_soundy_audio_title',
 	    'Audio Title',
 	    array( $this, 'add_settings_field_audio_title' ),
@@ -455,7 +419,7 @@ class WarSoundy
 		);
     
 		register_setting( 'war_soundy', 'war_soundy_autoplay' ); 
-    add_settings_field( 
+        add_settings_field( 
 	    'war_soundy_autoplay',
 	    'Autoplay',
 	    array( $this, 'add_settings_field_autoplay' ),
@@ -464,7 +428,7 @@ class WarSoundy
 		);
     
 		register_setting( 'war_soundy', 'war_soundy_loop' ); 
-    add_settings_field( 
+        add_settings_field( 
 	    'war_soundy_loop',
 	    'Audio Repeat Loop',
 	    array( $this, 'add_settings_field_loop' ),
@@ -472,7 +436,7 @@ class WarSoundy
 	    'war_soundy_settings_section_audio_track'
 		);
 
-    add_settings_field( 
+        add_settings_field( 
 	    'war_soundy_reset',
 	    'Default Audio',
 	    array( $this, 'add_settings_field_default_audio' ),
@@ -485,22 +449,13 @@ class WarSoundy
 	{
 		add_settings_section(
     	'war_soundy_settings_section_play_pause_button',
-      'Play/Pause Button',                 
-      array( $this, 'display_settings_section_play_pause_button_header' ),
-      'soundy'
-    );
-    
-		register_setting( 'war_soundy', 'war_soundy_pp_images_to_use' ); 
-    add_settings_field( 
-	    'war_soundy_pp_images_to_use',
-	    'Play/Pause Button Images',
-	    array( $this, 'add_settings_field_pp_images_to_use' ),
-	    'soundy',                       
-	    'war_soundy_settings_section_play_pause_button'
-		);
+        'Play/Pause Button',
+        array( $this, 'display_settings_section_play_pause_button_header' ),
+        'soundy'
+        );
 
-		register_setting( 'war_soundy', 'war_soundy_url_play_button', array( $this, 'do_sanitize_field' ) ); 
-    add_settings_field( 
+	    register_setting( 'war_soundy', 'war_soundy_url_play_button', array( $this, 'do_sanitize_field' ) );
+        add_settings_field(
 	    'war_soundy_url_play_button',
 	    'Play Normal URL',
 	    array( $this, 'add_settings_field_url_pp_button' ),
@@ -510,7 +465,7 @@ class WarSoundy
 		);
 
 		register_setting( 'war_soundy', 'war_soundy_url_play_hover', array( $this, 'do_sanitize_field' ) ); 
-    add_settings_field( 
+        add_settings_field(
 	    'war_soundy_url_play_hover',
 	    'Play Hover URL',
 	    array( $this, 'add_settings_field_url_pp_button' ),
@@ -582,14 +537,23 @@ class WarSoundy
 	{
 		add_settings_section(
     	'war_soundy_settings_section_play_pause_position_corner',
-      'Play/Pause Corner Position',                 
-      array( $this, 'display_settings_section_play_pause_position_corner_header' ),
-      'soundy'
-    );
+        'Play/Pause Corner Position',                 
+        array( $this, 'display_settings_section_play_pause_position_corner_header' ),
+        'soundy'
+        );
+
+        register_setting( 'war_soundy', 'war_soundy_enable_pp_corner' );
+        add_settings_field(
+            'war_soundy_enable_pp_corner',
+            'Corner Insertion',
+            array( $this, 'add_settings_field_pp_corner_enable' ),
+            'soundy',
+            'war_soundy_settings_section_play_pause_position_corner'
+        );
     
 		register_setting( 'war_soundy', 'war_soundy_pp_position' ); 
 		register_setting( 'war_soundy', 'war_soundy_pp_corner' ); 
-    add_settings_field( 
+        add_settings_field( 
 	    'war_soundy_pp_corner',
 	    'Corner Position',
 	    array( $this, 'add_settings_field_pp_position' ),
@@ -599,7 +563,7 @@ class WarSoundy
 
 		register_setting( 'war_soundy', 'war_soundy_offset_x' ); 
 		register_setting( 'war_soundy', 'war_soundy_offset_x_unit' ); 
-    add_settings_field( 
+        add_settings_field( 
 	    'war_soundy_offset_x',
 	    'Button X Offset',
 	    array( $this, 'add_settings_field_offset_x' ),
@@ -609,7 +573,7 @@ class WarSoundy
 
 		register_setting( 'war_soundy', 'war_soundy_offset_y' ); 
 		register_setting( 'war_soundy', 'war_soundy_offset_y_unit' ); 
-    add_settings_field( 
+        add_settings_field( 
 	    'war_soundy_offset_y',
 	    'Button Y Offset',
 	    array( $this, 'add_settings_field_offset_y' ),
@@ -659,12 +623,12 @@ class WarSoundy
 		
 	public function display_settings_section_play_pause_button_header() 
 	{
-	    echo '';
+	    echo 'In this tab you can upload your own play/pause button images.';
 	}
 		
 	public function display_settings_section_play_pause_position_corner_header() 
 	{
-	    echo '';
+	    echo 'In this tab you can position the play/pause button in any corner of the page/post window or document.';
 	}
 
 	public function display_settings_section_play_pause_position_static_header()
@@ -689,11 +653,12 @@ class WarSoundy
 		$this->add_field_audio_file_URL( false );
 	}
 
-	private function add_field_audio_file_URL( $is_meta_box ) 
+	public function add_field_audio_file_URL( $is_meta_box ) 
 	{
 		if( $is_meta_box )
 		{
-			$file_url  = $this->get_meta_data( 'war_soundy_audio_file_url', true );
+			$file_url    = $this->get_meta_data( 'war_soundy_audio_file_url', true );
+            $audio_type  = $this->get_meta_data( 'war_soundy_audio_type', false );
 			if( $file_url == 'default' )
 			{
 				$soundtrack = 'default';
@@ -703,8 +668,7 @@ class WarSoundy
 			{
 				$soundtrack = 'custom';
 			}
-			$file_type = pathinfo( $file_url, PATHINFO_EXTENSION );
-		
+
 			?>
 			<div style="margin: 5px 5px 5px 0px">
 				<input type="radio" 
@@ -723,8 +687,8 @@ class WarSoundy
 		}
 		else
 		{
-			$file_url  = get_option( 'war_soundy_audio_file_url' );
-			$file_type = pathinfo( $file_url, PATHINFO_EXTENSION );
+			$file_url   = get_option( 'war_soundy_audio_file_url' );
+			$audio_type = get_option( 'war_soundy_audio_type' );
 		}
 		?>
 		<input id="war_soundy_audio_file_url" 
@@ -733,32 +697,56 @@ class WarSoundy
 		       value="<?php echo $file_url; ?>"
 		       class="war_soundy_txt_input" />
 		<br>
-		<div style="margin-top: 5px;">
-	    <button id="war_audio_library_button" 
-	            type="button" 
-	            class="war_soundy" />Media Library</button>
-			<audio id="war_soundy_audio_player" 
-				     class="war_soundy"
-				     controls
-					   style="margin-right: 10px;">
-				<source id="war_soundy_audio_player_source"
-					      src="<?php echo $file_url; ?>" 
-					      type="audio/<?php echo $file_type; ?>">
-		  </audio>
+		<div style="margin-top: 5px; margin-bottom: 5px;">
+            <button id="war_audio_library_button"
+                    type="button"
+                    class="war_soundy" />Media Library</button>
+            <audio id="war_soundy_audio_player"
+                     class="war_soundy"
+                     controls
+                       style="margin-right: 10px;">
+                <source id="war_soundy_audio_player_source"
+                          src="<?php echo $file_url; ?>"
+                          type="<?php echo $audio_type; ?>">
+            </audio>
 		</div>
+        <?php if( $is_meta_box ): ?>
+            Audio Type:
+            <select id="war_soundy_audio_type"
+                    name="war_soundy_audio_type">
+                <option value="unknown"    <?php echo $audio_type == 'unknown'    ? 'selected' : ''; ?>>unknown</option>
+                <option value="audio/mpeg" <?php echo $audio_type == 'audio/mpeg' ? 'selected' : ''; ?>>audio/mpeg</option>
+                <option value="audio/ogg"  <?php echo $audio_type == 'audio/ogg'  ? 'selected' : ''; ?>>audio/ogg</option>
+                <option value="audio/wav"  <?php echo $audio_type == 'audio/wav'  ? 'selected' : ''; ?>>audio/wav</option>
+            </select>
+        <?php endif; ?>
 	  <?php     
 	}
+
+    public function add_settings_field_audio_type( $args )
+    {
+        $audio_type = get_option( 'war_soundy_audio_type' );
+        ?>
+            <select id="war_soundy_audio_type"
+                    name="war_soundy_audio_type">
+                <option value="unknown"    <?php echo $audio_type == 'unknown'    ? 'selected' : ''; ?>>unknown</option>
+                <option value="audio/mpeg" <?php echo $audio_type == 'audio/mpeg' ? 'selected' : ''; ?>>audio/mpeg</option>
+                <option value="audio/ogg"  <?php echo $audio_type == 'audio/ogg'  ? 'selected' : ''; ?>>audio/ogg</option>
+                <option value="audio/wav"  <?php echo $audio_type == 'audio/wav'  ? 'selected' : ''; ?>>audio/wav</option>
+            </select>
+        <?php
+    }
 	
 	public function add_settings_field_audio_volume( $args )
 	{
 		?>
-		<div id="war_soundy_audio_volume_slider" 
-		     class="war_soundy_slider"></div>
-		<input type="text"
-					 class="war_soundy_audio_volume"
-		       value="<?php echo get_option( 'war_soundy_audio_volume' ); ?>"
-		       name="war_soundy_audio_volume" 
-		       id="war_soundy_audio_volume" /> %
+		<div    id="war_soundy_audio_volume_slider"
+		        class="war_soundy_slider"></div>
+		<input  type="text"
+		        class="war_soundy_audio_volume"
+		        value="<?php echo get_option( 'war_soundy_audio_volume' ); ?>"
+		        name="war_soundy_audio_volume"
+		        id="war_soundy_audio_volume" /> %
 		<?php     
 	}
 	
@@ -803,33 +791,7 @@ class WarSoundy
             class="war_soundy" />Reset</button>
 		<?php     
 	}
-	
-	public function add_settings_field_pp_images_to_use( $args )
-	{
-		$pp_images_to_use = get_option( 'war_soundy_pp_images_to_use' );
-		if( $pp_images_to_use == 'designer' && $this->soundy_type != 'pro' && $this->soundy_subtype != 'full' )
-		{
-			$pp_images_to_use = 'default';
-		}
-		?>
-		<input type="radio" 
-					 id="war_soundy_pp_images_to_use_default" 
-					 name="war_soundy_pp_images_to_use" 
-					 value="default" 
-					 style="margin: 5px 0 5px 0;" <?php echo ( $pp_images_to_use == 'default' ? 'checked' : '' ); ?>/>
-		<label for="war_soundy_pp_images_to_use_default" 
-		       style="margin-top: 0;">Use button images defined in this Play/Pause Button tab</label>
-		<br>
-		<input type="radio" 
-					 id="war_soundy_pp_images_to_use_none" 
-					 name="war_soundy_pp_images_to_use" 
-					 value="none" 
-					 style="margin: 5px 0 5px 0;" <?php echo ( $pp_images_to_use == 'none' ? 'checked' : '' ); ?>/>
-		<label for="war_soundy_pp_images_to_use_none" 
-		       style="margin-top: 0;">Do not display any Play/Pause Button</label>
-		<?php     
-	}
-	
+
 	public function add_settings_field_url_pp_button( $args )
 	{
 		$type = $args[ 0 ];
@@ -927,7 +889,7 @@ class WarSoundy
 				<?php     
 			}
 
-		private function add_page_preview_url_options()
+		public function add_page_preview_url_options()
 	{
 		echo '<option value="/">Select Page</option>';
 		$page_preview_url = get_option( 'war_soundy_page_preview_url' );
@@ -949,6 +911,26 @@ class WarSoundy
 			echo $option;
 		}
 	}
+    
+    public function add_settings_field_pp_corner_enable( $args )
+    {
+        $pp_corner_enable = get_option( 'war_soundy_enable_pp_corner' );
+        ?>
+            <input type="radio"
+                   id="war_soundy_enable_pp_corner_yes"
+                   name="war_soundy_enable_pp_corner"
+                   value="yes" <?php echo ( $pp_corner_enable == 'yes' ? 'checked' : '' ); ?>/>
+            <label for="war_soundy_enable_pp_corner_yes" style="margin-right: 1em;">Yes</label>
+    
+            <input type="radio"
+                   id="war_soundy_enable_pp_corner_no"
+                   name="war_soundy_enable_pp_corner"
+                   value="no" <?php echo ( $pp_corner_enable == 'no' ? 'checked' : '' ); ?>/>
+            <label for="war_soundy_enable_pp_corner_no" style="margin-right: 1em;">No</label>
+            <span id="war_soundy_enable_pp_corner_comment"
+                  class="war_comment">Play/Pause button can also be inserted with short code or template tag</span>
+        <?php
+    }
 	
 	public function add_settings_field_pp_position( $args )
 	{
@@ -987,7 +969,7 @@ class WarSoundy
 						name="war_soundy_pp_position">
 			<?php echo $options_position; ?>
 		</select>
-		<span id="war_soundy_pp_comment"><?php echo $pp_comment; ?></span>
+		<span id="war_soundy_pp_comment" class="war_comment"><?php echo $pp_comment; ?></span>
 		<br>
 		<select id="war_soundy_pp_corner"
 						name="war_soundy_pp_corner"
@@ -999,66 +981,42 @@ class WarSoundy
 	
 	public function add_settings_field_offset_x( $args )
 	{
-		$unit_x = get_option( 'war_soundy_offset_x_unit' );
-    $unit_options_x = '';
-    $unit_comment_x = '(pixels)';
-    foreach( $this->units as $unit => $comment )
-    {
-    	if( $unit == $unit_x )
-    	{
-    		$unit_options_x .= '<option selected>' . $unit . '</option>';
-    		$unit_comment_x = $comment;
-    	}
-    	else
-    	{
-    		$unit_options_x .= '<option>' . $unit . '</option>';
-    	}
-    }									
-		?>
-		<input type="text" 
-		       name="war_soundy_offset_x" 
-		       id="war_soundy_offset_x" 
-		       value="<?php echo get_option( 'war_soundy_offset_x' ); ?>"
-		       size="4" />
-		<select id="war_soundy_offset_x_unit"
-						name="war_soundy_offset_x_unit">
-			<?php echo $unit_options_x; ?>
-		</select>
-		<span id="war_soundy_unit_comment_x"><?php echo $unit_comment_x; ?></span>
-		Horizontal length between button and vertical corner edge
-		<?php     
+        $unit = get_option( 'war_soundy_offset_x_unit' );
+        $unit_options = $this->get_select_options( $unit, $this->units_length );
+        ?>
+            <input type="text"
+                   name="war_soundy_offset_x"
+                   id="war_soundy_offset_x"
+                   value="<?php echo get_option( 'war_soundy_offset_x' ); ?>"
+                   size="4" />
+            <select id="war_soundy_offset_x_unit"
+                    name="war_soundy_offset_x_unit">
+                <?php echo $unit_options; ?>
+            </select>
+            <span class="war_comment">
+                Horizontal length between button and vertical corner edge
+            </span>
+        <?php
 	}
 	
 	public function add_settings_field_offset_y( $args )
 	{
-		$unit_y = get_option( 'war_soundy_offset_y_unit' );
-    $unit_options_y = '';
-    $unit_comment_y = '(pixels)';
-    foreach( $this->units as $unit => $comment )
-    {
-    	if( $unit == $unit_y )
-    	{
-    		$unit_options_y .= '<option selected>' . $unit . '</option>';
-    		$unit_comment_y = $comment;
-    	}
-    	else
-    	{
-    		$unit_options_y .= '<option>' . $unit . '</option>';
-    	}
-    }									
-		?>
-		<input type="text" 
-		       name="war_soundy_offset_y" 
-		       id="war_soundy_offset_y" 
-		       value="<?php echo get_option( 'war_soundy_offset_y' ); ?>"
-		       size="4" />
-		<select id="war_soundy_offset_y_unit"
-						name="war_soundy_offset_y_unit">
-			<?php echo $unit_options_y; ?>
-		</select>
-		<span id="war_soundy_unit_comment_y"><?php echo $unit_comment_y; ?></span>
-		Vertical length between button and horizontal corner edge
-		<?php     
+        $unit = get_option( 'war_soundy_offset_y_unit' );
+        $unit_options = $this->get_select_options( $unit, $this->units_length );
+        ?>
+            <input type="text"
+                   name="war_soundy_offset_y"
+                   id="war_soundy_offset_y"
+                   value="<?php echo get_option( 'war_soundy_offset_y' ); ?>"
+                   size="4" />
+            <select id="war_soundy_offset_y_unit"
+                    name="war_soundy_offset_y_unit">
+                <?php echo $unit_options; ?>
+            </select>
+            <span class="war_comment">
+                Vertical length between button and horizontal corner edge
+            </span>
+        <?php
 	}
 
 	public function add_settings_field_template_tags( $args )
@@ -1079,12 +1037,10 @@ class WarSoundy
 	public function add_settings_field_shortcodes( $args )
 	{
 		?>
-		<p>To display the Play/Pause button in the content of posts and pages, use the shortcode: <strong>[soundy button]</strong>.</p>
-		<p>To display the audio track title in the content of posts and pages, use the template tag: <strong>[soundy title]</strong>.</p>
-		<p>Positioning with the [soundy button] shortcode will disable template tag and corner positioning of the Play/Pause button.</p>
-		<p>Shortcode positioning has precedence upon template tag positioning, which has precedence upon corner positioning.</p>
-		<p>Note that multiple inserts of the Play/Pause button are not supported.</p>
-		<p>If you have posts using the button shortcode and these posts are bulk displayed in blog pages, you will get into troubles. A workaround to this multiple buttons issue is to limit the number of posts per blog page to 1 in the Settings &gt; Reading page in the admin area.</p>
+		<p>To display the Play/Pause button in the content of posts and pages, use the short code: <strong>[soundy button]</strong>.</p>
+		<p>To display the audio track title in the content of posts and pages, use the short code: <strong>[soundy title]</strong>.</p>
+		<p>Positioning with the [soundy button] short code will disable template tag and corner positioning of the Play/Pause button.</p>
+		<p>Short code positioning has precedence upon template tag positioning, which has precedence upon corner positioning.</p>
 		<?php
 	}
 		
@@ -1126,12 +1082,14 @@ class WarSoundy
 		$this->post_id = $post->ID;
 		
 		$enable_bg_sound      = $this->get_meta_data( 'war_soundy_enable_bg_sound', true );
+        $enable_pp_corner     = $this->get_meta_data( 'war_soundy_enable_pp_corner', true );
 		$audio_volume         = $this->get_meta_data( 'war_soundy_audio_volume', true );
 		$audio_title          = $this->get_meta_data( 'war_soundy_audio_title', true );
 		$autoplay             = $this->get_meta_data( 'war_soundy_autoplay', true );
 		$loop                 = $this->get_meta_data( 'war_soundy_loop', true );
 
 		$default_audio_url    = get_option( 'war_soundy_audio_file_url' );
+        $default_audio_type   = get_option( 'war_soundy_audio_type' );
 		$default_audio_volume = get_option( 'war_soundy_audio_volume' );
 		$default_audio_title  = get_option( 'war_soundy_audio_title' );
 
@@ -1174,23 +1132,33 @@ class WarSoundy
 				return $post_id;
 		}
 		
-		update_post_meta( $post_id, 
-		                  'war_soundy_enable_bg_sound', 
-		                  $_POST[ 'war_soundy_enable_bg_sound' ] );
+		update_post_meta(   $post_id,
+		                    'war_soundy_enable_bg_sound',
+		                    $_POST[ 'war_soundy_enable_bg_sound' ] );
+
+        update_post_meta(   $post_id,
+                            'war_soundy_enable_pp_corner',
+                            $_POST[ 'war_soundy_enable_pp_corner' ] );
 
 		$soundtrack = $_POST[ 'war_soundy_soundtrack' ];
 		if( $soundtrack == 'default' )
 		{
 			$audio_file_url = 'default';
+            $audio_type     = 'default';
 		}
 		else
 		{
 			$audio_file_url = $this->do_sanitize_field( $_POST[ 'war_soundy_audio_file_url' ] );
+            $audio_type     = $_POST[ 'war_soundy_audio_type' ];
 		}
 
-		update_post_meta( $post_id, 
-		                  'war_soundy_audio_file_url', 
-		                  $audio_file_url );
+		update_post_meta(   $post_id,
+		                    'war_soundy_audio_file_url',
+		                    $audio_file_url );
+
+        update_post_meta(   $post_id,
+                            'war_soundy_audio_type',
+                            $audio_type );
 
 		$audio_volume_def = $_POST[ 'war_soundy_audio_volume_def' ];
 		if( $audio_volume_def == 'default' )
@@ -1265,7 +1233,7 @@ class WarSoundy
 		$repeat_loop = $this->get_meta_data( 'war_soundy_loop' );
 		$audio_loop = ( $repeat_loop == 'yes' ) ? 'loop' : '';
 
-		$pp_code = $this->get_pp_button_code( 'corner' );
+		$pp_code = $this->get_pp_corner_code();
 				
 		$audio_code = 
 
@@ -1300,189 +1268,84 @@ class WarSoundy
 		<?php
 	}
 
-	private $button_url_play;
-	private $hover_url_play;
-	private $button_url_pause;
-	private $hover_url_pause;
-	
-	public function get_pp_button_code( $mode )
-	{
-		if( $this->preview == 'false' )
-		{
-			$pp_images_to_use = $this->get_meta_data( 'war_soundy_pp_images_to_use' );
-			if( $pp_images_to_use == 'designer' && $this->soundy_type != 'pro' && $this->soundy_subtype != 'full' )
-			{
-				$pp_images_to_use = 'default';
-			}
-			
-			if( $pp_images_to_use == 'none' ) return '';
-	
-			$enable_bg_sound = $this->get_meta_data( 'war_soundy_enable_bg_sound' );
-			if( $enable_bg_sound != 'yes' ) return '';
-	
-			if( $pp_images_to_use == 'default' )
-			{
-				$this->button_url_play  = get_option( 'war_soundy_url_play_button' );
-				$this->hover_url_play   = get_option( 'war_soundy_url_play_hover' );
-				$this->button_url_pause = get_option( 'war_soundy_url_pause_button' );
-				$this->hover_url_pause  = get_option( 'war_soundy_url_pause_hover' );
-			}
-		}
-		else
-		{
-			$this->button_url_play  = '';
-			$this->hover_url_play   = '';
-			$this->button_url_pause = '';
-			$this->hover_url_pause  = '';
-		}
-
-		$button_position  = get_option( 'war_soundy_pp_position' );
-		$position = ( $button_position == 'document' ) ? 'absolute' : 'fixed';
-
-		if( $mode == 'corner' )
-		{
-			$button_corner = get_option( 'war_soundy_pp_corner' );
-			switch( $button_corner )
-			{
-				case upper_right: 
-					$dim_x = 'right';
-					$dim_y = 'top';
-					break;
-				case upper_left: 
-					$dim_x = 'left';
-					$dim_y = 'top';
-					break;
-				case bottom_right: 
-					$dim_x = 'right';
-					$dim_y = 'bottom';
-					break;
-				case bottom_left: 
-					$dim_x = 'left';
-					$dim_y = 'bottom';
-					break;
-			}
-	
-			$button_x = get_option( 'war_soundy_offset_x' ) .
-			            get_option( 'war_soundy_offset_x_unit' );
-			$button_y = get_option( 'war_soundy_offset_y' ) .
-			            get_option( 'war_soundy_offset_y_unit' );
-			
-			$position_css_code = "position: $position; $dim_x: $button_x; $dim_y: $button_y;";
-		}
-		else
-		{
-			$position_css_code = '';
-		}
-		
-		$audio_button_url = ( $this->autoplay == 'yes' ) ? $this->button_url_pause : $this->button_url_play;
-		
-		$audio_title = $this->get_meta_data( 'war_soundy_audio_title' );
-	
-		$pp_code = 
-
-			'<img id="war_soundy_audio_control"' .
-		  '     src="' . $audio_button_url . '"' .
-		  '     title="' . $audio_title . '"' .
-		  '     style="' . $position_css_code . ' cursor: pointer; z-index: 99999999;">';
-
-		return $pp_code;
-	}
-	
 	public function do_sanitize_field( $value )
 	{
 		return htmlentities( sanitize_text_field( $value ), ENT_QUOTES, 'UTF-8' );
 	}
-	
-	public function soundy_shortcode( $atts )
-	{
-		if( $atts[ 0 ] && $atts[ 0 ] == 'title' )
-		{
-			return soundy_get_title();
-		}
-		elseif( $atts[ 0 ] && $atts[ 0 ] == 'button' )
-		{
-			return soundy_get_button();
-		}
-	}
-	
+
 	public function check_user_agent ( $type = NULL ) 
 	{
-    $user_agent = strtolower ( $_SERVER['HTTP_USER_AGENT'] );
-    if ( $type == 'bot' ) 
-    {
-      // matches popular bots
-      if ( preg_match ( "/googlebot|adsbot|yahooseeker|yahoobot|msnbot|watchmouse|pingdom\.com|feedfetcher-google/", $user_agent ) ) 
-      {
-        return true;
-        // watchmouse|pingdom\.com are "uptime services"
-      }
-    } 
-    elseif ( $type == 'browser' ) 
-    {
-      // matches core browser types
-      if ( preg_match ( "/mozilla\/|opera\//", $user_agent ) )
-      {
-      	return true;
-      }
-    } 
-    elseif ( $type == 'mobile' )
-    {
-      // matches popular mobile devices that have small screens and/or touch inputs
-      // mobile devices have regional trends; some of these will have varying popularity in Europe, Asia, and America
-      // detailed demographics are unknown, and South America, the Pacific Islands, and Africa trends might not be represented, here
-      if ( preg_match ( "/phone|iphone|itouch|ipod|symbian|android|htc_|htc-|palmos|blackberry|opera mini|iemobile|windows ce|nokia|fennec|hiptop|kindle|mot |mot-|webos\/|samsung|sonyericsson|^sie-|nintendo/", $user_agent ) ) 
-      {
-        // these are the most common
-        return true;
-      } 
-      elseif ( preg_match ( "/mobile|pda;|avantgo|eudoraweb|minimo|netfront|brew|teleca|lg;|lge |wap;| wap /", $user_agent ) ) 
-      {
-        // these are less common, and might not be worth checking
-        return true;
-      }
-    }
-    elseif( $type == 'firefox' )
-    {
-    	if ( strpos( $user_agent, 'firefox' ) !== false )
-      {
-      	return true;
-      }
-    }
-    return false;
+        $user_agent = strtolower ( $_SERVER['HTTP_USER_AGENT'] );
+        if ( $type == 'bot' )
+        {
+          // matches popular bots
+          if ( preg_match ( "/googlebot|adsbot|yahooseeker|yahoobot|msnbot|watchmouse|pingdom\.com|feedfetcher-google/", $user_agent ) )
+          {
+            return true;
+            // watchmouse|pingdom\.com are "uptime services"
+          }
+        }
+        elseif ( $type == 'browser' )
+        {
+          // matches core browser types
+          if ( preg_match ( "/mozilla\/|opera\//", $user_agent ) )
+          {
+            return true;
+          }
+        }
+        elseif ( $type == 'mobile' )
+        {
+          // matches popular mobile devices that have small screens and/or touch inputs
+          // mobile devices have regional trends; some of these will have varying popularity in Europe, Asia, and America
+          // detailed demographics are unknown, and South America, the Pacific Islands, and Africa trends might not be represented, here
+          if ( preg_match ( "/phone|iphone|itouch|ipod|symbian|android|htc_|htc-|palmos|blackberry|opera mini|iemobile|windows ce|nokia|fennec|hiptop|kindle|mot |mot-|webos\/|samsung|sonyericsson|^sie-|nintendo/", $user_agent ) )
+          {
+            // these are the most common
+            return true;
+          }
+          elseif ( preg_match ( "/mobile|pda;|avantgo|eudoraweb|minimo|netfront|brew|teleca|lg;|lge |wap;| wap /", $user_agent ) )
+          {
+            // these are less common, and might not be worth checking
+            return true;
+          }
+        }
+        elseif( $type == 'firefox' )
+        {
+            if ( strpos( $user_agent, 'firefox' ) !== false )
+          {
+            return true;
+          }
+        }
+        return false;
 	}
-	
-	public function user_agent_is_IOS() 
-	{
-    $user_agent = strtolower ( $_SERVER['HTTP_USER_AGENT'] );
-    
-		if( preg_match ( "/ipod|iphone|ipad/", $user_agent ) )
-		{
-			return 'true';
-		}
-		else
-		{
-			return 'false';
-		}
-	}
+
+    public function get_select_options( $value, $option_values )
+    {
+        $options = '';
+        foreach ( $option_values as $option_value => $option_display )
+        {
+            $options .= '<option value="' . $option_value . '"';
+            if( $option_value == $value )
+            {
+                $options .= ' selected>';
+            }
+            else
+            {
+                $options .= '>';
+            }
+            $options .=  $option_display . '</option>';
+        }
+        return $options;
+    }
 }
 
 $war_soundy = new WarSoundy();
 
-function soundy_get_button()
+function soundy_get_button( $type = 'pp_template_tag' )
 {
-	global $war_soundy;
-	
-	$pp_code = $war_soundy->get_pp_button_code( '' );
-	if( $pp_code != '' )
-	{
-		$pp_code = '<script>' .
-		           'jQuery( "#war_soundy_audio_control" ).remove();' .
-		           'war_soundy_front_end.pp_button_is_inserted = true;' .
-		           '</script>' . 
-		           $pp_code;
-	}
-	
-	return $pp_code;
+    // $type = 'pp_short_code' or 'pp_corner' or 'pp_template_tag'
+
+    return '<img class="war_soundy_audio_control war_soundy_' . $type . '">';
 }
 
 function soundy_button()

@@ -1,44 +1,34 @@
-function war_SoundyFrontEnd(
-	pp_code,
-	audio_code,
-	audio_volume,
-	preview,
-	button_url_play_normal,
-	button_url_pause_normal,
-	button_url_play_hover,
-	button_url_pause_hover,
-	user_agent_is_IOS ) 
+function war_SoundyFrontEnd( args )
 {
 	var _this = this;
-	
-	_this.pp_code                 = pp_code;
-	_this.audio_code              = audio_code;
-	_this.audio_volume            = audio_volume;
-	_this.preview                 = preview;
-	_this.button_url_play_normal  = button_url_play_normal;
-	_this.button_url_pause_normal = button_url_pause_normal;
-	_this.button_url_play_hover   = button_url_play_hover;
-	_this.button_url_pause_hover  = button_url_pause_hover;
-	_this.user_agent_is_IOS       = user_agent_is_IOS;
 
-	_this.pp_button_is_inserted   = false;
+	_this.pp_code                 = args.pp_code;
+	_this.audio_code              = args.audio_code;
+	_this.audio_volume            = args.audio_volume;
+	_this.preview                 = args.preview;
+	_this.button_url_play_normal  = args.button_url_play_normal;
+	_this.button_url_pause_normal = args.button_url_pause_normal;
+	_this.button_url_play_hover   = args.button_url_play_hover;
+	_this.button_url_pause_hover  = args.button_url_pause_hover;
+	_this.user_agent_is_IOS       = args.user_agent_is_IOS;
+
 	_this.hovering                = false;
-	
-	jQuery( document ).ready( function() 
+
+    jQuery.noConflict();
+	jQuery( document ).ready( function()
 	{
-		if( _this.pp_code && ! _this.pp_button_is_inserted )
+		if( _this.pp_code )
 		{
 			jQuery( 'body' ).append( _this.pp_code );
-			_this.pp_button_is_inserted = true;
 		}
 		
 		jQuery( 'body' ).append( _this.audio_code );
-		
-		_this.audio_control = jQuery( '#war_soundy_audio_control' );
+
+		_this.audio_control = jQuery( '.war_soundy_audio_control' );
 		_this.audio_player  = jQuery( '#war_soundy_audio_player' );
 		_this.audio_player_element  = _this.audio_player[ 0 ];
-		
-		_this.audio_player_element.volume = audio_volume;
+
+		_this.audio_player_element.volume = _this.audio_volume;
 
 		if( _this.preview != 'false' )
 		{
@@ -47,35 +37,11 @@ function war_SoundyFrontEnd(
 			opener_player.play();
 			opener_player.pause();
 
-			if( _this.preview == 'position' )
-			{
-				var pp_images_to_use = window.opener.jQuery( 'input[name=war_soundy_pp_images_to_use]:checked' ).val();
-				
-				if( pp_images_to_use == 'none' )
-				{
-					_this.preview = 'default';
-				}
-				else
-				{
-					_this.preview = pp_images_to_use;
-				}
-			}
+            _this.button_url_play_normal  = window.opener.jQuery( '#war_soundy_url_play_button' ).val();
+            _this.button_url_pause_normal = window.opener.jQuery( '#war_soundy_url_pause_button' ).val();
+            _this.button_url_play_hover   = window.opener.jQuery( '#war_soundy_url_play_hover' ).val();
+            _this.button_url_pause_hover  = window.opener.jQuery( '#war_soundy_url_pause_hover' ).val();
 
-			if( _this.preview == 'designer' )
-			{
-				_this.button_url_play_normal  = window.opener.war_pp_design.img_data_play_normal;
-				_this.button_url_pause_normal = window.opener.war_pp_design.img_data_pause_normal;
-				_this.button_url_play_hover   = window.opener.war_pp_design.img_data_play_hover;
-				_this.button_url_pause_hover  = window.opener.war_pp_design.img_data_pause_hover;
-			}
-			else if( _this.preview == 'default' )
-			{
-				_this.button_url_play_normal  = window.opener.jQuery( '#war_soundy_url_play_button' ).val();
-				_this.button_url_pause_normal = window.opener.jQuery( '#war_soundy_url_pause_button' ).val();
-				_this.button_url_play_hover   = window.opener.jQuery( '#war_soundy_url_play_hover' ).val();
-				_this.button_url_pause_hover  = window.opener.jQuery( '#war_soundy_url_pause_hover' ).val();
-			}
-			
 			if( _this.audio_player_element.autoplay )
 			{
 				_this.audio_player_element.load();
@@ -128,28 +94,8 @@ function war_SoundyFrontEnd(
 					break;
 			}
 		}
-							
-		if( _this.pp_button_is_inserted )
-		{
-			_this.initPPButton();
-		}
-		
-		/*
-		jQuery( window ).bind( 'beforeunload', function()
-		{
-			var volume = _this.audio_player.prop( 'volume' );
-			for( var i = 10000000000; i > 0; i-- )
-				{
-					// 1 slow      3:  middle     6: fast
-					volume -= 0.00000001 * 1;
-					if( volume < 0 ) break;
-					if( ( i % 10000 ) == 0 )
-					{
-						_this.audio_player.prop( 'volume', volume );
-					}
-				}
-		} );
-		*/
+
+		_this.initPPButton();
 	} );
 }
 
@@ -185,7 +131,31 @@ war_SoundyFrontEnd.prototype.animateVolume = function( audio_player_element, new
 war_SoundyFrontEnd.prototype.initPPButton = function()
 {
 	var _this = this;
-	
+
+    if( _this.preview == 'false' )
+    {
+        var is_pp_template_tag = jQuery( '.war_soundy_pp_template_tag' ).length > 0;
+        var is_pp_short_code   = jQuery( '.war_soundy_pp_short_code' ).length > 0;
+
+        if( is_pp_short_code )
+        {
+            jQuery( '.war_soundy_pp_template_tag' ).hide();
+            jQuery( '.war_soundy_pp_corner' ).hide();
+        }
+        else if( is_pp_template_tag )
+        {
+            jQuery( '.war_soundy_pp_corner' ).hide();
+        }
+    }
+    if( _this.audio_player_element.paused )
+    {
+        _this.audio_control.attr( 'src', _this.button_url_play_normal );
+    }
+    else
+    {
+        _this.audio_control.attr( 'src', _this.button_url_pause_normal );
+    }
+
 	_this.audio_control.click( 
 		function() 
 		{ 
