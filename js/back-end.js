@@ -2,7 +2,8 @@ function war_SoundyAdmin( mode, args )
 {
 	var _this = this;
 
-	jQuery( document ).ready( function() 
+    jQuery.noConflict();
+	jQuery( document ).ready( function()
 	{
 		if( mode == 'settings' )
 		{
@@ -25,11 +26,11 @@ war_SoundyAdmin.prototype.initSettingsTabs = function( args )
 	_this.default_pause_button_url  = args.default_pause_button_url;
 	_this.default_pause_hover_url   = args.default_pause_hover_url;
 	_this.default_audio_url         = args.default_audio_url;
+    _this.default_audio_type        = args.default_audio_type;
 	_this.default_audio_title       = args.default_audio_title;
 	_this.default_audio_volume      = args.default_audio_volume;
-	_this.is_pro                    = args.is_pro;
-	_this.is_trial                  = args.is_trial;
-	_this.soundy_pro_home_url       = args.soundy_pro_home_url;
+    _this.sdy_pl_free_wp_home_url   = args.sdy_pl_free_wp_home_url;
+    _this.soundy_pro_home_url       = args.soundy_pro_home_url;
 	_this.plugin_url                = args.plugin_url;
 
     if( ! sessionStorage.getItem( 'war_soundy_tab_index' ) )  
@@ -67,9 +68,9 @@ war_SoundyAdmin.prototype.initSettingsTabs = function( args )
 	_this.bindMediaUploader( 'war_soundy_url_pause_hover',  'img_pause_hover_library_button',  'image' );
 	_this.initBuySoundyPro();
 	_this.initAudioFileURL();
+    _this.initAudioType();
 	_this.initAudioVolume();
 	_this.initDefaultAudio();
-	_this.initPlayPauseImagesToUse();
 	_this.initButtonImgUrls();
 	_this.initSwapNormalHover();
 	_this.initDefaultButtons();
@@ -86,26 +87,51 @@ war_SoundyAdmin.prototype.initMetaBox = function( args )
 	var _this = this;
 	
 	_this.default_audio_url    = args.default_audio_url;
+    _this.default_audio_type   = args.default_audio_type;
 	_this.default_audio_title  = args.default_audio_title;
 	_this.default_audio_volume = args.default_audio_volume;
 	
+    _this.initTabs();
 	_this.bindMediaUploader( 'war_soundy_audio_file_url', 'war_audio_library_button', 'audio' );
 	_this.initSoundTrack( _this.default_audio_url );
 	_this.initAudioVolume( true );
 	_this.initAudioTitle();
 }
 
+war_SoundyAdmin.prototype.initTabs = function()
+{
+    var _this = this;
+
+    if( ! sessionStorage.getItem( 'war_soundy_tab_index' ) )
+        sessionStorage.setItem( 'war_soundy_tab_index', 0 );
+
+    jQuery( '#war_soundy_tabs' ).tabs(
+        {
+            active:    sessionStorage.war_soundy_tab_index,
+            activate : function( event, ui )
+            {
+                //  Get future value
+                var new_index = ui.newTab.index();
+                sessionStorage.setItem( 'war_soundy_tab_index', new_index );
+            }
+        } );
+}
+
 war_SoundyAdmin.prototype.initBuySoundyPro = function()
 {
-	var _this = this;
-	
-	if( _this.is_pro && ! _this.is_trial ) return;
-	
-	var jquery_pro_buy = jQuery( '#war_soundy_pro_buy' );
-	jquery_pro_buy.click( function()
-	{
-		window.open( _this.soundy_pro_home_url, 'soundy_pro_home' );
-	} );
+    var _this = this;
+
+    var jquery_pro_buy = jQuery( '#war_sdy_pl_free_button' );
+    jquery_pro_buy.click( function()
+    {
+        window.open( _this.sdy_pl_free_wp_home_url, 'sdy_pl_free_wp_home' );
+    } );
+
+    var jquery_pro_buy = jQuery( '#war_soundy_pro_button' );
+    jquery_pro_buy.click( function()
+    {
+        window.open( _this.soundy_pro_home_url, 'soundy_pro_home' );
+    } );
 }
 
 war_SoundyAdmin.prototype.initSoundTrack = function()
@@ -129,15 +155,20 @@ war_SoundyAdmin.prototype.initSoundTrack = function()
 		jQuery( '#war_soundy_audio_file_url' ).css( 'backgroundColor', '#c0e7f0' );
 	} );
 
+    jQuery( '#war_soundy_audio_type' ).change( function()
+    {
+        jQuery( 'input[name=war_soundy_soundtrack][value=custom]' ).prop( 'checked', true );
+        jQuery( '#war_soundy_audio_file_url' ).css( 'backgroundColor', '#c0e7f0' );
+    } );
+
 	jQuery( '#war_soundy_soundtrack_default' ).change( function() // called when Default radio button is clicked
 	{
-		var audio_type = _this.getAudioTypeFromURL( _this.default_audio_url );
-		
 		var player_was_playing = ! jQuery( '#war_soundy_audio_player' )[ 0 ].paused;
 			 			
 		jQuery( '#war_soundy_audio_file_url' ).val( _this.default_audio_url );
+        jQuery( '#war_soundy_audio_type' ).val( _this.default_audio_type );
 		jQuery( '#war_soundy_audio_player_source' ).attr( 'src', _this.default_audio_url );
-		jQuery( '#war_soundy_audio_player_source' ).attr( 'type', 'audio/' + audio_type );
+		jQuery( '#war_soundy_audio_player_source' ).attr( 'type', _this.default_audio_type );
 		jQuery( '#war_soundy_audio_player' )[ 0 ].load();
 		
 		if( player_was_playing ) jQuery( '#war_soundy_audio_player' )[ 0 ].play();
@@ -448,15 +479,8 @@ war_SoundyAdmin.prototype.initImgPreviewInContextPosition = function()
 	var jquery_button_preview_in_context = jQuery( '#war_soundy_button_preview_in_context_position' );
 	var jquery_page_preview_url          = jQuery( '#war_soundy_page_preview_url_position' );
 	
-	if( ( ! _this.is_pro ) || _this.is_trial )
-	{
-		var preview = 'default';
-	}
-	else
-	{
-		var preview = 'position';
-	}
-	
+    var preview = 'default';
+
 	jquery_button_preview_in_context.click( function ()
 	{
 		var page_url = jquery_page_preview_url.val();
@@ -471,16 +495,17 @@ war_SoundyAdmin.prototype.initDefaultAudio = function()
 	var url        = _this.default_audio_url;
 	var title      = _this.default_audio_title;
 	var volume     = _this.default_audio_volume;
-	var audio_type = _this.getAudioTypeFromURL( url );
+	var audio_type = _this.default_audio_type;
 	
 	var player_was_playing = ! jQuery( '#war_soundy_audio_player' )[ 0 ].paused;
 	
 	jQuery( '#war_audio_default_button' ).click( function()
 	{
 		jQuery( '#war_soundy_audio_file_url' ).val( url );
+        jQuery( '#war_soundy_audio_type' ).val( audio_type );
 		jQuery( '#war_soundy_audio_title' ).val( title );
 		jQuery( '#war_soundy_audio_player_source' ).attr( 'src', url );
-		jQuery( '#war_soundy_audio_player_source' ).attr( 'type', 'audio/' + audio_type );
+		jQuery( '#war_soundy_audio_player_source' ).attr( 'type', audio_type );
 		jQuery( '#war_soundy_audio_player' )[ 0 ].load();
 		jQuery( '#war_soundy_audio_player' )[ 0 ].volume = volume / 100;
 		jQuery( '#war_soundy_audio_volume' ).val( volume );
@@ -488,10 +513,11 @@ war_SoundyAdmin.prototype.initDefaultAudio = function()
 		
 		if( player_was_playing ) jQuery( '#war_soundy_audio_player' )[ 0 ].play();
 		
-		alert( 'Audio File URL reset to default.\n' +
-		       'Audio Title reset to default.\n' + 
-		       'Audio Volume reset to default.\n' + 
-		       'You still have to save the changes.' );
+		alert(  'Audio File URL reset to default.\n' +
+                'Audio Type reset to default.\n' +
+                'Audio Title reset to default.\n' +
+		        'Audio Volume reset to default.\n' +
+		        'You still have to save the changes.' );
 	} );
 }
 
@@ -587,13 +613,40 @@ war_SoundyAdmin.prototype.initAudioFileURL = function( url )
 	jQuery( '#war_soundy_audio_file_url').change( function()
 	{
 		var url = this.value;	
-		var audio_type = _this.getAudioTypeFromURL( url );
-			 			
+        var audio_type = _this.getAudioTypeFromURL( url );
+        if( audio_type )
+        {
+            var mime_type = 'audio/' + audio_type;
+            jQuery( '#war_soundy_audio_type' ).val( mime_type );
+        }
+        else
+        {
+            var mime_type = jQuery( '#war_soundy_audio_type' ).val();
+            jQuery( '#war_soundy_audio_type' ).val( 'unknown' );
+        }
+
+        var player_was_playing = ! jQuery( '#war_soundy_audio_player' )[ 0 ].paused;
 		jQuery( '#war_soundy_audio_player_source' ).attr( 'src', url );
-		jQuery( '#war_soundy_audio_player_source' ).attr( 'type', 'audio/' + audio_type );
+		jQuery( '#war_soundy_audio_player_source' ).attr( 'type', mime_type );
 		jQuery( '#war_soundy_audio_player' )[ 0 ].load();
+        if( player_was_playing ) jQuery( '#war_soundy_audio_player' )[ 0 ].play();
 	} );
 }
+
+war_SoundyAdmin.prototype.initAudioType = function()
+{
+    var _this = this;
+
+    jQuery( '#war_soundy_audio_type').change( function()
+    {
+        var audio_type = jQuery( this ).val();
+        var player_was_playing = ! jQuery( '#war_soundy_audio_player' )[ 0 ].paused;
+        jQuery( '#war_soundy_audio_player_source' ).attr( 'type', audio_type );
+        jQuery( '#war_soundy_audio_player' )[ 0 ].load();
+        if( player_was_playing ) jQuery( '#war_soundy_audio_player' )[ 0 ].play();
+    } );
+}
+
 
 war_SoundyAdmin.prototype.bindMediaUploader = function( field_name, button_name, field_type )
 {
@@ -636,6 +689,7 @@ war_SoundyAdmin.prototype.bindMediaUploader = function( field_name, button_name,
 	 			jQuery( '#war_soundy_audio_player_source' ).attr( 'type', 'audio/' + audio_type );
 	 			jQuery( '#war_soundy_audio_player' )[ 0 ].load();
 	 			if( player_was_playing ) jQuery( '#war_soundy_audio_player' )[ 0 ].play();
+                jQuery( '#war_soundy_audio_type' ).val( 'audio/' + audio_type );
 
 	 			var title = jQuery( html ).text().trim();
 	 			if( title != '' )
@@ -660,18 +714,6 @@ war_SoundyAdmin.prototype.bindMediaUploader = function( field_name, button_name,
 		
  		return false;
 	} );			 
-}
-
-war_SoundyAdmin.prototype.initPlayPauseImagesToUse = function()
-{
-	var _this = this;
-
-	_this.pp_images_to_use = jQuery( 'input[name=war_soundy_pp_images_to_use]:checked' ).val();
-	
-	jQuery( 'input[name=war_soundy_pp_images_to_use]' ).change( function()
-	{
-		_this.pp_images_to_use = jQuery( 'input[name=war_soundy_pp_images_to_use]:checked' ).val();
-	} );
 }
 
 war_SoundyAdmin.prototype.initSubmit = function()

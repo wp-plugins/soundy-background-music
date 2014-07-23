@@ -98,18 +98,41 @@ table.war_soundy_no_border td
 	width: 300px; 
 	display: inline-block; 
 	margin-right: 10px;
+    cursor: pointer !important;
 }
 
 .war_soundy_slider .ui-slider-handle
 {
 	background: #2eaecc !important;
 	border-color: #0074a2 !important;
+    cursor: ew-resize !important;
 }
 
 .war_soundy_slider .ui-slider-handle:hover
 {
 	background: #1e8cbe !important;
 	border-color: #0074a2 !important;
+}
+
+.war_soundy_license_key_input
+{
+	width: 150px;
+}
+
+.war_soundy_valid
+{
+	font-size: 130% !important;
+	color: #2eaecc !important;
+	vertical-align: middle;
+    margin-left: 10px;
+}
+
+.war_soundy_invalid
+{
+	font-size: 130% !important;
+	color: #ff4719 !important;
+	vertical-align: middle;
+    margin-left: 10px;
 }
 
 .war_soundy_txt_input 
@@ -126,6 +149,27 @@ table.war_soundy_no_border td
 {
 	display: none;
 	cursor: pointer;
+}
+
+.war_comment
+{
+    color: #2eaecc !important;
+    vertical-align: middle;
+}
+
+.war_bold
+{
+    font-weight: bold;
+}
+
+.war_bigger
+{
+    font-size: 120%;
+}
+
+.war_hidden
+{
+    display: none;
 }
 
 @media only screen and (max-width: 480px) 
