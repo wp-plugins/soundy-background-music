@@ -3,7 +3,7 @@ Contributors: bducouedic
 Tags: audio, sound, music, background, soundtrack, background sound, background audio, background music, posts, pages
 Requires at least: 3.6
 Tested up to: 3.9
-Stable tag: 2.4
+Stable tag: 2.5
 License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: http://webartisan.ch/en/products/soundy-background-music/free-wordpress-plugin/#wa_donate
@@ -17,11 +17,13 @@ Soundy allows any page or post to play a soundtrack while it is displayed.
  
 Having a home page or any other page playing a background music greatly improves your website visitor's experience. By choosing a music in adequacy with your content, Soundy will help making your visitors immersed in your pages. Pages with a slideshow are excellent candidates for Soundy. But a lot of other page types too.
 
-A Play/Pause button can be displayed anywhere in the pages and posts. Do you need a Play/Pause button that perfectly fits your website design ? Try [**Soundy Background Music PRO**](http://webartisan.ch/en/products/soundy-background-music/pro-wordpress-plugin/) for free.
+A Play/Pause button can be displayed anywhere in the pages and posts. Do you need a Play/Pause button that perfectly fits your website design ? Consider [**Soundy Background Music PRO**](http://webartisan.ch/en/products/soundy-background-music/pro-wordpress-plugin/).
   
 Each page or post can have its own soundtrack. The soundtrack is embedded in the page by means of the HTML 5 audio tag. This way, the plugin is compatible with all modern user devices (smartphones, tablets, laptops and desktops of all vendors).
  
 A background music can be associated with all pages and posts or with individual pages or posts.
+
+If you want your pages and posts to play more than one soundtrack, consider [**Soundy Audio Playlist Plugin**](http://wordpress.org/plugins/soundy-audio-playlist/).
    
 Defaults can be set by the administrator in the settings page of the plugin. Specific post and page plugin settings can be configured by the authors in the Edit Page and Edit Post pages. In the plugin settings page, an audio track can be set per default.
 
@@ -51,12 +53,12 @@ A play and pause button image can be uploaded by the administrator to replace th
 * &nbsp;&nbsp;&nbsp;&nbsp;Button transparency
 * Seamlessly integrated button designer allows the Play/Pause button to precisely and exactly fit any website design.
 
-Here are examples of Soundy implementations:
+Here are examples of Soundy Background Music implementations:
 
 * Ivy & Mario's website: [www.hanstylewedding.com](http://www.hanstylewedding.com/)
 * Swiss pianist, Magali Bourquin's website: [www.magalibourquin.com](http://www.magalibourquin.com/)
 
-In Magali Bourquin's Soundy implementation, the background sound is enabled for all pages but only the homepage has the Autoplay option set. As for the Play/Pause button, custom images have been uploaded to replace the default ones and the button is statically positioned with a call to the soundy_button() function from the header.php file.
+In Magali Bourquin's Soundy Background Music implementation, the background sound is enabled for all pages but only the homepage has the Autoplay option set. As for the Play/Pause button, custom images have been uploaded to replace the default ones and the button is statically positioned with a call to the soundy_button() function from the header.php file.
 
 = Docs & Support =
 
@@ -84,7 +86,7 @@ You can find [Tutorial](http://webartisan.ch/en/products/soundy-background-music
 
 = Updates =
 
-* After an update of Soundy you must clear the cache of your browser for the Settings > Soundy page as well as the Edit Post and Edit Page pages. This is because cached Javascript and CSS files are modified at each Soundy update.
+* After an update of Soundy you must clear the cache of your browser for the Settings > Soundy page, the Edit Post and Edit Page pages as well as all front pages using the plugin. This is because cached Javascript and CSS files are modified at each Soundy update.
 
 == Frequently Asked Questions ==
 
@@ -95,6 +97,9 @@ Having a home page or any other page playing a background music greatly improves
 
 1. **Is it possible to have different soundtracks for different posts and pages ?**  
 Yes, a soundtrack can be set up by authors on a per post or per page basis.
+
+1. **Can a page or post play more than one soundtrack ?**
+Not with Soundy Background Music's plugin. However this functionality is available with [**Soundy Audio Playlist Plugin**](http://wordpress.org/plugins/soundy-audio-playlist/).
 
 1. **What kind of audio files can be used with Soundy Plugin ?**  
 The audio files must be in the MP3, OGG or WAV format. The file extension must be .mp3, .mpg, .mpeg, .ogg .wav or .wave.
@@ -158,6 +163,9 @@ Using WordPress Default jQuery library is actually what Soundy does and this is 
 
 = Changelog =
 
+= 2.5 &nbsp;&nbsp; - &nbsp;&nbsp; July 28th, 2014  =
+* Fixed bug introduced in 2.4: Soundy's metabox in Edit Page/Post did merge with other metaboxes because of non closed div HTML tag. Sorry for the inconvenience.
+
 = 2.4 &nbsp;&nbsp; - &nbsp;&nbsp; July 23rd, 2014  =
 * Input fields of Soundy Background Music Metabox are now distributed in tabs in Edit Page and Edit Post pages.
 * If Audio URL does not end with audio file extension, administrators and authors can now specify the audio type.
@@ -195,6 +203,10 @@ Using WordPress Default jQuery library is actually what Soundy does and this is 
 * First Release
 
 == Upgrade Notice ==
+
+= 2.4 =
+* **IMPORTANT**: After having upgraded Soundy Background Music to 2.4, please clear the cache of Soundy's admin pages in your browser as well as the cache of all front pages using the plugin. The reason is that a few CSS and Javascript files have been modified and these files are typically cached by browsers.
+* [**Soundy Audio Playlist Plugin**](http://wordpress.org/plugins/soundy-audio-playlist/) is now available.
 
 = 2.3 =
 * After having upgraded Soundy to 2.3, please clear the cache of Soundy's admin pages in your browser. The reason is that a few CSS and Javascript files have been modified and these files are typically cached by browsers.

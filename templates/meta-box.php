@@ -210,6 +210,7 @@ var war_soundy_admin = new war_SoundyAdmin(
             </tr>
         </table>
 </div>
+</div>
 <!--
 	<script>
 		function war_show()
