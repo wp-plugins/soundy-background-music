@@ -1,5 +1,6 @@
-#war_soundy_audio_control {
+.war_soundy_audio_control {
 	border: red 0px solid !important;
 	border-radius: 0px !important;
 	box-shadow: none !important;
+    cursor: pointer !important;
 }

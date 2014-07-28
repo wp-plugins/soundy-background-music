@@ -3,25 +3,27 @@ Contributors: bducouedic
 Tags: audio, sound, music, background, soundtrack, background sound, background audio, background music, posts, pages
 Requires at least: 3.6
 Tested up to: 3.9
-Stable tag: 2.3
+Stable tag: 2.5
 License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Donate link: http://www.webartisan.ch/en/products/soundy-free/#wa_donate
+Donate link: http://webartisan.ch/en/products/soundy-background-music/free-wordpress-plugin/#wa_donate
 
-Soundy allows a page or post to play a soundtrack while it is displayed.
+Soundy allows any page or post to play a soundtrack while it is displayed.
 
 == Description ==
 = Description =  
 
-The **Soundy** plugin allows a page or post to play a background music while it is displayed.
+**Soundy Background Music** allows any page or post to play a background music while it is displayed.
  
 Having a home page or any other page playing a background music greatly improves your website visitor's experience. By choosing a music in adequacy with your content, Soundy will help making your visitors immersed in your pages. Pages with a slideshow are excellent candidates for Soundy. But a lot of other page types too.
 
-A Play/Pause button can be displayed anywhere in the pages and posts. Do you need a Play/Pause button that perfectly fits your website design ? Try [**Soundy PRO**](http://www.webartisan.ch/en/products/soundy-pro/) for free.
+A Play/Pause button can be displayed anywhere in the pages and posts. Do you need a Play/Pause button that perfectly fits your website design ? Consider [**Soundy Background Music PRO**](http://webartisan.ch/en/products/soundy-background-music/pro-wordpress-plugin/).
   
 Each page or post can have its own soundtrack. The soundtrack is embedded in the page by means of the HTML 5 audio tag. This way, the plugin is compatible with all modern user devices (smartphones, tablets, laptops and desktops of all vendors).
  
 A background music can be associated with all pages and posts or with individual pages or posts.
+
+If you want your pages and posts to play more than one soundtrack, consider [**Soundy Audio Playlist Plugin**](http://wordpress.org/plugins/soundy-audio-playlist/).
    
 Defaults can be set by the administrator in the settings page of the plugin. Specific post and page plugin settings can be configured by the authors in the Edit Page and Edit Post pages. In the plugin settings page, an audio track can be set per default.
 
@@ -43,7 +45,7 @@ A play and pause button image can be uploaded by the administrator to replace th
 = Soundy PRO Version Features =
 
 * Same features as the free version.
-* [**HTML5 Play/Pause Button Designer**](http://www.webartisan.ch/en/products/soundy-pro/) allowing control over:
+* [**HTML5 Play/Pause Button Designer**](http://www.webartisan.ch/en/products/soundy-background-music/pro-wordpress-plugin/) allowing control over:
 * &nbsp;&nbsp;&nbsp;&nbsp;Button colors
 * &nbsp;&nbsp;&nbsp;&nbsp;Button size
 * &nbsp;&nbsp;&nbsp;&nbsp;Button outline
@@ -51,17 +53,17 @@ A play and pause button image can be uploaded by the administrator to replace th
 * &nbsp;&nbsp;&nbsp;&nbsp;Button transparency
 * Seamlessly integrated button designer allows the Play/Pause button to precisely and exactly fit any website design.
 
-Here are examples of Soundy implementations:
+Here are examples of Soundy Background Music implementations:
 
 * Ivy & Mario's website: [www.hanstylewedding.com](http://www.hanstylewedding.com/)
 * Swiss pianist, Magali Bourquin's website: [www.magalibourquin.com](http://www.magalibourquin.com/)
 
-In Magali Bourquin's Soundy implementation, the background sound is enabled for all pages but only the homepage has the Autoplay option set. As for the Play/Pause button, custom images have been uploaded to replace the default ones and the button is statically positioned with a call to the soundy_button() function from the header.php file.
+In Magali Bourquin's Soundy Background Music implementation, the background sound is enabled for all pages but only the homepage has the Autoplay option set. As for the Play/Pause button, custom images have been uploaded to replace the default ones and the button is statically positioned with a call to the soundy_button() function from the header.php file.
 
 = Docs & Support =
 
-You can find [Tutorial](http://www.webartisan.ch/en/products/soundy-free/#wa_tutorial), [FAQ](http://www.webartisan.ch/en/products/soundy-free/#wa_FAQ), [Examples](http://www.webartisan.ch/en/products/soundy-free/#wa_examples) and more detailed information about **Soundy** plugin on [WebArtisan.ch](http://www.webartisan.ch/en/products/soundy-free/). If you were unable to find the answer to your question on the FAQ or in any of the documentation, you should check [Soundy's Support Forum](http://wordpress.org/support/plugin/soundy-background-music) on WordPress.org. If you can't locate any topics that pertain to your particular issue, post a new topic for it.  
-**Soundy** Plugin Home Page: [www.webartisan.ch/en/products/soundy-free](http://www.webartisan.ch/en/products/soundy-free/)
+You can find [Tutorial](http://webartisan.ch/en/products/soundy-background-music/free-wordpress-plugin/#wa_tutorial), [FAQ](http://webartisan.ch/en/products/soundy-background-music/free-wordpress-plugin/#wa_FAQ), [Examples](http://webartisan.ch/en/products/soundy-background-music/free-wordpress-plugin/#wa_examples) and more detailed information about **Soundy** plugin on [WebArtisan.ch](http://webartisan.ch/en/products/soundy-background-music/free-wordpress-plugin/). If you were unable to find the answer to your question on the FAQ or in any of the documentation, you should check [Soundy's Support Forum](http://wordpress.org/support/plugin/soundy-background-music) on WordPress.org. If you can't locate any topics that pertain to your particular issue, post a new topic for it.
+**Soundy Background Music** Plugin Home Page: [webartisan.ch/en/products/soundy-background-music/free-wordpress-plugin](http://webartisan.ch/en/products/soundy-background-music/free-wordpress-plugin/)
 
 == Installation ==
 
@@ -79,12 +81,12 @@ You can find [Tutorial](http://www.webartisan.ch/en/products/soundy-free/#wa_tut
 1. The page will then play the default soundtrack when displayed.
 
 * To set up plugin defaults, go to Settings > **Soundy** in the admin area and fill out the input fields.
-* For help, here is a [tutorial](http://www.webartisan.ch/en/products/soundy-free/#wa_tutorial).
+* For help, here is a [tutorial](http://webartisan.ch/en/products/soundy-background-music/free-wordpress-plugin/#wa_tutorial).
 * Happy Soundy Music !
 
 = Updates =
 
-* After an update of Soundy you must clear the cache of your browser for the Settings > Soundy page as well as the Edit Post and Edit Page pages. This is because cached Javascript and CSS files are modified at each Soundy update.
+* After an update of Soundy you must clear the cache of your browser for the Settings > Soundy page, the Edit Post and Edit Page pages as well as all front pages using the plugin. This is because cached Javascript and CSS files are modified at each Soundy update.
 
 == Frequently Asked Questions ==
 
@@ -95,6 +97,9 @@ Having a home page or any other page playing a background music greatly improves
 
 1. **Is it possible to have different soundtracks for different posts and pages ?**  
 Yes, a soundtrack can be set up by authors on a per post or per page basis.
+
+1. **Can a page or post play more than one soundtrack ?**
+Not with Soundy Background Music's plugin. However this functionality is available with [**Soundy Audio Playlist Plugin**](http://wordpress.org/plugins/soundy-audio-playlist/).
 
 1. **What kind of audio files can be used with Soundy Plugin ?**  
 The audio files must be in the MP3, OGG or WAV format. The file extension must be .mp3, .mpg, .mpeg, .ogg .wav or .wave.
@@ -121,7 +126,7 @@ If such themes exist, then, YES, by using such a theme you could have a continuo
 A Soundy's user is using the [Premium Crea WP theme](http://themeforest.net/item/crea-wp/424783) on his site: http://www.hanstylewedding.com/  
 While navigating in the bottom menu of this site, the audio stream is not interrupted and remain continuous as the theme doesn't download any new HTML document while navigating in this menu.  
 Having a continuous uninterrupted audio stream playing while navigating on a WP site with Soundy plugin might be possible with some themes but on most themes, it is impossible.  
-Here, at [WebArtisan.ch](http://www.webartisan.ch/), we are considering developing a theme which will allow this valuable feature. This will be the Soundy Theme.  
+Here, at [WebArtisan.ch](http://webartisan.ch/), we are considering developing a theme which will allow this valuable feature. This will be the Soundy Theme.
 If you know of other themes like the Crea WP theme which don't download new HTML documents while navigating on the site, please, let us know !
 
 = Support Questions =
@@ -138,7 +143,7 @@ To correct the problem, reset the Soundtrack option of the Soundy meta box back 
 In *Custom* mode a page retains the soundtrack defined when the *Custom* option was selected. In *Default* mode, the page uses the default soundtrack currently defined in the Soundy settings.
 
 1. **Is it advised to put my audio files on a separate storage cloud ?**  
-Yes it is, especially if you have a lot of traffic on your website. Putting your audio files on a separate storage cloud will release the load on your website and improve page load response time in your visitor's browsers. There is a lot of Cloud Storage Providers out there like Dropbox, Google Drive, SkyDrive and many others. Your hosting provider might also offer cloud storage.
+Yes it is, especially if you have a lot of traffic on your website. Putting your audio files on a separate storage cloud will release the load on your website and improve page load response time in your visitor's browsers. There is a lot of Cloud Storage Providers out there. Hereis a list of such providers: [Audio Hostings - free audio hosting sites](http://www.audiohostings.com/). Your hosting provider might also offer cloud storage.
 
 1. **On WP front-end, Soundy's Play/Pause button does not respond correctly. What's the problem ?**  
 Soundy needs jQuery 1.10.2 which is the default jQuery library of the last versions of WordPress. However some themes load their own jQuery library. If this library is not up-to-date, Soundy's Play/Pause button gets into troubles.  
@@ -158,6 +163,15 @@ Using WordPress Default jQuery library is actually what Soundy does and this is 
 
 = Changelog =
 
+= 2.5 &nbsp;&nbsp; - &nbsp;&nbsp; July 28th, 2014  =
+* Fixed bug introduced in 2.4: Soundy's metabox in Edit Page/Post did merge with other metaboxes because of non closed div HTML tag. Sorry for the inconvenience.
+
+= 2.4 &nbsp;&nbsp; - &nbsp;&nbsp; July 23rd, 2014  =
+* Input fields of Soundy Background Music Metabox are now distributed in tabs in Edit Page and Edit Post pages.
+* If Audio URL does not end with audio file extension, administrators and authors can now specify the audio type.
+* Insertion of multiple Play/Pause buttons is now supported.
+* Play/Pause button in corner can now be disabled in the Soundy Background Music Settings (Play/Pause Button Corner Position tab) as well as in the Soundy Background Music metabox in the Edit Page and Edit Post pages.
+
 = 2.3 &nbsp;&nbsp; - &nbsp;&nbsp; May 11th, 2014 =
 * Made admin user interface a little bit more attractive. No functionality change.
 
@@ -173,7 +187,7 @@ Using WordPress Default jQuery library is actually what Soundy does and this is 
 * Added Play/Pause Button Preview in Context of any Page or Post in Settings > Soundy > Play/Pause Corner Position Tab.
 * Added Swap Button in Settings > Soundy > Play/Pause Button Tab to swap the URLs of the normal and hover images.
 * Fixed minor bug in New Page and New Post Soundy metabox.
-* [**Soundy PRO**](http://www.webartisan.ch/en/products/soundy-pro/) and its HTML5 **Play/Pause Button Designer** application is now available.
+* [**Soundy Background Music PRO**](http://webartisan.ch/en/products/soundy-background-music/pro-wordpress-plugin/) and its HTML5 **Play/Pause Button Designer** application is now available.
 
 = 1.2 &nbsp;&nbsp; - &nbsp;&nbsp; March 17th, 2014 =
 * Added Audio Volume Control for administrators in Settings > Soundy.
@@ -190,12 +204,16 @@ Using WordPress Default jQuery library is actually what Soundy does and this is 
 
 == Upgrade Notice ==
 
+= 2.4 =
+* **IMPORTANT**: After having upgraded Soundy Background Music to 2.4, please clear the cache of Soundy's admin pages in your browser as well as the cache of all front pages using the plugin. The reason is that a few CSS and Javascript files have been modified and these files are typically cached by browsers.
+* [**Soundy Audio Playlist Plugin**](http://wordpress.org/plugins/soundy-audio-playlist/) is now available.
+
 = 2.3 =
 * After having upgraded Soundy to 2.3, please clear the cache of Soundy's admin pages in your browser. The reason is that a few CSS and Javascript files have been modified and these files are typically cached by browsers.
 
 = 2.0 =
 * **IMPORTANT**: After having upgraded Soundy to 2.0, please clear your browser's cache. The reason is that a few CSS and Javascript files have been modified or deleted and these files are typically cached by browsers.
-* [**Soundy PRO**](http://www.webartisan.ch/en/products/soundy-pro/) and its HTML5 **Play/Pause Button Designer** application is now available.
+* [**Soundy Background Music PRO**](http://webartisan.ch/en/products/soundy-background-music/pro-wordpress-plugin/) and its HTML5 **Play/Pause Button Designer** application is now available.
 
 = 1.2 =
 * After having upgraded Soundy to 1.2, please clear the cache of Soundy's admin pages in your browser. The reason is that a few CSS and Javascript files have been modified and these files are typically cached by browsers.
