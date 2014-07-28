@@ -8,7 +8,7 @@ License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: http://webartisan.ch/en/products/soundy-background-music/free-wordpress-plugin/#wa_donate
 
-Soundy allows any page or post to play a soundtrack while it is displayed.
+This plugin allows any page or post to play a soundtrack while it is displayed.
 
 == Description ==
 = Description =  
