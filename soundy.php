@@ -1,13 +1,13 @@
 <?php
 /**
  * @package Soundy_Background_Music
- * @version 2.4
+ * @version 2.6
  */
 /*
 Plugin Name: Soundy Background Music
 Plugin URI: http://www.webartisan.ch/en/products/soundy-background-music/free-wordpress-plugin/
 Description: This plugin allows administrators and authors to set a background sound on any post or page.
-Version: 2.4
+Version: 2.6
 Author: Bertrand du Couédic
 Author URI: http://webartisan.ch/en/about
 License: GPL2
@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 class WarSoundy 
 {
 	public $soundy_type                      = 'free';
-	public $soundy_version                   = '2.4';
+	public $soundy_version                   = '2.6';
 	public $soundy_free_wp_home_url          = 'http://wordpress.org/plugins/soundy-background-music/';
     public $sdy_pl_free_wp_home_url          = 'http://wordpress.org/plugins/soundy-audio-playlist/';
 	public $soundy_pro_home_url              = 'http://webartisan.ch/products/soundy-background-music/pro-wordpress-plugin/';

@@ -2,13 +2,13 @@
 Contributors: bducouedic
 Tags: audio, sound, music, background, soundtrack, background sound, background audio, background music, posts, pages
 Requires at least: 3.6
-Tested up to: 3.9
-Stable tag: 2.5
+Tested up to: 4.0
+Stable tag: 2.6
 License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: http://webartisan.ch/en/products/soundy-background-music/free-wordpress-plugin/#wa_donate
 
-Soundy allows any page or post to play a soundtrack while it is displayed.
+This plugin allows any page or post to play a soundtrack while it is displayed.
 
 == Description ==
 = Description =  
@@ -143,11 +143,15 @@ To correct the problem, reset the Soundtrack option of the Soundy meta box back 
 In *Custom* mode a page retains the soundtrack defined when the *Custom* option was selected. In *Default* mode, the page uses the default soundtrack currently defined in the Soundy settings.
 
 1. **Is it advised to put my audio files on a separate storage cloud ?**  
-Yes it is, especially if you have a lot of traffic on your website. Putting your audio files on a separate storage cloud will release the load on your website and improve page load response time in your visitor's browsers. There is a lot of Cloud Storage Providers out there. Hereis a list of such providers: [Audio Hostings - free audio hosting sites](http://www.audiohostings.com/). Your hosting provider might also offer cloud storage.
+Yes it is, especially if you have a lot of traffic on your website. Putting your audio files on a separate storage cloud will release the load on your website and improve page load response time in your visitor's browsers. There is a lot of Cloud Storage Providers out there. Here is a list of such providers: [Audio Hostings - free audio hosting sites](http://www.audiohostings.com/). Your hosting provider might also offer cloud storage.
 
 1. **On WP front-end, Soundy's Play/Pause button does not respond correctly. What's the problem ?**  
 Soundy needs jQuery 1.10.2 which is the default jQuery library of the last versions of WordPress. However some themes load their own jQuery library. If this library is not up-to-date, Soundy's Play/Pause button gets into troubles.  
 Using WordPress Default jQuery library is actually what Soundy does and this is what your theme also should do instead of loading its own old jQuery version. In Soundy Version 2.0 and later, you can now set the variable $use_own_jquery_lib_on_front_end to true in the main Soundy PHP file: soundy.php. To make this modification, go to the plugins page, click on the Edit link of the Soundy plugin, look for the variable and set it to true. This should fix the problem.
+
+1. **I get a PHP parser error. What's the problem ?**
+The error message starts with: "Parse error: syntax error, unexpected T_FUNCTION".
+This happens when the PHP parser version is too old. Soundy needs PHP 5.3 or higher (PHP 5.3.0 has been released in June 2009).
 
 == Screenshots ==
 
@@ -163,8 +167,11 @@ Using WordPress Default jQuery library is actually what Soundy does and this is 
 
 = Changelog =
 
+= 2.6 &nbsp;&nbsp; - &nbsp;&nbsp; September 12th, 2014  =
+* Set z-index CSS property to 99999 on play/pause button, so that it always appears on top of any other HTML elements.
+
 = 2.5 &nbsp;&nbsp; - &nbsp;&nbsp; July 28th, 2014  =
-* Fixed bug introduced in 2.4: Soundy's metabox in Edit Page/Post did merge with other metaboxes because of non closed div HTML tag. Sorry for the inconvenience.
+* Fixed bug introduced in 2.4: Soundy's metabox in Edit Page/Post did merge with other metaboxes.
 
 = 2.4 &nbsp;&nbsp; - &nbsp;&nbsp; July 23rd, 2014  =
 * Input fields of Soundy Background Music Metabox are now distributed in tabs in Edit Page and Edit Post pages.
@@ -176,7 +183,7 @@ Using WordPress Default jQuery library is actually what Soundy does and this is 
 * Made admin user interface a little bit more attractive. No functionality change.
 
 = 2.2 &nbsp;&nbsp; - &nbsp;&nbsp; May 4th, 2014 =
-* Fixed bug introduced in 2.0: in the admin plugins page, all plugins had a Settings link pointing to Soundy's settings because of a bug in soundy.php. Sorry for the inconvenience.
+* Fixed bug introduced in 2.0: in the admin plugins page, all plugins had a Settings link pointing to Soundy's settings because of a bug in soundy.php.
 
 = 2.1 &nbsp;&nbsp; - &nbsp;&nbsp; April 26th, 2014 =
 * Corrected major bug introduced in 2.0: when Soundy was installed for the first time: the default audio file URL and the default four play/pause button image URLs were undefined.
