@@ -17,12 +17,18 @@ function war_SoundyFrontEnd( args )
     jQuery.noConflict();
 	jQuery( document ).ready( function()
 	{
-		if( _this.pp_code )
-		{
-			jQuery( 'body' ).append( _this.pp_code );
-		}
-		
-		jQuery( 'body' ).append( _this.audio_code );
+        if( _this.pp_code )
+        {
+            if( ! jQuery( '.war_soundy_audio_control.war_soundy_pp_corner' ).length )
+            {
+                jQuery( 'body' ).append( _this.pp_code );
+            }
+        }
+
+        if( ! jQuery( '#war_soundy_audio_player' ).length )
+        {
+            jQuery( 'body' ).append( _this.audio_code );
+        }
 
 		_this.audio_control = jQuery( '.war_soundy_audio_control' );
 		_this.audio_player  = jQuery( '#war_soundy_audio_player' );
