@@ -36,25 +36,26 @@
 	
 	<div id="war_soundy_tabs">
 	  <ul>
-	    <li><a id="war_soundy_tab_label_audio_track"                  href="#war_soundy_tab_panel_audio_track">Audio Track</a></li>
-	    <li><a id="war_soundy_tab_label_play_pause_button"            href="#war_soundy_tab_panel_play_pause_button">Play/Pause Button</a></li>
-	    <li><a id="war_soundy_tab_label_play_pause_position_corner"   href="#war_soundy_tab_panel_play_pause_position_corner">Play/Pause Button Corner Position</a></li>
-	    <li><a id="war_soundy_tab_label_play_pause_position_static"   href="#war_soundy_tab_panel_play_pause_position_static">Play/Pause Static Position</a></li>
-	    </ul>
+            <li><a id="war_soundy_tab_label_audio_track"                  href="#war_soundy_tab_panel_audio_track">Audio Track</a></li>
+            <li><a id="war_soundy_tab_label_play_pause_button"            href="#war_soundy_tab_panel_play_pause_button">Play/Pause Button</a></li>
+            <li><a id="war_soundy_tab_label_play_pause_position_corner"   href="#war_soundy_tab_panel_play_pause_position_corner">Play/Pause Button Corner Position</a></li>
+            <li><a id="war_soundy_tab_label_play_pause_responsive"        href="#war_soundy_tab_panel_play_pause_responsive">Play/Pause Button Responsiveness</a></li>
+            <li><a id="war_soundy_tab_label_play_pause_position_static"   href="#war_soundy_tab_panel_play_pause_position_static">Play/Pause Static Position</a></li>
+	  </ul>
 	  <div id="war_soundy_tab_panel_audio_track">
-	  	<?php $this->do_settings_section( 'soundy', 'war_soundy_settings_section_audio_track' ); ?>
+	  	    <?php $this->do_settings_section( 'soundy', 'war_soundy_settings_section_audio_track' ); ?>
 	  </div>
 	  <div id="war_soundy_tab_panel_play_pause_button">
-	  	<?php $this->do_settings_section( 'soundy', 'war_soundy_settings_section_play_pause_button' ); ?>
+	  	    <?php $this->do_settings_section( 'soundy', 'war_soundy_settings_section_play_pause_button' ); ?>
 	  </div>
 	  <div id="war_soundy_tab_panel_play_pause_position_corner">
-	  	<?php $this->do_settings_section( 'soundy', 'war_soundy_settings_section_play_pause_position_corner' ); ?>
+	  	    <?php $this->do_settings_section( 'soundy', 'war_soundy_settings_section_play_pause_position_corner' ); ?>
 	  </div>
+      <div id="war_soundy_tab_panel_play_pause_responsive">
+            <?php $this->do_settings_section( 'soundy', 'war_soundy_settings_section_play_pause_responsive' ); ?>
+      </div>
 	  <div id="war_soundy_tab_panel_play_pause_position_static">
-	  	<?php $this->do_settings_section( 'soundy', 'war_soundy_settings_section_play_pause_position_static' ); ?>
-	  </div>
-	  <div id="war_soundy_tab_panel_license_key">
-	  	<?php $this->do_settings_section( 'soundy', 'war_soundy_settings_section_license_key' ); ?>
+	  	    <?php $this->do_settings_section( 'soundy', 'war_soundy_settings_section_play_pause_position_static' ); ?>
 	  </div>
 	</div>
 		  

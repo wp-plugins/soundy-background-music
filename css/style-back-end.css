@@ -151,6 +151,53 @@ table.war_soundy_no_border td
 	cursor: pointer;
 }
 
+.war_soundy_responsive_list li
+{
+    margin: 0 3px 3px 3px;
+    padding: 0.4em;
+    padding-left: 1em;
+    cursor: ns-resize;
+    border: 1px solid #aaaaaa;
+    border-radius: 3px;
+}
+
+.war_soundy_responsive_list_field
+{
+    display: inline-block;
+    width: 130px;
+    min-width: 130px;
+}
+
+.war_soundy_responsive_comment
+{
+    display: inline-block;
+    width: 215px;
+    min-width: 215px;
+    border: 0px red solid;
+}
+
+.war_soundy_responsive_list_row_header
+{
+    background: #cccccc !important;
+    cursor: auto !important;
+    font-weight: bold !important;
+}
+
+.war_soundy_responsive_list_row_footer
+{
+    background: #cccccc !important;
+    cursor: auto !important;
+    font-weight: normal !important;
+}
+
+.war_soundy_responsive_sortable_placeholder
+{
+    height: 1.5em;
+    line-height: 1.2em;
+    background: #ffffcc;
+    border: 1px solid #ffffcc;
+}
+
 .war_comment
 {
     color: #2eaecc !important;

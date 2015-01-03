@@ -3,7 +3,7 @@ Contributors: bducouedic
 Tags: audio, sound, music, background, soundtrack, background sound, background audio, background music, posts, pages
 Requires at least: 3.6
 Tested up to: 4.1
-Stable tag: 2.7
+Stable tag: 3.0
 License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: http://webartisan.ch/en/products/soundy-background-music/free-wordpress-plugin/#wa_donate
@@ -38,6 +38,7 @@ A play and pause button image can be uploaded by the administrator to replace th
 * Default Play/Pause button images can be overriden by the site administrator. He can upload these images or just specify their URLs.
 * Full Control for the site administrator over Play/Pause button positioning.
 * Play/Pause Button Preview in the context of any page or post.
+* Play/Pause Button size and positioning can be made responsive in the Play/Pause Responsiveness tab of the plugin settings page.
 * Audio Volume Control for site administrator as well as page/post authors.
 * Auto Play Option.
 * Audio Loop Option.
@@ -167,6 +168,9 @@ This happens when the PHP parser version is too old. Soundy needs PHP 5.3 or hig
 
 = Changelog =
 
+= 3.0 &nbsp;&nbsp; - &nbsp;&nbsp; January 3rd, 2014  =
+* Play/Pause button size and corner positioning can now be made responsive in "Button Responsiveness" tab of plugin settings page.
+
 = 2.7 &nbsp;&nbsp; - &nbsp;&nbsp; December 20th, 2014  =
 * Fixed bug on the front-end appearing in themes using Ajax to reload only the content part of the pages when the visitor navigates on the website.
 
@@ -213,6 +217,9 @@ This happens when the PHP parser version is too old. Soundy needs PHP 5.3 or hig
 * First Release
 
 == Upgrade Notice ==
+
+= 3.0 =
+* After having upgraded Soundy to 3.0, please clear the cache of Soundy's admin pages in your browser. The reason is that a few CSS and Javascript files have been modified and these files are typically cached by browsers.
 
 = 2.4 =
 * **IMPORTANT**: After having upgraded Soundy Background Music to 2.4, please clear the cache of Soundy's admin pages in your browser as well as the cache of all front pages using the plugin. The reason is that a few CSS and Javascript files have been modified and these files are typically cached by browsers.

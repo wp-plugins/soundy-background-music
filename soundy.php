@@ -1,13 +1,13 @@
 <?php
 /**
  * @package Soundy_Background_Music
- * @version 2.6
+ * @version 3.0
  */
 /*
 Plugin Name: Soundy Background Music
 Plugin URI: http://www.webartisan.ch/en/products/soundy-background-music/free-wordpress-plugin/
 Description: This plugin allows administrators and authors to set a background sound on any post or page.
-Version: 2.7
+Version: 3.0
 Author: Bertrand du Couédic
 Author URI: http://webartisan.ch/en/about
 License: GPL2
@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 class WarSoundy 
 {
 	public $soundy_type                      = 'free';
-	public $soundy_version                   = '2.7';
+	public $soundy_version                   = '3.0';
 	public $soundy_free_wp_home_url          = 'http://wordpress.org/plugins/soundy-background-music/';
     public $sdy_pl_free_wp_home_url          = 'http://wordpress.org/plugins/soundy-audio-playlist/';
 	public $soundy_pro_home_url              = 'http://webartisan.ch/products/soundy-background-music/pro-wordpress-plugin/';
@@ -56,9 +56,11 @@ class WarSoundy
 	public $pause_hover_url                  = '/images/buttons/48x48/pause-square-blue.png';
 	public $button_dimensions                = '48x48';
 	public $page_preview_url                 = '';
+    public $responsive_table_number_of_rows  = 10;
+    public $responsive_scale_reference_window_width = 2048;
+
 	public $user_agent_is_mobile;
 	public $post_id;
-	
 	public  $plugin_name;
 	public  $plugin_url;
 	public  $plugin_path;
@@ -149,6 +151,8 @@ class WarSoundy
             {
                 update_option( 'war_soundy_enable_pp_corner', 'yes' );
             }
+
+            $this->initResponsive();
         }
 	}
 
@@ -210,11 +214,82 @@ class WarSoundy
         $audio_url  = get_option( 'war_soundy_audio_file_url' );
         $audio_url  = str_replace( 'soundy-music-pro', 'soundy-background-music', $audio_url );
         update_option( 'war_soundy_audio_file_url', $audio_url );
+
+        $this->initResponsive();
 	}
 	
 	public function deactivate() 
 	{
 	}
+
+    public function initResponsive()
+    {
+        add_option( 'war_soundy_responsive_scale_reference_window_width', $this->responsive_scale_reference_window_width );
+
+        $table_rows = array(
+            array(
+                'comment'           => 'Low Res. Mobile',
+                'window_width_min'  => '',
+                'window_width_max'  => 400,
+                'button_size'       => 20,
+                'offset_x'          => 20,
+                'offset_y'          => 20
+            ),
+            array(
+                'comment'           => 'Medium Res. Mobile',
+                'window_width_min'  => 401,
+                'window_width_max'  => 800,
+                'button_size'       => 25,
+                'offset_x'          => 25,
+                'offset_y'          => 25
+            ),
+            array(
+                'comment'           => 'High Res. Mobile',
+                'window_width_min'  => 801,
+                'window_width_max'  => 1200,
+                'button_size'       => 30,
+                'offset_x'          => 30,
+                'offset_y'          => 30
+            ),
+            array(
+                'comment'           => 'Low Res. Screen',
+                'window_width_min'  => 1201,
+                'window_width_max'  => 1600,
+                'button_size'       => 35,
+                'offset_x'          => 35,
+                'offset_y'          => 35
+            ),
+            array(
+                'comment'           => 'Medium Res. Screen',
+                'window_width_min'  => 1601,
+                'window_width_max'  => 2000,
+                'button_size'       => 40,
+                'offset_x'          => 40,
+                'offset_y'          => 40
+            ),
+            array(
+                'comment'           => 'High Res. Screen',
+                'window_width_min'  => 2001,
+                'window_width_max'  => '',
+                'button_size'       => 50,
+                'offset_x'          => 50,
+                'offset_y'          => 50
+            )
+        );
+
+        for( $i = 0; $i < count( $table_rows ); $i++ )
+        {
+            $index = $i + 1;
+            $row = $table_rows[ $i ];
+
+            add_option( 'war_soundy_responsive_comment_'          . $index, $row[ 'comment' ] );
+            add_option( 'war_soundy_responsive_window_width_min_' . $index, $row[ 'window_width_min' ] );
+            add_option( 'war_soundy_responsive_window_width_max_' . $index, $row[ 'window_width_max' ] );
+            add_option( 'war_soundy_responsive_button_size_'      . $index, $row[ 'button_size' ] );
+            add_option( 'war_soundy_responsive_offset_x_'         . $index, $row[ 'offset_x' ] );
+            add_option( 'war_soundy_responsive_offset_y_'         . $index, $row[ 'offset_y' ] );
+        }
+    }
 
 	public function add_plugin_settings_menu() 
 	{
@@ -251,6 +326,8 @@ class WarSoundy
 		wp_enqueue_script( 'jquery-ui-mouse' );
 		wp_enqueue_script( 'jquery-ui-tabs' );
 		wp_enqueue_script( 'jquery-ui-slider' );
+        wp_enqueue_script( 'jquery-ui-sortable' );
+        wp_enqueue_script( 'jquery-effects-core' );
 
 		wp_enqueue_script( 'soundy-jquery-form' );
 		wp_enqueue_script( 'soundy-back-end' );
@@ -361,6 +438,7 @@ class WarSoundy
 		$this->add_settings_section_audio_track();
 		$this->add_settings_section_play_pause_button();
 		$this->add_settings_section_play_pause_position_corner();
+        $this->add_settings_section_play_pause_responsive();
 		$this->add_settings_section_play_pause_position_static();
 	}
 
@@ -581,7 +659,7 @@ class WarSoundy
 	    'war_soundy_settings_section_play_pause_position_corner'
 		);
 
-    add_settings_field(
+        add_settings_field(
 	    'war_soundy_preview_in_context_position',
 	    'Preview in Context',
 	    array( $this, 'add_settings_field_preview_in_context_position' ),
@@ -589,8 +667,61 @@ class WarSoundy
 	    'war_soundy_settings_section_play_pause_position_corner'
     );
 	}
-		
-	public function add_settings_section_play_pause_position_static()
+
+    public function add_settings_section_play_pause_responsive()
+    {
+        add_settings_section(
+            'war_soundy_settings_section_play_pause_responsive',
+            'Play/Pause Button Responsiveness',
+            array( $this, 'display_settings_section_play_pause_responsive_header' ),
+            'soundy'
+        );
+
+        register_setting( 'war_soundy', 'war_soundy_responsive_mode' );
+        add_settings_field(
+            'war_soundy_responsive_mode',
+            'Responsive Mode',
+            array( $this, 'add_settings_field_responsive_mode' ),
+            'soundy',
+            'war_soundy_settings_section_play_pause_responsive'
+        );
+
+        for( $i = 1; $i <= $this->responsive_table_number_of_rows; $i++ )
+        {
+            register_setting( 'war_soundy', 'war_soundy_responsive_comment_' . $i, array( $this, 'do_sanitize_field' ) );
+            register_setting( 'war_soundy', 'war_soundy_responsive_window_width_min_' . $i );
+            register_setting( 'war_soundy', 'war_soundy_responsive_window_width_max_' . $i );
+            register_setting( 'war_soundy', 'war_soundy_responsive_button_size_' . $i );
+            register_setting( 'war_soundy', 'war_soundy_responsive_offset_x_' . $i );
+            register_setting( 'war_soundy', 'war_soundy_responsive_offset_y_' . $i );
+        }
+        add_settings_field(
+            'war_soundy_responsive_table',
+            'Table Driven Mode',
+            array( $this, 'add_settings_field_responsive_table' ),
+            'soundy',
+            'war_soundy_settings_section_play_pause_responsive'
+        );
+
+        register_setting( 'war_soundy', 'war_soundy_responsive_scale_reference_window_width' );
+        add_settings_field(
+            'war_soundy_responsive_scale_reference_window_width',
+            'Scale Driven Mode',
+            array( $this, 'add_settings_field_responsive_scale' ),
+            'soundy',
+            'war_soundy_settings_section_play_pause_responsive'
+        );
+
+        add_settings_field(
+            'war_soundy_responsive_preview',
+            'Preview',
+            array( $this, 'add_settings_field_responsive_preview' ),
+            'soundy',
+            'war_soundy_settings_section_play_pause_responsive'
+        );
+    }
+
+    public function add_settings_section_play_pause_position_static()
 	{
 		add_settings_section(
     	'war_soundy_settings_section_play_pause_position_static',
@@ -631,12 +762,179 @@ class WarSoundy
 	    echo 'In this tab you can position the play/pause button in any corner of the page/post window or document.';
 	}
 
+    public function display_settings_section_play_pause_responsive_header()
+    {
+        echo 'In this tab you can control the responsiveness of the Play/Pause button.';
+    }
+
 	public function display_settings_section_play_pause_position_static_header()
 	{
 		echo '';
 	}
 
-	public function add_settings_field_enable_bg_sound( $args ) 
+    public function add_settings_field_responsive_mode( $args )
+    {
+        $responsive_mode = get_option( 'war_soundy_responsive_mode' );
+        $responsive_mode = $responsive_mode ? $responsive_mode : 'none';
+        ?>
+        <input type="radio"
+               id="war_soundy_responsive_mode_none"
+               name="war_soundy_responsive_mode"
+               value="none"
+               style="margin: 5px 0 5px 0;" <?php echo ( $responsive_mode == 'none' ? 'checked' : '' ); ?>/>
+        <label for="war_soundy_responsive_mode_none"
+               style="margin-top: 0;">No Responsiveness</label>
+        <br>
+        <input type="radio"
+               id="war_soundy_responsive_mode_table"
+               name="war_soundy_responsive_mode"
+               value="table"
+               style="margin: 5px 0 5px 0;" <?php echo ( $responsive_mode == 'table' ? 'checked' : '' ); ?>/>
+        <label for="war_soundy_responsive_mode_table"
+               style="margin-top: 0;">Table Driven Responsive Mode</label>
+        <br>
+        <input type="radio"
+               id="war_soundy_responsive_mode_scale"
+               name="war_soundy_responsive_mode"
+               value="scale"
+               style="margin: 5px 0 5px 0;" <?php echo ( $responsive_mode == 'scale' ? 'checked' : '' ); ?>/>
+        <label for="war_soundy_responsive_mode_scale"
+               style="margin-top: 0;">Scale Driven Responsive Mode</label>
+        <?php
+    }
+
+    public function add_settings_field_responsive_table( $args )
+    {
+        $responsive_mode = get_option( 'war_soundy_responsive_table' );
+        $responsive_mode = $responsive_mode ? $responsive_mode : 'none';
+        ?>
+        <span class="war_comment">You can defined window width ranges with corresponding button width/height and offsets.<br>
+            Button X and Y Offset Fields are used only for Play/Pause button positioned in a corner.<br>
+            Button Width/Height Field is used for all Play/Pause buttons.</span>
+        <ul class="war_soundy_responsive_list">
+            <li class="war_soundy_responsive_list_row_header">
+                <div class="war_soundy_responsive_comment">Comment</div>
+                <div class="war_soundy_responsive_list_field">From<br>Window<br>Width</div>
+                <div class="war_soundy_responsive_list_field">To<br>Window<br>Width</div>
+                <div class="war_soundy_responsive_list_field">Button<br>Width/<br>Height</div>
+                <div class="war_soundy_responsive_list_field">Button<br>X<br>Offset</div>
+                <div class="war_soundy_responsive_list_field">Button<br>Y<br>Offset</div>
+            </li>
+        </ul>
+        <ul id="war_soundy_responsive_list"
+            class="war_soundy_responsive_list">
+            <?php
+            for( $i = 1; $i <= $this->responsive_table_number_of_rows; $i++ )
+            {
+                ?>
+                <li>
+                    <div class="war_soundy_responsive_comment">
+                        <input type="text"
+                               name="war_soundy_responsive_comment_<?php echo $i; ?>"
+                               id="war_soundy_responsive_comment_<?php echo $i; ?>"
+                               value="<?php echo get_option( 'war_soundy_responsive_comment_' . $i ); ?>"
+                               size="20" />
+                    </div>
+                    <div class="war_soundy_responsive_list_field">
+                        <input type="text"
+                               class="war_soundy_responsive_input_field_integer"
+                               name="war_soundy_responsive_window_width_min_<?php echo $i; ?>"
+                               id="war_soundy_responsive_window_width_min_<?php echo $i; ?>"
+                               value="<?php echo get_option( 'war_soundy_responsive_window_width_min_' . $i ); ?>"
+                               size="4" /> px
+                    </div>
+                    <div class="war_soundy_responsive_list_field">
+                        <input type="text"
+                               class="war_soundy_responsive_input_field_integer"
+                               name="war_soundy_responsive_window_width_max_<?php echo $i; ?>"
+                               id="war_soundy_responsive_window_width_max_<?php echo $i; ?>"
+                               value="<?php echo get_option( 'war_soundy_responsive_window_width_max_' . $i ); ?>"
+                               size="4" /> px
+                    </div>
+                    <div class="war_soundy_responsive_list_field">
+                        <input type="text"
+                               class="war_soundy_responsive_input_field_integer"
+                               name="war_soundy_responsive_button_size_<?php echo $i; ?>"
+                               id="war_soundy_responsive_button_size_<?php echo $i; ?>"
+                               value="<?php echo get_option( 'war_soundy_responsive_button_size_' . $i ); ?>"
+                               size="4" /> px
+                    </div>
+                    <div class="war_soundy_responsive_list_field">
+                        <input type="text"
+                               class="war_soundy_responsive_input_field_integer"
+                               name="war_soundy_responsive_offset_x_<?php echo $i; ?>"
+                               id="war_soundy_responsive_offset_x_<?php echo $i; ?>"
+                               value="<?php echo get_option( 'war_soundy_responsive_offset_x_' . $i ); ?>"
+                               size="4" /> px
+                    </div>
+                    <div class="war_soundy_responsive_list_field">
+                        <input type="text"
+                               class="war_soundy_responsive_input_field_integer"
+                               name="war_soundy_responsive_offset_y_<?php echo $i; ?>"
+                               id="war_soundy_responsive_offset_y_<?php echo $i; ?>"
+                               value="<?php echo get_option( 'war_soundy_responsive_offset_y_' . $i ); ?>"
+                               size="4" /> px
+                    </div>
+                </li>
+                <?php
+            }
+            ?>
+        </ul>
+        <ul class="war_soundy_responsive_list">
+            <li class="war_soundy_responsive_list_row_footer">
+                    <span style="font-size: 1em;">
+                        <span id="war_comment" style="margin-left: 1%;">You can change the order of the rows with drag & drop.</span>
+                    </span>
+            </li>
+        </ul>
+        <?php
+    }
+
+    public function add_settings_field_responsive_scale( $args )
+    {
+        ?>
+        <div class="war_comment" style="margin-bottom: 6px;">Play/Pause button width, height and offsets are scaled according to window width.<br>
+            The Reference Window Width is the window width for which the scale factor is 1.</div>
+        <div style="font-weight: bold;">Reference Window Width:</div>
+        <input id="war_soundy_responsive_scale_reference_window_width"
+               name="war_soundy_responsive_scale_reference_window_width"
+               class="war_soundy_responsive_input_field_integer"
+               value="<?php echo get_option( 'war_soundy_responsive_scale_reference_window_width' ); ?>"
+               size="4"
+               style="margin-top: 3px; margin-bottom: 3px;" /> px<br>
+        <button id="war_soundy_responsive_scale_button_current_window_width"
+                type="button"
+                class="war_soundy"
+                style="margin-top: 3px; margin-bottom: 3px;" />Insert Current Window Width</button>
+        <?php
+    }
+
+    public function add_settings_field_responsive_preview( $args )
+    {
+        ?>
+        <div class="war_comment" style="margin-bottom: 6px;">IMPORTANT: You must save your changes before using Preview.</div>
+        <div style="font-weight: bold;">Preview Window Width:</div>
+        <input id="war_soundy_responsive_preview_window_width"
+               class="war_soundy_responsive_input_field_integer"
+               value=""
+               size="4"
+               style="margin-top: 3px; margin-bottom: 3px;" /> px
+        <div style="margin-top: 3px; margin-bottom: 3px;">
+            <div style="font-weight: bold;">Page:</div>
+            <select id="war_soundy_responsive_preview_url"
+                    class="war_soundy_page_preview_url"
+                    style="margin-top: 3px; margin-bottom: 3px;">
+                <?php $this->add_page_preview_url_options() ?>
+            </select>
+        </div>
+        <button id="war_soundy_responsive_button_preview"
+                type="button"
+                class="war_soundy"
+                style="margin-top: 3px; margin-bottom: 3px;" />Preview</button>
+        <?php
+    }
+
+    public function add_settings_field_enable_bg_sound( $args )
 	{
 		?>
 		<input type="checkbox" 

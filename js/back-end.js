@@ -78,6 +78,7 @@ war_SoundyAdmin.prototype.initSettingsTabs = function( args )
 	_this.initImgPreviewInContextDefault();
 	_this.initPlayPausePosition();
 	_this.initLengthUnits();
+    _this.initResponsiveTab();
 	_this.initImgPreviewInContextPosition();
 	_this.initSubmit();
 }
@@ -545,6 +546,140 @@ war_SoundyAdmin.prototype.initLengthUnits = function()
 		var unit = this.options[ this.selectedIndex ].value;
 		jQuery( '#war_soundy_unit_comment_y' ).html( unit_map[ unit ] );
 	} );
+}
+
+war_SoundyAdmin.prototype.initResponsiveTab = function()
+{
+    var _this = this;
+
+    var jquery_radio_responsive_mode = jQuery( 'input:radio[name=war_soundy_responsive_mode]' );
+    var jquery_responsive_table_row = jQuery( '#war_soundy_responsive_list').parent().parent();
+    var jquery_responsive_scale_row = jQuery( '#war_soundy_responsive_scale_reference_window_width').parent().parent();
+
+    var jquery_tr = jQuery( '#war_soundy_responsive_mode_table' ).parent().parent();
+    var th = jquery_tr.children( 'th' );
+    th.css( 'width', '10%' );
+
+    jquery_radio_responsive_mode.change
+    (
+        function()
+        {
+            var mode = jQuery( 'input:radio[name=war_soundy_responsive_mode]:checked' ).val();
+
+            if( mode == 'none' )
+            {
+                jquery_responsive_table_row.hide();
+                jquery_responsive_scale_row.hide();
+            }
+            else if( mode == 'table' )
+            {
+                jquery_responsive_table_row.show();
+                jquery_responsive_scale_row.hide();
+            }
+            else if( mode == 'scale' )
+            {
+                jquery_responsive_table_row.hide();
+                jquery_responsive_scale_row.show();
+            }
+        }
+    );
+
+    jquery_radio_responsive_mode.change();
+
+    var jquery_responsive_list = jQuery( '#war_soundy_responsive_list' );
+    jquery_responsive_list.sortable(
+        {
+            axis:        'y',
+            opacity:     1,
+            placeholder: 'war_soundy_responsive_sortable_placeholder'
+        } );
+    // jquery_responsive_list.disableSelection();
+
+    jQuery( '.war_soundy_responsive_input_field_integer' ).change
+    (
+        function()
+        {
+            this.value = this.value.trim();
+            if( /[^0-9]/.test( this.value ) && this.value != '' )
+            {
+                jQuery( this ).css( 'background-color', '#ffbbbb' );
+                jQuery( this ).focus();
+                var pos = jQuery( this ).offset();
+                jQuery( 'body' ).append( '<div id="war_soundy_error_temp">Error !</div>' );
+                _this.jquery_error_responsive_integer = jQuery( '#war_soundy_error_temp' );
+                _this.jquery_error_responsive_integer.css( 'position', 'absolute' );
+                _this.jquery_error_responsive_integer.css( 'top', pos.top + 4 );
+                _this.jquery_error_responsive_integer.css( 'left', pos.left - 40 );
+                _this.jquery_error_responsive_integer.css( 'color', 'red' );
+            }
+            else
+            {
+                jQuery( this ).css( 'background-color', '' );
+                if( _this.jquery_error_responsive_integer != undefined )
+                {
+                    _this.jquery_error_responsive_integer.remove();
+                }
+            }
+        }
+    );
+
+    jQuery( '#war_soundy_responsive_scale_button_current_window_width' ).click
+    (
+        function()
+        {
+            var window_width = jQuery( window ).width();
+            var jquery_width = jQuery( '#war_soundy_responsive_scale_reference_window_width' );
+            jquery_width.val( window_width );
+            jquery_width.css( 'background-color', '#1e8cbe' );
+            jquery_width.animate(
+                {
+                    backgroundColor: ''
+                }, 1000 );
+        }
+    );
+
+    jQuery( '#war_soundy_responsive_preview_window_width' ).change
+    (
+        function()
+        {
+            if( this.value > screen.width )
+            {
+                jQuery( this ).css( 'background-color', '#ffbbbb' );
+                jQuery( this ).focus();
+                var pos = jQuery( this ).offset();
+                jQuery( 'body' ).append( '<div id="war_soundy_responsive_error_temp_preview">' +
+                    'Error: Preview Window Width cannot be larger than current screen width (' + screen.width + ' px).</div>' );
+                _this.jquery_error_responsive_preview = jQuery( '#war_soundy_responsive_error_temp_preview' );
+                _this.jquery_error_responsive_preview.css( 'position', 'absolute' );
+                _this.jquery_error_responsive_preview.css( 'top', pos.top + 4 );
+                _this.jquery_error_responsive_preview.css( 'left', pos.left + 110 );
+                _this.jquery_error_responsive_preview.css( 'color', 'red' );
+            }
+            else
+            {
+                jQuery( this ).css( 'background-color', '' );
+                if( _this.jquery_error_responsive_preview != undefined )
+                {
+                    _this.jquery_error_responsive_preview.remove();
+                }
+            }
+        }
+    );
+
+    jQuery( '#war_soundy_responsive_button_preview' ).click
+    (
+        function()
+        {
+            var window_width = jQuery( '#war_soundy_responsive_preview_window_width' ).val();
+            var window_left = Math.round( screen.width / 2 - window_width / 2 );
+            var window_top  = Math.round( screen.height / 2 - window_width / 2 );
+            window_top = ( window_top < 0 ) ? 0 : window_top;
+            var page_url = jQuery( '#war_soundy_responsive_preview_url' ).val();
+            if( _this.window_responsive_preview != undefined ) _this.window_responsive_preview.close();
+            _this.window_responsive_preview = window.open( page_url, 'war_soundy_responsive_preview',
+                'width=' + window_width + ',height=' + window_width + ',left=' + window_left + ',top=' + window_top );
+        }
+    );
 }
 
 war_SoundyAdmin.prototype.initPlayPausePosition = function()

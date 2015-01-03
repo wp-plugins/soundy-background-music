@@ -217,7 +217,7 @@ war_SoundyFrontEnd.prototype.initPPButton = function()
 	} );
 
 	_this.audio_player.bind( 'play' , function()
-  {
+    {
 		if( _this.hovering )
 		{
 			_this.audio_control.attr( 'src', _this.button_url_pause_hover );
@@ -242,4 +242,127 @@ war_SoundyFrontEnd.prototype.initPPButton = function()
 			}
 		}
 	}
+
+    if( war_soundy_responsive_mode != 'none' )
+    {
+        var window_width = jQuery( window ).width();
+
+        switch( war_soundy_button_corner )
+        {
+            case 'upper_right':
+            default:
+                var prop_x = 'right';
+                var prop_y = 'top';
+                break;
+            case 'upper_left':
+                var prop_x = 'left';
+                var prop_y = 'top';
+                break;
+            case 'bottom_right':
+                var prop_x = 'right';
+                var prop_y = 'bottom';
+                break;
+            case 'bottom_left':
+                var prop_x = 'left';
+                var prop_y = 'bottom';
+                break;
+        }
+
+        if( war_soundy_responsive_mode == 'table' )
+        {
+            for( var index in war_soundy_responsive_table_rows )
+            {
+                var row = war_soundy_responsive_table_rows[ index ];
+                if( row.button_size != -1 )
+                {
+                    if( row.window_width_min != -1 && row.window_width_max != -1 )
+                    {
+                        if( row.window_width_min <= window_width && window_width <= row.window_width_max )
+                        {
+                            jQuery( '.war_soundy_audio_control' ).css( 'width', row.button_size );
+                        }
+                    }
+                    else if( row.window_width_min != -1 )
+                    {
+                        if( row.window_width_min <= window_width )
+                        {
+                            jQuery( '.war_soundy_audio_control' ).css( 'width', row.button_size );
+                        }
+                    }
+                    else if( row.window_width_max != -1 )
+                    {
+                        if( window_width <= row.window_width_max )
+                        {
+                            jQuery( '.war_soundy_audio_control' ).css( 'width', row.button_size );
+                        }
+                    }
+                }
+            }
+
+            if( jQuery( '.war_soundy_audio_control.war_soundy_pp_corner' ).length )
+            {
+                for( var index in war_soundy_responsive_table_rows )
+                {
+                    var row = war_soundy_responsive_table_rows[ index ];
+                    if( row.offset_x != -1 || row.offset_y != -1 )
+                    {
+                        if( row.window_width_min != -1 && row.window_width_max != -1 )
+                        {
+                            if( row.window_width_min <= window_width && window_width <= row.window_width_max )
+                            {
+                                if( row.offset_x != -1 ) jQuery( '.war_soundy_audio_control.war_soundy_pp_corner' ).css( prop_x, row.offset_x );
+                                if( row.offset_y != -1 ) jQuery( '.war_soundy_audio_control.war_soundy_pp_corner' ).css( prop_y, row.offset_y );
+                            }
+                        }
+                        else if( row.window_width_min != -1 )
+                        {
+                            if( row.window_width_min <= window_width )
+                            {
+                                if( row.offset_x != -1 ) jQuery( '.war_soundy_audio_control.war_soundy_pp_corner' ).css( prop_x, row.offset_x );
+                                if( row.offset_y != -1 ) jQuery( '.war_soundy_audio_control.war_soundy_pp_corner' ).css( prop_y, row.offset_y );
+                            }
+                        }
+                        else if( row.window_width_max != -1 )
+                        {
+                            if( window_width <= row.window_width_max )
+                            {
+                                if( row.offset_x != -1 ) jQuery( '.war_soundy_audio_control.war_soundy_pp_corner' ).css( prop_x, row.offset_x );
+                                if( row.offset_y != -1 ) jQuery( '.war_soundy_audio_control.war_soundy_pp_corner' ).css( prop_y, row.offset_y );
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        else // if( war_soundy_responsive_mode == 'scale' )
+        {
+            var scale_factor = ( window_width * 0.7 / war_soundy_responsive_reference_window_width ) + 0.3;
+
+            jQuery( '.war_soundy_audio_control' ).load
+            (
+                function()
+                {
+                    var button_size = jQuery( this ).width();
+                    var responsive_button_size = Math.round( button_size * scale_factor );
+                    jQuery( this ).css( 'width', responsive_button_size );
+
+                    var jquery_corner_button = jQuery( '.war_soundy_audio_control.war_soundy_pp_corner' );
+                    if( jquery_corner_button.length )
+                    {
+                        var offset_x = jquery_corner_button.css( prop_x );
+                        offset_x = offset_x.replace( 'px', '' );
+                        var offset_y = jquery_corner_button.css( prop_y );
+                        offset_y = offset_y.replace( 'px', '' );
+                        var responsive_offset_x = Math.round( offset_x * scale_factor );
+                        var responsive_offset_y = Math.round( offset_y * scale_factor );
+
+                        jquery_corner_button.css( prop_x, responsive_offset_x );
+                        jquery_corner_button.css( prop_y, responsive_offset_y );
+                    }
+
+                    jQuery( '.war_soundy_audio_control' ).unbind( 'load' );
+                }
+            );
+        }
+    }
 }
