@@ -168,7 +168,7 @@ This happens when the PHP parser version is too old. Soundy needs PHP 5.3 or hig
 
 = Changelog =
 
-= 3.0 &nbsp;&nbsp; - &nbsp;&nbsp; January 3rd, 2014  =
+= 3.0 &nbsp;&nbsp; - &nbsp;&nbsp; January 3rd, 2015  =
 * Play/Pause button size and corner positioning can now be made responsive in "Button Responsiveness" tab of plugin settings page.
 
 = 2.7 &nbsp;&nbsp; - &nbsp;&nbsp; December 20th, 2014  =
