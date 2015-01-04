@@ -808,7 +808,7 @@ class WarSoundy
         $responsive_mode = get_option( 'war_soundy_responsive_table' );
         $responsive_mode = $responsive_mode ? $responsive_mode : 'none';
         ?>
-        <span class="war_comment">You can defined window width ranges with corresponding button width/height and offsets.<br>
+        <span class="war_comment">You can define window width ranges with corresponding button width/height and offsets.<br>
             Button X and Y Offset Fields are used only for Play/Pause button positioned in a corner.<br>
             Button Width/Height Field is used for all Play/Pause buttons.</span>
         <ul class="war_soundy_responsive_list">
