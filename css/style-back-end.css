@@ -1,0 +1,240 @@
+
+a:active,
+a:focus 
+{
+	outline: 0 !important;
+	text-decoration: none !important;
+}
+
+table.war_soundy th 
+{
+	width: 25% !important;
+	vertical-align: top !important;
+	text-align: left !important;
+}
+
+input[type=button].war_soundy,
+button.war_soundy 
+{
+	height: 30px !important;
+	line-height: 28px !important;
+	padding: 0 12px 20px !important;
+	color: #ffffff !important;
+	background-color: #2eaecc !important;
+	border-radius: 3px !important;
+	border: #0074a2 1px solid !important;
+	cursor: pointer !important;
+	vertical-align: middle !important;
+}
+
+input[type=button].war_soundy:hover,
+button.war_soundy:hover 
+{
+	background-color: #1e8cbe !important;
+}
+
+button.war_soundy_button_media_library_pp_button
+{
+	height: 30px !important;
+	line-height: 28px !important;
+	padding: 0 12px 20px !important;
+	color: #ffffff !important;
+	background-color: #2eaecc !important;
+	border-radius: 3px !important;
+	border: #0074a2 1px solid !important;
+	cursor: pointer !important;
+	vertical-align: top !important;
+	margin-right: 10px !important;
+}
+
+button.war_soundy_button_media_library_pp_button:hover
+{
+	background-color: #1e8cbe !important;
+}
+
+a.war_soundy_hit_link
+{
+	color: #ffffff !important;
+	background-color: #2eaecc !important;
+	border-radius: 3px !important;
+	padding-left: 5px !important;
+	padding-right: 5px !important;
+}
+
+.war_soundy_page_preview_label
+{
+	vertical-align: middle;
+}
+
+.war_soundy_page_preview_url
+{
+	vertical-align: middle;
+}
+
+audio.war_soundy 
+{
+	margin: 0 0 0 2px !important;
+	vertical-align: middle !important;
+	width: 300px;
+	border-radius: 3px;
+}
+
+img.war_soundy 
+{
+	margin: 0 0 0 0 !important;
+}
+
+table.war_soundy_no_border,
+table.war_soundy_no_border th,
+table.war_soundy_no_border td 
+{
+	border: 0px solid red !important;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.war_soundy_slider
+{
+	width: 300px; 
+	display: inline-block; 
+	margin-right: 10px;
+    cursor: pointer !important;
+}
+
+.war_soundy_slider .ui-slider-handle
+{
+	background: #2eaecc !important;
+	border-color: #0074a2 !important;
+    cursor: ew-resize !important;
+}
+
+.war_soundy_slider .ui-slider-handle:hover
+{
+	background: #1e8cbe !important;
+	border-color: #0074a2 !important;
+}
+
+.war_soundy_license_key_input
+{
+	width: 150px;
+}
+
+.war_soundy_valid
+{
+	font-size: 130% !important;
+	color: #2eaecc !important;
+	vertical-align: middle;
+    margin-left: 10px;
+}
+
+.war_soundy_invalid
+{
+	font-size: 130% !important;
+	color: #ff4719 !important;
+	vertical-align: middle;
+    margin-left: 10px;
+}
+
+.war_soundy_txt_input 
+{
+	width: 95%;
+}
+
+.war_soundy_audio_volume 
+{
+	width: 40px;
+}
+
+#war_soundy_img_preview_here 
+{
+	display: none;
+	cursor: pointer;
+}
+
+.war_soundy_responsive_list li
+{
+    margin: 0 3px 3px 3px;
+    padding: 0.4em;
+    padding-left: 1em;
+    cursor: ns-resize;
+    border: 1px solid #aaaaaa;
+    border-radius: 3px;
+}
+
+.war_soundy_responsive_list_field
+{
+    display: inline-block;
+    width: 130px;
+    min-width: 130px;
+}
+
+.war_soundy_responsive_comment
+{
+    display: inline-block;
+    width: 215px;
+    min-width: 215px;
+    border: 0px red solid;
+}
+
+.war_soundy_responsive_list_row_header
+{
+    background: #cccccc !important;
+    cursor: auto !important;
+    font-weight: bold !important;
+}
+
+.war_soundy_responsive_list_row_footer
+{
+    background: #cccccc !important;
+    cursor: auto !important;
+    font-weight: normal !important;
+}
+
+.war_soundy_responsive_sortable_placeholder
+{
+    height: 1.5em;
+    line-height: 1.2em;
+    background: #ffffcc;
+    border: 1px solid #ffffcc;
+}
+
+.war_comment
+{
+    color: #2eaecc !important;
+    vertical-align: middle;
+}
+
+.war_bold
+{
+    font-weight: bold;
+}
+
+.war_bigger
+{
+    font-size: 120%;
+}
+
+.war_hidden
+{
+    display: none;
+}
+
+@media only screen and (max-width: 480px) 
+{
+
+}
+
+@media only screen and (min-width: 481px) and (max-width: 768px) 
+{
+
+}
+
+@media only screen and (min-width: 769px) and (max-width: 1024px) 
+{
+
+}
+ 
+@media only screen and (min-width: 1025px) 
+{
+
+}
