@@ -3,7 +3,7 @@ Contributors: bducouedic
 Tags: audio, sound, music, background, soundtrack, background sound, background audio, background music, posts, pages
 Requires at least: 3.6
 Tested up to: 4.1
-Stable tag: 3.0
+Stable tag: 3.1
 License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: http://webartisan.ch/en/products/soundy-background-music/free-wordpress-plugin/#wa_donate
@@ -167,6 +167,9 @@ This happens when the PHP parser version is too old. Soundy needs PHP 5.3 or hig
 == Changelog ==
 
 = Changelog =
+
+= 3.1 &nbsp;&nbsp; - &nbsp;&nbsp; March 3rd, 2015  =
+* Media Library button calls now new WordPress File Uploader.
 
 = 3.0 &nbsp;&nbsp; - &nbsp;&nbsp; January 3rd, 2015  =
 * Play/Pause button size and corner positioning can now be made responsive in "Button Responsiveness" tab of plugin settings page.
