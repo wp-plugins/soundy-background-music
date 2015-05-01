@@ -2,8 +2,8 @@
 Contributors: bducouedic
 Tags: audio, sound, music, background, soundtrack, background sound, background audio, background music, posts, pages
 Requires at least: 3.6
-Tested up to: 4.1.1
-Stable tag: 3.1
+Tested up to: 4.1
+Stable tag: 3.2
 License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: http://webartisan.ch/en/products/soundy-background-music/free-wordpress-plugin/#wa_donate
